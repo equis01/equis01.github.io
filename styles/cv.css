@@ -7,31 +7,6 @@ body, html {
   font-family: 'Segoe UI', sans-serif;
 }
 
-.aurora-bg {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 200vw;
-  height: 200vh;
-  background: linear-gradient(45deg,
-    #00ffff40,
-    #1a1aff30,
-    #ff00ff25,
-    #00ff0040
-  );
-  background-size: 400% 400%;
-  animation: aurora 15s ease infinite;
-  z-index: -1;
-  filter: blur(80px);
-  opacity: 0.6;
-}
-
-@keyframes aurora {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-
 .container {
   padding: 2rem 1rem;
   max-width: 900px;
