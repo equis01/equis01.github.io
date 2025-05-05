@@ -8,7 +8,7 @@ function shareProfile() {
   if (navigator.share) {
     navigator.share({
       title: 'Eduardo Vázquez',
-      text: 'Explora el perfil personal de Eduardo',
+      text: 'Explora el perfil personal de Eduardo en su web.',
       url: window.location.href
     }).catch(console.error);
   } else {
