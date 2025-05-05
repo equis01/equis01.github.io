@@ -88,3 +88,23 @@ iframe {
 .back-home a:hover {
   text-decoration: underline;
 }
+
+.share-btn {
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+  background: #111;
+  border: 1px solid #0ff;
+  color: #0ff;
+  font-size: 1.3rem;
+  padding: 0.6rem 0.7rem;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 10;
+  transition: 0.3s ease;
+}
+
+.share-btn:hover {
+  transform: scale(1.2) rotate(20deg);
+  box-shadow: 0 0 12px #0ffb;
+}
