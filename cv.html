@@ -52,6 +52,27 @@
       iframe.style.boxShadow = "0 0 12px #0ff5";
       container.appendChild(iframe);
     });
+    toggleBtn.addEventListener("click", function (e) {
+    e.preventDefault();
+    if (!isVisible) {
+      const iframe = document.createElement("iframe");
+      iframe.src = "/assets/cv.pdf";
+      iframe.width = "100%";
+      iframe.height = "80vh";
+      iframe.style.border = "none";
+      iframe.style.borderRadius = "10px";
+      iframe.style.boxShadow = "0 0 12px #0ff5";
+      iframe.setAttribute("title", "CV - Eduardo Vázquez");
+      iframe.classList.add("fade-in-slide");
+      pdfContainer.appendChild(iframe);
+      toggleBtn.innerHTML = `<i class="fas fa-eye-slash"></i> Ocultar CV`;
+      isVisible = true;
+    } else {
+      pdfContainer.innerHTML = "";
+      toggleBtn.innerHTML = `<i class="fas fa-file-pdf"></i> Mostrar CV`;
+      isVisible = false;
+    }
+  });
   </script>
 </body>
 </html>
