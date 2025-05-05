@@ -3,15 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Evazquez.me/Currículum Vitae</title>
-  <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/equis01/evazquez.me/refs/heads/main/img/logo/x%3D.png" />
+  <title>CV - Eduardo Vázquez</title>
   <link rel="stylesheet" href="styles/index.css" />
   <link rel="stylesheet" href="styles/cv.css" />
+  <link rel="icon" href="https://raw.githubusercontent.com/equis01/evazquez.me/refs/heads/main/img/logo/x%3D.png" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 </head>
 <body>
 
-  <!-- Fondo animado -->
   <div class="aurora-bg"></div>
 
   <!-- Botón compartir -->
@@ -22,20 +21,37 @@
   <div class="container">
     <h2>Eduardo Vázquez</h2>
 
-    <iframe src="assets/cv.pdf" title="CV - Eduardo Vázquez"></iframe>
-
+    <!-- Botón para mostrar el PDF -->
     <div class="fallback">
-      <p>¿No se cargó el CV? Ábrelo en otra pestaña:</p>
-      <a href="assets/cv.pdf" target="_blank">
-        <i class="fas fa-file-pdf"></i> Ver CV
+      <p>Haz clic para ver el CV:</p>
+      <a href="#" id="ver-cv" class="cv-button">
+        <i class="fas fa-file-pdf"></i> Mostrar CV
       </a>
     </div>
+
+    <!-- Aquí se insertará el iframe -->
+    <div class="show-pdf"></div>
 
     <div class="back-home">
       <a href="/"><i class="fas fa-arrow-left"></i> Regresar al inicio</a>
     </div>
   </div>
 
-  <script src="script/cv.js" defer></script>
+  <script src="script/index.js" defer></script>
+  <script>
+    document.getElementById("ver-cv").addEventListener("click", function(e) {
+      e.preventDefault();
+      const container = document.querySelector(".show-pdf");
+      container.innerHTML = '';
+      const iframe = document.createElement("iframe");
+      iframe.src = "assets/cv.pdf";
+      iframe.width = "100%";
+      iframe.height = "80vh";
+      iframe.style.border = "none";
+      iframe.style.borderRadius = "10px";
+      iframe.style.boxShadow = "0 0 12px #0ff5";
+      container.appendChild(iframe);
+    });
+  </script>
 </body>
 </html>
