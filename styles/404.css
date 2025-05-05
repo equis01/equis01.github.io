@@ -1,1 +1,35 @@
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  text-align: center;
+}
 
+.error {
+  font-size: 5rem;
+  color: #0ff;
+  margin-bottom: 1rem;
+  text-shadow: 0 0 15px #0ff8;
+}
+
+.message {
+  font-size: 1.2rem;
+  color: #ccc;
+  margin-bottom: 2rem;
+}
+
+.back-link {
+  color: #0ff;
+  text-decoration: none;
+  border: 1px solid #0ff;
+  padding: 0.6rem 1.2rem;
+  border-radius: 10px;
+  transition: 0.3s ease;
+}
+
+.back-link:hover {
+  background: rgba(0, 255, 255, 0.1);
+  box-shadow: 0 0 15px #0ff5;
+}
