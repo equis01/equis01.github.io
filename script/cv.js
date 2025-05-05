@@ -1,8 +1,8 @@
 function shareProfile() {
   if (navigator.share) {
     navigator.share({
-      title: 'Eduardo Vázquez – CV',
-      text: 'Consulta el CV de Eduardo Vázquez',
+      title: 'Currículum Vitae',
+      text: 'Te comparto el CV de Eduardo Vázquez. Conoce más sobre él.',
       url: window.location.href
     }).catch(console.error);
   } else {
