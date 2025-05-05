@@ -2,59 +2,20 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <title>Redirigiendo...</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <style>
-    body {
-      margin: 0;
-      background-color: #000;
-      color: #0ff;
-      font-family: monospace;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-    }
-
-    .terminal {
-      font-size: 1.2rem;
-      white-space: pre;
-      overflow: hidden;
-      border-right: .15em solid #0ff;
-      animation: typing 2s steps(40, end), blink .75s step-end infinite;
-    }
-
-    @keyframes typing {
-      from { width: 0 }
-      to { width: 100% }
-    }
-
-    @keyframes blink {
-      50% { border-color: transparent }
-    }
-  </style>
+  <title>Evazquez.me/Error 404</title>
+  <meta http-equiv="refresh" content="5;url=/" />
+  <link rel="stylesheet" href="https://evazquez.me/styles/index.css" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 </head>
 <body>
+  <div class="aurora-bg"></div>
 
-<div class="terminal" id="text">
-  Redirigiendo al destino correcto...
-</div>
+  <div class="error">404</div>
+  <div class="message">¿Estás perdido, hacker?</div>
+  <a href="/" class="back-link"><i class="fas fa-arrow-left"></i> Volver al inicio</a>
 
-<script>
-  setTimeout(() => {
-    const path = window.location.pathname;
-    const search = window.location.search;
-
-    const rutasValidas = ["/cv", "/presentacion", "/links"];
-    const ruta = rutasValidas.find(r => path.startsWith(r));
-
-    if (ruta) {
-      window.location.replace(`${ruta}/${search}`);
-    } else {
-      window.location.replace("/" + search);
-    }
-  }, 2500);
-</script>
-
+  <script src="script.js" defer></script>
 </body>
 </html>
