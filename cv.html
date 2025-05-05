@@ -4,13 +4,14 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Evazquez.me/CV</title>
+  <link rel="icon" href="https://raw.githubusercontent.com/equis01/evazquez.me/refs/heads/main/img/logo/x%3D.png" />
   <link rel="stylesheet" href="styles/index.css" />
   <link rel="stylesheet" href="styles/cv.css" />
-  <link rel="icon" href="https://raw.githubusercontent.com/equis01/evazquez.me/refs/heads/main/img/logo/x%3D.png" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 </head>
 <body>
 
+  <!-- Fondo aurora -->
   <div class="aurora-bg"></div>
 
   <!-- Botón compartir -->
@@ -18,61 +19,55 @@
     <i class="fas fa-arrow-up-from-bracket"></i>
   </button>
 
+  <!-- Contenido principal -->
   <div class="container">
     <h2>Eduardo Vázquez</h2>
 
-    <!-- Botón para mostrar el PDF -->
+    <!-- Botón toggle -->
     <div class="fallback">
-      <p>Haz clic para ver el CV:</p>
-      <a href="#" id="ver-cv" class="cv-button">
+      <p>Haz clic para mostrar u ocultar el CV:</p>
+      <a href="#" id="toggle-cv" class="cv-button">
         <i class="fas fa-file-pdf"></i> Mostrar CV
       </a>
     </div>
 
-    <!-- Aquí se insertará el iframe -->
-    <div class="show-pdf"></div>
+    <!-- Contenedor dinámico del iframe -->
+    <div class="show-pdf" style="margin-top: 1rem;"></div>
 
+    <!-- Regresar al inicio -->
     <div class="back-home">
       <a href="/"><i class="fas fa-arrow-left"></i> Regresar al inicio</a>
     </div>
   </div>
 
-  <script src="script/cv.js" defer></script>
+  <!-- Scripts -->
+  <script src="script/index.js" defer></script>
   <script>
-    document.getElementById("ver-cv").addEventListener("click", function(e) {
-      e.preventDefault();
-      const container = document.querySelector(".show-pdf");
-      container.innerHTML = '';
-      const iframe = document.createElement("iframe");
-      iframe.src = "assets/cv.pdf";
-      iframe.width = "100%";
-      iframe.height = "80vh";
-      iframe.style.border = "none";
-      iframe.style.borderRadius = "10px";
-      iframe.style.boxShadow = "0 0 12px #0ff5";
-      container.appendChild(iframe);
-    });
+    const toggleBtn = document.getElementById("toggle-cv");
+    const pdfContainer = document.querySelector(".show-pdf");
+    let isVisible = false;
+
     toggleBtn.addEventListener("click", function (e) {
-    e.preventDefault();
-    if (!isVisible) {
-      const iframe = document.createElement("iframe");
-      iframe.src = "/assets/cv.pdf";
-      iframe.width = "100%";
-      iframe.height = "80vh";
-      iframe.style.border = "none";
-      iframe.style.borderRadius = "10px";
-      iframe.style.boxShadow = "0 0 12px #0ff5";
-      iframe.setAttribute("title", "CV - Eduardo Vázquez");
-      iframe.classList.add("fade-in-slide");
-      pdfContainer.appendChild(iframe);
-      toggleBtn.innerHTML = `<i class="fas fa-eye-slash"></i> Ocultar CV`;
-      isVisible = true;
-    } else {
-      pdfContainer.innerHTML = "";
-      toggleBtn.innerHTML = `<i class="fas fa-file-pdf"></i> Mostrar CV`;
-      isVisible = false;
-    }
-  });
+      e.preventDefault();
+      if (!isVisible) {
+        const iframe = document.createElement("iframe");
+        iframe.src = "assets/cv.pdf";
+        iframe.width = "100%";
+        iframe.height = "80vh";
+        iframe.style.border = "none";
+        iframe.style.borderRadius = "10px";
+        iframe.style.boxShadow = "0 0 12px #0ff5";
+        iframe.setAttribute("title", "CV - Eduardo Vázquez");
+        iframe.classList.add("fade-in-slide");
+        pdfContainer.appendChild(iframe);
+        toggleBtn.innerHTML = `<i class="fas fa-eye-slash"></i> Ocultar CV`;
+        isVisible = true;
+      } else {
+        pdfContainer.innerHTML = "";
+        toggleBtn.innerHTML = `<i class="fas fa-file-pdf"></i> Mostrar CV`;
+        isVisible = false;
+      }
+    });
   </script>
 </body>
 </html>
