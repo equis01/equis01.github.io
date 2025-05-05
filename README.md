@@ -1,2 +1,4 @@
 # evazquez.me
-My personal bio link. Updated, about me, my job information.
+🎭 My personal bio link. 
+💼 Updated, about me, my job information.
+❓ Who am I?
