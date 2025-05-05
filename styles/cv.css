@@ -108,3 +108,18 @@ iframe {
   transform: scale(1.2) rotate(20deg);
   box-shadow: 0 0 12px #0ffb;
 }
+
+.cv-button {
+  display: inline-block;
+  margin-top: 0.5rem;
+  padding: 0.6rem 1rem;
+  border: 1px solid #0ff;
+  border-radius: 8px;
+  color: #0ff;
+  text-decoration: none;
+  transition: 0.3s ease;
+}
+.cv-button:hover {
+  background: rgba(0,255,255,0.1);
+  box-shadow: 0 0 12px #0ff5;
+}
