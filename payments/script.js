@@ -1,5 +1,6 @@
-const scriptURL = 'https://script.google.com/macros/s/AKfycbxFZXBedZbh9PELqUFbAnN_fvn1gT81o3B315tl-e9fRE-jYpqlUWdTG8ySKClemlty/exec';
+const scriptURL = 'https://script.google.com/macros/s/AKfycbxkdhXDpiqQ2F1nAXLs1IKfLgnMKZ4jskKVn7vd90HwYuNc22kiXi59HAI7cchkOgh8/exec';
 
+// LOGIN
 document.getElementById("loginForm").addEventListener("submit", function(e) {
   e.preventDefault();
   const f = e.target;
@@ -8,11 +9,12 @@ document.getElementById("loginForm").addEventListener("submit", function(e) {
     body: JSON.stringify({
       action: "login",
       usuario: f.usuario.value,
-      correo: f.correo.value,
       password: f.password.value
     }),
     headers: { "Content-Type": "application/json" }
-  }).then(r => r.text()).then(res => {
+  })
+  .then(r => r.text())
+  .then(res => {
     if (res === "OK") {
       f.style.display = "none";
       document.getElementById("app").style.display = "block";
@@ -25,6 +27,7 @@ document.getElementById("loginForm").addEventListener("submit", function(e) {
   });
 });
 
+// REGISTRO DE PAGO
 document.getElementById("pagoForm").addEventListener("submit", function(e) {
   e.preventDefault();
   const f = e.target;
@@ -49,7 +52,9 @@ document.getElementById("pagoForm").addEventListener("submit", function(e) {
         }
       }),
       headers: { "Content-Type": "application/json" }
-    }).then(r => r.text()).then(res => {
+    })
+    .then(r => r.text())
+    .then(res => {
       if (res === "OK") {
         alert("Pago guardado");
         f.reset();
@@ -61,23 +66,28 @@ document.getElementById("pagoForm").addEventListener("submit", function(e) {
       }
     });
   };
+
   reader.readAsDataURL(file);
 });
 
+// CONSULTAR PAGOS
 function cargarPagos() {
   fetch(scriptURL, {
     method: "POST",
     body: JSON.stringify({ action: "consultarPagos" }),
     headers: { "Content-Type": "application/json" }
-  }).then(r => r.json()).then(data => {
+  })
+  .then(r => r.json())
+  .then(data => {
     const tabla = document.getElementById("tablaPagos");
     tabla.innerHTML = "";
     data.forEach((fila, i) => {
       const tr = document.createElement("tr");
       fila.forEach(col => {
         const el = document.createElement(i === 0 ? "th" : "td");
-        el.innerHTML = (typeof col === "string" && col.startsWith("http")) ?
-          `<a href="${col}" target="_blank">Ver</a>` : col;
+        el.innerHTML = (typeof col === "string" && col.startsWith("http"))
+          ? `<a href="${col}" target="_blank">Ver</a>`
+          : col;
         tr.appendChild(el);
       });
       tabla.appendChild(tr);
@@ -85,12 +95,15 @@ function cargarPagos() {
   });
 }
 
+// RESUMEN POR CATEGORÍA
 function cargarResumen() {
   fetch(scriptURL, {
     method: "POST",
     body: JSON.stringify({ action: "resumenPorCategoria" }),
     headers: { "Content-Type": "application/json" }
-  }).then(r => r.json()).then(data => {
+  })
+  .then(r => r.json())
+  .then(data => {
     const contenedor = document.getElementById("resumenCategorias");
     contenedor.innerHTML = "";
     Object.entries(data).forEach(([cat, total]) => {
@@ -101,12 +114,15 @@ function cargarResumen() {
   });
 }
 
+// RESUMEN POR MÉTODO DE PAGO
 function cargarResumenMetodo() {
   fetch(scriptURL, {
     method: "POST",
     body: JSON.stringify({ action: "resumenPorMetodoPago" }),
     headers: { "Content-Type": "application/json" }
-  }).then(r => r.json()).then(data => {
+  })
+  .then(r => r.json())
+  .then(data => {
     const contenedor = document.getElementById("resumenMetodoPago");
     contenedor.innerHTML = "";
     Object.entries(data).forEach(([metodo, total]) => {
