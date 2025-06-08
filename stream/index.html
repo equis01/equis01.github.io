@@ -7,7 +7,7 @@
   <link rel="manifest" href="manifest.json" />
   <style>
     body { font-family: sans-serif; margin: 0; background: #121212; color: white; }
-    header, .filters, .results, .loader, .bar, .actions { padding: 1rem; }
+    header, .filters, .results, .loader, .actions { padding: 1rem; }
     header { text-align: center; background: #1f1f1f; }
     .filters { display: flex; flex-wrap: wrap; gap: 0.5rem; background: #1a1a1a; }
     .filters input, .filters select {
@@ -57,9 +57,7 @@
 </head>
 <body>
 
-<header>
-  <h1>🎬 Mi catálogo</h1>
-</header>
+<header><h1>🎬 Mi catálogo</h1></header>
 
 <section class="filters">
   <input type="text" id="search" placeholder="Buscar..." />
@@ -86,11 +84,9 @@
 </section>
 
 <section class="actions">
-  <button onclick="verMas()">🔁 Ver más</button>
   <button onclick="showFavoritos()">⭐ Favoritos</button>
   <button onclick="showHistorial()">🕓 Historial</button>
-  <button onclick="clearAll()">🧹 Limpiar todo</button>
-  <button onclick="toggleTheme()">🌓 Tema</button>
+  <button onclick="clearAll()">🧹 Limpiar</button>
 </section>
 
 <section class="loader" id="loader">⏳ Cargando...</section>
@@ -98,10 +94,7 @@
 
 <script>
 const TMDB_API = "6f712d2bf184acc19c28200f263b5220";
-const loader = document.getElementById("loader");
-const results = document.getElementById("results");
-
-let allResults = [], page = 1;
+let allResults = [], filteredResults = [];
 
 function saveLocal(key, value) {
   localStorage.setItem(key, JSON.stringify(value));
@@ -111,94 +104,79 @@ function getLocal(key) {
   return JSON.parse(localStorage.getItem(key) || "[]");
 }
 
-function addToHistorial(item) {
-  let hist = getLocal("historial");
-  hist = hist.filter(x => x.id !== item.id);
-  hist.unshift(item);
-  saveLocal("historial", hist.slice(0, 20));
-}
-
-function addToFavoritos(item) {
-  let fav = getLocal("favoritos");
-  if (!fav.find(x => x.id === item.id)) {
-    fav.push(item);
-    saveLocal("favoritos", fav);
-    alert("Agregado a favoritos");
-  }
-}
-
 function clearAll() {
   localStorage.clear();
-  location.reload();
+  document.getElementById("search").value = "";
+  document.getElementById("platform").value = "";
+  document.getElementById("genre").value = "";
+  document.getElementById("year").value = "";
+  loadPopular();
 }
-
-function toggleTheme() {
-  const body = document.body;
-  const isDark = body.style.background === "rgb(18, 18, 18)";
-  body.style.background = isDark ? "#f5f5f5" : "#121212";
-  body.style.color = isDark ? "black" : "white";
-}
-
-async function fetchPopular() {
-  loader.style.display = "block";
-  const res = await fetch(`https://api.themoviedb.org/3/trending/all/week?api_key=${TMDB_API}&language=es-MX&page=${page}`);
-  const data = await res.json();
-  allResults = [...allResults, ...data.results];
-  renderResults(data.results);
-  loader.style.display = "none";
-}
-
-function renderResults(resultsData) {
-  resultsData.forEach(item => {
-    const title = item.title || item.name;
-    const img = item.poster_path ? `https://image.tmdb.org/t/p/w342${item.poster_path}` : '';
-    const year = (item.release_date || item.first_air_date || "").split("-")[0] || '';
-    const card = document.createElement("div");
-    card.className = "card";
-    card.innerHTML = `
-      <img src="${img}" alt="${title}">
-      <h3>${title}</h3>
-      <button onclick="location.href='detalle.html?title=${encodeURIComponent(title)}'">Ver más</button>
-      <button onclick='addToFavoritos(${JSON.stringify(item)})'>⭐</button>
-    `;
-    card.onclick = () => addToHistorial(item);
-    results.appendChild(card);
-  });
-}
-
-document.getElementById("search").addEventListener("input", async e => {
-  const q = e.target.value.trim();
-  if (q.length < 3) return;
-  loader.style.display = "block";
-  const res = await fetch(`https://api.themoviedb.org/3/search/multi?api_key=${TMDB_API}&query=${q}&language=es-MX`);
-  const data = await res.json();
-  results.innerHTML = "";
-  renderResults(data.results);
-  loader.style.display = "none";
-});
 
 function showFavoritos() {
-  const favs = getLocal("favoritos");
-  results.innerHTML = "<h2>⭐ Favoritos</h2>";
-  renderResults(favs);
+  const fav = getLocal("favoritos");
+  renderResults(fav);
 }
 
 function showHistorial() {
   const hist = getLocal("historial");
-  results.innerHTML = "<h2>🕓 Historial</h2>";
   renderResults(hist);
 }
 
-function verMas() {
-  page++;
-  fetchPopular();
+function renderResults(results) {
+  const container = document.getElementById("results");
+  container.innerHTML = "";
+  results.forEach(item => {
+    const title = item.title || item.name;
+    const img = item.poster_path ? \`https://image.tmdb.org/t/p/w342\${item.poster_path}\` : '';
+    const card = document.createElement("div");
+    card.className = "card";
+    card.innerHTML = \`
+      <img src="\${img}" alt="\${title}">
+      <h3>\${title}</h3>
+      <button onclick="location.href='detalle.html?title=\${encodeURIComponent(title)}'">Ver más</button>
+    \`;
+    container.appendChild(card);
+  });
 }
 
-fetchPopular();
-
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('service-worker.js');
+async function loadPopular() {
+  document.getElementById("loader").style.display = "block";
+  const res = await fetch(\`https://api.themoviedb.org/3/trending/all/week?api_key=\${TMDB_API}&language=es-MX\`);
+  const data = await res.json();
+  allResults = data.results.filter(x => x.poster_path);
+  applyFilters();
+  document.getElementById("loader").style.display = "none";
 }
+
+function applyFilters() {
+  const platform = document.getElementById("platform").value;
+  const genre = document.getElementById("genre").value;
+  const year = document.getElementById("year").value;
+
+  filteredResults = allResults.filter(item => {
+    const itemYear = (item.release_date || item.first_air_date || "").split("-")[0];
+    const matchPlatform = platform ? item.title?.includes(platform) || item.name?.includes(platform) : true;
+    const matchGenre = genre ? item.genre_ids?.includes(Number(genre)) : true;
+    const matchYear = year ? itemYear === year : true;
+    return matchPlatform && matchGenre && matchYear;
+  });
+
+  renderResults(filteredResults);
+}
+
+document.querySelectorAll(".filters select").forEach(el => el.addEventListener("change", applyFilters));
+document.getElementById("search").addEventListener("input", async e => {
+  const q = e.target.value.trim();
+  if (q.length < 3) return;
+  document.getElementById("loader").style.display = "block";
+  const res = await fetch(\`https://api.themoviedb.org/3/search/multi?api_key=\${TMDB_API}&query=\${q}&language=es-MX\`);
+  const data = await res.json();
+  renderResults(data.results || []);
+  document.getElementById("loader").style.display = "none";
+});
+
+loadPopular();
 </script>
 
 </body>
