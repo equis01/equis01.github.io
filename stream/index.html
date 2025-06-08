@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mi catálogo (JustWatch)</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="https://raw.githubusercontent.com/equis01/evazquez.me/refs/heads/main/img/logo/x%3D.png">
+  <style>
+    body { background: #121212; color: white; font-family: sans-serif; padding: 1rem; }
+    h1 { text-align: center; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 1rem; margin-top: 2rem; }
+    .card { background: #1e1e1e; border-radius: 8px; padding: 0.5rem; }
+    .card img { width: 100%; border-radius: 4px; }
+    .card h3 { font-size: 1rem; margin: 0.5rem 0; }
+    .card p { font-size: 0.9rem; opacity: 0.7; }
+    .card button { width: 100%; background: #ff5c5c; color: white; border: none; padding: 0.5rem; border-radius: 4px; cursor: pointer; }
+  </style>
+</head>
+<body>
+  <h1>Mi catálogo (con JustWatch)</h1>
+  <div id="results">Cargando contenido...</div>
+
+  <script>
+    async function cargarContenido() {
+      try {
+        const res = await fetch("https://corsproxy.io/?https://apis.justwatch.com/content/titles/es_MX/query", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            page_size: 20,
+            page: 1,
+            content_types: ["movie", "show"],
+            providers: ["nfx", "dnp", "yot"],
+            sort_by: "original_release_year_desc"
+          })
+        });
+        const data = await res.json();
+        const grid = document.getElementById("results");
+        grid.innerHTML = "";
+
+        for (const item of data.items || []) {
+          const title = item.title;
+          const poster = item.poster ? "https://images.justwatch.com" + item.poster.replace("{profile}", "s332") : '';
+          const runtime = item.runtime ? Math.round(item.runtime / 60) + " min" : "Duración desconocida";
+          const offer = (item.offers || []).find(o => ["nfx", "dnp", "yot"].includes(o.provider_id));
+          if (!offer) continue;
+
+          const div = document.createElement("div");
+          div.className = "card";
+          div.innerHTML = `
+            <img src="${poster}" alt="${title}">
+            <h3>${title}</h3>
+            <p>${runtime}</p>
+            <button onclick="window.open('${offer.urls.standard_web}', '_blank')">Ver ahora</button>
+          `;
+          grid.appendChild(div);
+        }
+
+        if (grid.innerHTML === "") {
+          grid.innerHTML = "<p>No se encontró contenido en las plataformas seleccionadas.</p>";
+        }
+
+      } catch (err) {
+        document.getElementById("results").innerHTML = "<p style='color:red;'>Error al cargar desde JustWatch.</p>";
+        console.error(err);
+      }
+    }
+
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('service-worker.js');
+    }
+
+    cargarContenido();
+  </script>
+</body>
+</html>

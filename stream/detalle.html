@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Detalle</title>
+  <style>
+    body { background-color: #121212; color: white; font-family: sans-serif; padding: 1rem; max-width: 700px; margin: auto; }
+    img { width: 100%; max-width: 300px; border-radius: 8px; margin-bottom: 1rem; }
+    h1 { font-size: 1.5rem; }
+    p { font-size: 1rem; margin-bottom: 0.5rem; }
+    .actions button {
+      margin-top: 1rem;
+      background: #ff5c5c;
+      color: white;
+      padding: 0.6rem 1.2rem;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div id="content">Cargando detalle...</div>
+
+  <script>
+    async function buscarJustWatch(query) {
+      const res = await fetch("https://corsproxy.io/?https://apis.justwatch.com/content/titles/es_MX/query", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ query, page_size: 1, page: 1, content_types: ["movie", "show"] })
+      });
+      const data = await res.json();
+      return data.items?.[0] || null;
+    }
+
+    async function cargarDetalle() {
+      const params = new URLSearchParams(window.location.search);
+      const title = params.get("title");
+      const cont = document.getElementById("content");
+
+      if (!title) {
+        cont.innerHTML = "<p>Título no especificado.</p>";
+        return;
+      }
+
+      const item = await buscarJustWatch(title);
+      if (!item) {
+        cont.innerHTML = "<p>No se encontró el título.</p>";
+        return;
+      }
+
+      const poster = item.poster ? "https://images.justwatch.com" + item.poster.replace("{profile}", "s592") : "";
+      const sinopsis = item.short_description || "Sinopsis no disponible.";
+      const runtime = item.runtime ? Math.round(item.runtime / 60) + " min" : "Duración desconocida";
+      const año = item.original_release_year || "Desconocido";
+
+      let plataformas = "<p>Plataformas no disponibles.</p>";
+      if (item.offers?.length) {
+        const urls = item.offers.filter(o => ["nfx", "dnp", "yot"].includes(o.provider_id));
+        if (urls.length > 0) {
+          plataformas = "<p><strong>Ver en:</strong></p><ul>" + urls.map(f => `<li><a href="${f.urls.standard_web}" target="_blank">${f.provider_id.toUpperCase()}</a></li>`).join("") + "</ul>";
+        }
+      }
+
+      cont.innerHTML = `
+        <img src="${poster}" alt="${item.title}">
+        <h1>${item.title}</h1>
+        <p><strong>Duración:</strong> ${runtime}</p>
+        <p><strong>Año:</strong> ${año}</p>
+        <p><strong>Sinopsis:</strong> ${sinopsis}</p>
+        ${plataformas}
+        <div class="actions">
+          <button onclick="window.open('https://wa.me/?text=Estoy viendo ${encodeURIComponent(item.title)}', '_blank')">Compartir</button>
+        </div>
+      `;
+    }
+
+    cargarDetalle();
+  </script>
+</body>
+</html>
