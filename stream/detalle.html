@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Detalles</title>
+  <style>
+    body {
+      background-color: #121212;
+      color: white;
+      font-family: sans-serif;
+      padding: 1rem;
+    }
+    img {
+      width: 100%;
+      max-width: 300px;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+    }
+    .info {
+      max-width: 700px;
+      margin: auto;
+    }
+    .info h1 {
+      font-size: 1.5rem;
+    }
+    .info p {
+      font-size: 1rem;
+      margin: 0.5rem 0;
+    }
+    .actions {
+      margin-top: 1rem;
+    }
+    .actions button {
+      background: #ff5c5c;
+      border: none;
+      padding: 0.6rem 1.2rem;
+      color: white;
+      border-radius: 5px;
+      margin-right: 0.5rem;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="info" id="content">Cargando detalles...</div>
+
+  <script>
+    async function cargarDetalles() {
+      const params = new URLSearchParams(window.location.search);
+      const id = params.get('id');
+      if (!id) {
+        document.getElementById('content').textContent = 'ID no válido';
+        return;
+      }
+
+      const res = await fetch('https://apis.justwatch.com/content/titles/movie/' + id + '/locale/es_MX');
+      const data = await res.json();
+
+      const poster = data.poster ? 'https://images.justwatch.com' + data.poster.replace('{profile}', 's592') : '';
+      const runtime = data.runtime ? Math.round(data.runtime / 60) + ' min' : 'Duración desconocida';
+      const offer = (data.offers || []).find(o => ['nfx', 'dnp', 'yot'].includes(o.provider_id));
+      const link = offer ? offer.urls.standard_web : null;
+
+      const container = document.getElementById('content');
+      container.innerHTML = `
+        <img src="${poster}" alt="${data.title}">
+        <h1>${data.title}</h1>
+        <p><strong>Duración:</strong> ${runtime}</p>
+        <p><strong>Año:</strong> ${data.original_release_year || 'Desconocido'}</p>
+        <p><strong>Sinopsis:</strong> ${data.short_description || 'No disponible'}</p>
+        <div class="actions">
+          ${link ? `<button onclick="window.open('${link}', '_blank')">Ver ahora</button>` : ''}
+          <button onclick="window.open('https://wa.me/?text=Estoy viendo ${encodeURIComponent(data.title)}', '_blank')">Compartir</button>
+        </div>
+      `;
+    }
+
+    cargarDetalles();
+  </script>
+</body>
+</html>
