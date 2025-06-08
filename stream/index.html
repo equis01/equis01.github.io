@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mi catálogo (Debug)</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="https://raw.githubusercontent.com/equis01/evazquez.me/refs/heads/main/img/logo/x%3D.png">
+  <style>
+    body { background: #121212; color: #fff; font-family: sans-serif; padding: 1rem; }
+    h1 { text-align: center; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 1rem; margin-top: 2rem; }
+    .card { background: #1e1e1e; border-radius: 8px; padding: 0.5rem; }
+    .card img { width: 100%; border-radius: 4px; }
+    .card h3 { font-size: 1rem; margin: 0.5rem 0; }
+    .card a { display: block; text-align: center; margin-top: 0.5rem; background: #ff5c5c; padding: 0.4rem; color: white; text-decoration: none; border-radius: 4px; }
+    #error { color: red; margin-top: 1rem; text-align: center; }
+  </style>
+</head>
+<body>
+  <h1>Mi catálogo</h1>
+  <div id="error"></div>
+  <div class="grid" id="results">Cargando contenido...</div>
+
+  <script>
+    const TMDB_API = "6f712d2bf184acc19c28200f263b5220";
+
+    async function fetchPopularMovies() {
+      try {
+        const res = await fetch(`https://api.themoviedb.org/3/trending/all/week?api_key=${TMDB_API}&language=es-MX`);
+        if (!res.ok) throw new Error("Respuesta no válida de TMDB");
+        const data = await res.json();
+        return data.results;
+      } catch (error) {
+        console.error("Error en fetch TMDB:", error);
+        document.getElementById("error").textContent = "Error al cargar datos desde TMDB.";
+        return [];
+      }
+    }
+
+    async function showResults() {
+      const results = await fetchPopularMovies();
+      const grid = document.getElementById("results");
+      grid.innerHTML = "";
+
+      if (results.length === 0) {
+        grid.innerHTML = "<p>No se encontraron resultados.</p>";
+        return;
+      }
+
+      for (const item of results.slice(0, 18)) {
+        const title = item.title || item.name;
+        const img = item.poster_path ? `https://image.tmdb.org/t/p/w342${item.poster_path}` : '';
+        const year = (item.release_date || item.first_air_date || '').split("-")[0] || 'Año desconocido';
+        const tipo = item.media_type === "movie" ? "Película" : "Serie";
+
+        const card = document.createElement("div");
+        card.className = "card";
+        card.innerHTML = `
+          <img src="${img}" alt="${title}">
+          <h3>${title}</h3>
+          <p>${tipo} · ${year}</p>
+          <a href="detalle.html?title=${encodeURIComponent(title)}">Ver detalles</a>
+        `;
+        grid.appendChild(card);
+      }
+    }
+
+    showResults();
+  </script>
+</body>
+</html>
