@@ -1,7 +1,7 @@
 {
   "name": "Mi catálogo",
   "short_name": "Catálogo",
-  "start_url": "/stream/index.html",
+  "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#121212",
   "theme_color": "#1f1f1f",
