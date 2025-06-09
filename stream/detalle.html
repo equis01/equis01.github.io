@@ -1,77 +1,68 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Detalle</title>
-  <style>
-    body { background: #121212; color: white; font-family: sans-serif; padding: 1rem; }
-    img { width: 100%; max-width: 300px; display: block; margin: 1rem auto; border-radius: 10px; }
-    .info { text-align: center; }
-    .btns a {
-      display: inline-block;
-      margin: 0.5rem;
-      background: #ff5252;
-      color: white;
-      padding: 0.5rem 1rem;
-      border-radius: 5px;
-      text-decoration: none;
-    }
-  </style>
+  <link rel="stylesheet" href="stream.css" />
 </head>
 <body>
 
-<div class="info" id="details">⏳ Cargando...</div>
+<header>
+  <button onclick="history.back()" style="float:left;margin-left:1rem;">← Atrás</button>
+  <h1>🎬 Detalle</h1>
+</header>
+
+<main id="details" class="detalle">⏳ Cargando...</main>
+
+<footer>© 2025 equisx01</footer>
 
 <script>
 const TMDB_API = "6f712d2bf184acc19c28200f263b5220";
 const WATCHMODE_API = "FKEtVUe2E8fwCj420sJfpR7jMKkhUBH7ENQ8SNOX";
-
-const params = new URLSearchParams(window.location.search);
+const params = new URLSearchParams(location.search);
 const title = params.get("title");
 
 async function getDetails() {
   try {
-    const tmdbSearch = await fetch(`https://api.themoviedb.org/3/search/multi?api_key=${TMDB_API}&query=${title}&language=es-MX`);
-    const tmdbData = await tmdbSearch.json();
+    const tmdbRes = await fetch(`https://api.themoviedb.org/3/search/multi?api_key=${TMDB_API}&query=${encodeURIComponent(title)}&language=es-MX`);
+    const tmdbData = await tmdbRes.json();
     const item = tmdbData.results?.[0];
     if (!item) throw new Error("No encontrado");
 
-    document.title = item.title || item.name;
+    const img = item.poster_path ? `https://image.tmdb.org/t/p/w500${item.poster_path}` : '';
+    const name = item.title || item.name || 'Sin título';
+    const overview = item.overview || 'Sin descripción.';
+    const year = (item.release_date || item.first_air_date || '').split('-')[0] || 'Sin año';
 
-    const html = `
-      <h1>${item.title || item.name}</h1>
-      <img src="https://image.tmdb.org/t/p/w342${item.poster_path}" alt="">
-      <p>${item.overview}</p>
-      <p><strong>Año:</strong> ${(item.release_date || item.first_air_date || '').split('-')[0]}</p>
-      <div class="btns" id="watchLinks">Buscando plataformas...</div>
-      <a class="btns" href="https://wa.me/?text=Estoy viendo: ${encodeURIComponent(item.title || item.name)}">📲 Compartir</a>
+    document.title = name;
+
+    const wmRes = await fetch(`https://api.watchmode.com/v1/search/?apiKey=${WATCHMODE_API}&search_value=${encodeURIComponent(name)}&search_field=name`);
+    const wmData = await wmRes.json();
+    const wmId = wmData.title_results?.[0]?.id;
+
+    let platforms = "No disponible en plataformas.";
+    if (wmId) {
+      const sourcesRes = await fetch(`https://api.watchmode.com/v1/title/${wmId}/sources/?apiKey=${WATCHMODE_API}`);
+      const sources = await sourcesRes.json();
+      const filtered = sources.filter(s => ["Netflix", "Disney+", "YouTube"].includes(s.name));
+      const shown = new Set();
+      platforms = filtered
+        .filter(p => !shown.has(p.name) && shown.add(p.name))
+        .map(p => `<a href="${p.web_url}" target="_blank">Ver en ${p.name}</a>`)
+        .join("<br>") || "No disponible en streaming.";
+    }
+
+    document.getElementById("details").innerHTML = `
+      <img src="${img}" alt="${name}" class="big-img">
+      <h2>${name}</h2>
+      <p><strong>Año:</strong> ${year}</p>
+      <p>${overview}</p>
+      <div class="plataformas">${platforms}</div>
+      <p><a class="share" href="https://wa.me/?text=Estoy viendo: ${encodeURIComponent(name)}">📲 Compartir</a></p>
     `;
-    document.getElementById("details").innerHTML = html;
-
-    getWatchLinks(item.title || item.name);
-  } catch (e) {
+  } catch (err) {
     document.getElementById("details").innerHTML = "❌ No se pudo cargar.";
-  }
-}
-
-async function getWatchLinks(name) {
-  try {
-    const search = await fetch(`https://api.watchmode.com/v1/search/?apiKey=${WATCHMODE_API}&search_field=name&search_value=${encodeURIComponent(name)}`);
-    const data = await search.json();
-    const result = data.title_results?.[0];
-    if (!result) return;
-
-    const sources = await fetch(`https://api.watchmode.com/v1/title/${result.id}/sources/?apiKey=${WATCHMODE_API}`);
-    const providers = await sources.json();
-    const valid = providers.filter(p =>
-      ["Netflix", "Disney+", "YouTube"].includes(p.name)
-    );
-
-    const links = valid.map(p => `<a href="${p.web_url}" target="_blank">Ver en ${p.name}</a>`).join('');
-    document.getElementById("watchLinks").innerHTML = links || "No disponible en streaming";
-  } catch (e) {
-    document.getElementById("watchLinks").innerText = "No se pudo obtener plataformas.";
   }
 }
 
