@@ -1,11 +1,13 @@
 const CACHE_NAME = "mi-catalogo-v1";
 const urlsToCache = [
-  "/stream/",
-  "/stream/index.html",
-  "/stream/detalle.html",
-  "/stream/stream.css",
-  "/stream/manifest.json",
-  "/stream/x_bg_black.png"
+  "./",
+  "./index.html",
+  "./detalle.html",
+  "./stream.css",
+  "./app.js",
+  "./detalle.js",
+  "./manifest.json",
+  "./x_bg_black.png"
 ];
 
 self.addEventListener("install", event => {
