@@ -1,15 +1,21 @@
 {
   "name": "Mi catálogo",
   "short_name": "Catálogo",
-  "start_url": "./",
+  "start_url": "/stream/index.html",
   "display": "standalone",
   "background_color": "#121212",
-  "theme_color": "#121212",
+  "theme_color": "#1f1f1f",
+  "orientation": "portrait",
   "icons": [
     {
-      "src": "https://raw.githubusercontent.com/equis01/evazquez.me/refs/heads/main/img/logo/x_bg_black.png",
-      "sizes": "512x512",
-      "type": "image/png"
+      "src": "x_bg_black.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "x_bg_black.png",
+      "type": "image/png",
+      "sizes": "512x512"
     }
   ]
 }
