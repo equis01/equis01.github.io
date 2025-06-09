@@ -5,6 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Mi catálogo</title>
   <link rel="stylesheet" href="stream.css" />
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#1f1f1f">
+  <link rel="icon" href="x=.png" />
+  <script>
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("service-worker.js");
+    }
+  </script>
 </head>
 <body>
 
@@ -49,6 +57,7 @@ let allData = [], page = 1, index = 0, chunk = 4;
 
 const results = document.getElementById("results");
 const loadMoreBtn = document.getElementById("loadMore");
+const searchInput = document.getElementById("search");
 
 function renderChunk() {
   const slice = allData.slice(index, index + chunk);
@@ -80,6 +89,18 @@ async function fetchData() {
 }
 
 loadMoreBtn.onclick = renderChunk;
+
+searchInput.addEventListener("input", async (e) => {
+  const q = e.target.value.trim();
+  if (q.length < 3) return;
+  const res = await fetch(`https://api.themoviedb.org/3/search/multi?api_key=${TMDB_API}&query=${q}&language=es-MX`);
+  const data = await res.json();
+  allData = data.results;
+  index = 0;
+  results.innerHTML = "";
+  renderChunk();
+});
+
 fetchData();
 </script>
 
