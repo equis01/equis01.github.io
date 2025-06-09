@@ -4,41 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Mi catálogo</title>
-  <style>
-    body { background: #121212; color: white; font-family: sans-serif; margin: 0; }
-    header, .filters, .results, .actions { padding: 1rem; }
-    header { text-align: center; background: #1f1f1f; }
-    .filters {
-      display: flex; flex-wrap: wrap; gap: 0.5rem; background: #1a1a1a;
-    }
-    .filters select, .filters input {
-      flex: 1 1 auto; padding: 0.5rem; border: none; border-radius: 5px;
-      background: #333; color: white;
-    }
-    .results {
-      display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-      gap: 1rem; padding: 1rem;
-    }
-    .card {
-      background: #292929; border-radius: 8px; overflow: hidden;
-      text-align: center; transition: transform 0.2s ease;
-    }
-    .card:hover { transform: scale(1.02); }
-    .card img { width: 100%; display: block; }
-    .card h3 { margin: 0.5rem; font-size: 1rem; }
-    .card a {
-      display: inline-block; margin: 0.5rem; padding: 0.4rem 1rem;
-      background: #ff5252; color: white; border-radius: 5px; text-decoration: none;
-    }
-    .actions {
-      display: flex; justify-content: center; gap: 0.5rem;
-      padding-bottom: 1rem;
-    }
-    .actions button {
-      padding: 0.4rem 1rem; border: none; border-radius: 5px;
-      background: #444; color: white; cursor: pointer;
-    }
-  </style>
+  <link rel="stylesheet" href="stream.css" />
 </head>
 <body>
 
@@ -46,130 +12,75 @@
   <h1>🎬 Mi catálogo</h1>
 </header>
 
-<section class="filters">
-  <input type="text" id="search" placeholder="Buscar título..." />
+<nav>
+  <input type="text" id="search" placeholder="Buscar..." />
   <select id="platform">
-    <option value="">Todas las plataformas</option>
+    <option value="">Plataforma</option>
     <option value="Netflix">Netflix</option>
     <option value="Disney+">Disney+</option>
     <option value="YouTube">YouTube</option>
   </select>
   <select id="genre">
-    <option value="">Todos los géneros</option>
+    <option value="">Género</option>
     <option value="28">Acción</option>
     <option value="35">Comedia</option>
     <option value="18">Drama</option>
   </select>
   <select id="year">
-    <option value="">Todos los años</option>
+    <option value="">Año</option>
     <script>
       for (let y = 2025; y >= 2000; y--) {
         document.write(`<option value="${y}">${y}</option>`);
       }
     </script>
   </select>
-</section>
+</nav>
 
-<section class="actions">
-  <button onclick="clearAll()">🧹 Limpiar</button>
-</section>
+<main id="results">⏳ Cargando...</main>
+<div class="center">
+  <button id="loadMore">🔁 Ver más</button>
+</div>
 
-<section class="results" id="results">⏳ Cargando contenido...</section>
+<footer>© 2025 equisx01</footer>
 
 <script>
 const TMDB_API = "6f712d2bf184acc19c28200f263b5220";
-const WATCHMODE_API = "FKEtVUe2E8fwCj420sJfpR7jMKkhUBH7ENQ8SNOX";
+let allData = [], page = 1, index = 0, chunk = 4;
+
 const results = document.getElementById("results");
+const loadMoreBtn = document.getElementById("loadMore");
 
-// Forzar HTTPS en Safari si entra por http
-if (location.protocol !== 'https:') {
-  location.href = "https://" + location.hostname + location.pathname;
-}
-
-async function getWatchmodeID(title) {
-  const res = await fetch(`https://api.watchmode.com/v1/search/?apiKey=${WATCHMODE_API}&search_value=${encodeURIComponent(title)}&search_field=name`);
-  const data = await res.json();
-  return data.title_results?.[0]?.id || null;
-}
-
-async function getWatchmodeSources(id) {
-  const res = await fetch(`https://api.watchmode.com/v1/title/${id}/sources/?apiKey=${WATCHMODE_API}`);
-  return await res.json();
-}
-
-function clearAll() {
-  document.getElementById("search").value = "";
-  document.getElementById("platform").value = "";
-  document.getElementById("genre").value = "";
-  document.getElementById("year").value = "";
-  fetchAndFilter();
-}
-
-async function fetchAndFilter() {
-  results.innerHTML = "⏳ Cargando...";
-  const res = await fetch(`https://api.themoviedb.org/3/trending/all/week?api_key=${TMDB_API}&language=es-MX`);
-  const data = await res.json();
-  const platformFilter = document.getElementById("platform").value;
-  const genreFilter = document.getElementById("genre").value;
-  const yearFilter = document.getElementById("year").value;
-
-  const filtered = [];
-  for (const item of data.results) {
+function renderChunk() {
+  const slice = allData.slice(index, index + chunk);
+  for (const item of slice) {
     const title = item.title || item.name;
-    const year = (item.release_date || item.first_air_date || "").split("-")[0] || "";
-    const matchesGenre = !genreFilter || item.genre_ids.includes(parseInt(genreFilter));
-    const matchesYear = !yearFilter || year === yearFilter;
-
-    const watchID = await getWatchmodeID(title);
-    if (!watchID) continue;
-    const sources = await getWatchmodeSources(watchID);
-    const platformNames = sources.map(s => s.name);
-    const matchesPlatform = !platformFilter || platformNames.includes(platformFilter);
-    const allowed = ["Netflix", "Disney+", "YouTube"];
-    const isInAllowed = platformNames.some(name => allowed.includes(name));
-
-    if (matchesGenre && matchesYear && matchesPlatform && isInAllowed) {
-      filtered.push({ title, year, img: item.poster_path, original: item });
-    }
-  }
-
-  renderResults(filtered);
-}
-
-function renderResults(items) {
-  results.innerHTML = "";
-  if (!items.length) {
-    results.innerHTML = "<p>No se encontraron resultados.</p>";
-    return;
-  }
-
-  items.forEach(item => {
+    const img = item.poster_path ? `https://image.tmdb.org/t/p/w342${item.poster_path}` : '';
     const card = document.createElement("div");
     card.className = "card";
     card.innerHTML = `
-      <img src="https://image.tmdb.org/t/p/w342${item.img}" alt="${item.title}">
-      <h3>${item.title}</h3>
-      <a href="detalle.html?title=${encodeURIComponent(item.title)}">Ver más</a>
+      <img src="${img}" alt="${title}">
+      <h2>${title}</h2>
+      <p>${(item.release_date || item.first_air_date || '').split('-')[0] || ''}</p>
+      <a href="detalle.html?title=${encodeURIComponent(title)}">Ver más</a>
     `;
     results.appendChild(card);
-  });
+  }
+  index += chunk;
+  if (index >= allData.length) loadMoreBtn.style.display = "none";
 }
 
-document.querySelectorAll(".filters select").forEach(sel => sel.addEventListener("change", fetchAndFilter));
-document.getElementById("search").addEventListener("input", async e => {
-  const q = e.target.value.trim();
-  if (q.length < 3) return;
-  results.innerHTML = "🔍 Buscando...";
-  const res = await fetch(`https://api.themoviedb.org/3/search/multi?api_key=${TMDB_API}&query=${q}&language=es-MX`);
+async function fetchData() {
+  results.innerHTML = "⏳ Cargando...";
+  const res = await fetch(`https://api.themoviedb.org/3/trending/all/week?api_key=${TMDB_API}&language=es-MX&page=${page}`);
   const data = await res.json();
-  renderResults(data.results.map(r => ({
-    title: r.title || r.name,
-    img: r.poster_path,
-    original: r
-  })));
-});
+  allData = data.results;
+  index = 0;
+  results.innerHTML = "";
+  renderChunk();
+}
 
-fetchAndFilter();
+loadMoreBtn.onclick = renderChunk;
+fetchData();
 </script>
 
 </body>
