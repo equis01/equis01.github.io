@@ -1,20 +1,22 @@
-self.addEventListener('install', e => {
-  self.skipWaiting();
-  e.waitUntil(
-    caches.open('mi-catalogo-v1').then(cache =>
-      cache.addAll([
-        './',
-        './index.html',
-        './detalle.html',
-        './manifest.json',
-        './service-worker.js'
-      ])
-    )
+const CACHE_NAME = "mi-catalogo-v1";
+const urlsToCache = [
+  "/stream/",
+  "/stream/index.html",
+  "/stream/detalle.html",
+  "/stream/stream.css",
+  "/stream/manifest.json",
+  "/stream/x_bg_black.png"
+];
+
+self.addEventListener("install", event => {
+  event.waitUntil(
+    caches.open(CACHE_NAME).then(cache => cache.addAll(urlsToCache))
   );
 });
 
-self.addEventListener('fetch', e => {
-  e.respondWith(
-    caches.match(e.request).then(response => response || fetch(e.request))
+self.addEventListener("fetch", event => {
+  event.respondWith(
+    caches.match(event.request)
+      .then(response => response || fetch(event.request))
   );
 });
