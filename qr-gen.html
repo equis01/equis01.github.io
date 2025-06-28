@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Generador QR Estilizado</title>
+  <meta name="description" content="Genera códigos QR estilizados y personalizados con logo. Gratis, fácil y seguro.">
+  <link rel="icon" href="https://raw.githubusercontent.com/equis01/evazquez.me/refs/heads/main/img/logo/x%3D.png" type="image/x-icon">
+  <meta name="theme-color" content="#6ea0ea">
+
+  <!-- Fuentes -->
+  <link href="https://fonts.cdnfonts.com/css/muller-narrow" rel="stylesheet">
+  <link href="https://fonts.cdnfonts.com/css/neo-sans-pro" rel="stylesheet">
+  <!-- Estilo base de tu portal (puedes sobrescribirlo) -->
+  <link rel="stylesheet" href="https://mediosconvalor.github.io/mcv/styles/portal/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/qr-code-styling@1.6.0/lib/qr-code-styling.min.js"></script>
+
+  <!-- Animaciones y estilos propios -->
+  <style>
+    body {
+      font-family: 'Muller Narrow', 'Neo Sans Pro', Arial, sans-serif;
+      background: #f8fafd;
+      color: #223;
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 2rem;
+    }
+    header {
+      margin-top: 2rem;
+      text-align: center;
+    }
+    header h1 {
+      font-family: 'Neo Sans Pro', Arial, sans-serif;
+      font-size: 2.3rem;
+      color: #002060;
+      letter-spacing: 1px;
+    }
+    .qr-section {
+      background: #fff;
+      border-radius: 22px;
+      box-shadow: 0 4px 28px #00206016;
+      padding: 2.5rem 2rem 2rem 2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transition: box-shadow 0.3s;
+      min-width: 320px;
+      max-width: 400px;
+      margin-bottom: 2rem;
+      animation: aparecer 0.7s;
+    }
+    @keyframes aparecer {
+      from { opacity: 0; transform: translateY(40px);}
+      to   { opacity: 1; transform: translateY(0);}
+    }
+    .form-row {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.1em;
+      flex-wrap: wrap;
+      width: 100%;
+      justify-content: center;
+    }
+    label {
+      font-size: 1em;
+      color: #444;
+      font-family: 'Neo Sans Pro', Arial, sans-serif;
+    }
+    input[type="text"] {
+      font-size: 1.04em;
+      padding: 0.38em 0.8em;
+      border: 1.3px solid #bcd0ff;
+      border-radius: 8px;
+      transition: border 0.2s;
+      background: #f9fbff;
+      color: #222;
+      outline: none;
+      width: 220px;
+    }
+    input[type="text"]:focus {
+      border-color: #39FF14;
+      background: #f4fff4;
+    }
+    input[type="color"], select, input[type="file"] {
+      border-radius: 6px;
+      border: 1.2px solid #bcd0ff;
+      font-size: 1em;
+      padding: 0.2em 0.4em;
+      background: #f9fbff;
+      margin-left: 0.4em;
+    }
+    button {
+      font-family: inherit;
+      padding: 0.55em 1.3em;
+      margin-top: 0.5em;
+      border: none;
+      border-radius: 8px;
+      background: linear-gradient(90deg,#39FF14 30%, #002060 100%);
+      color: #002060;
+      font-weight: bold;
+      letter-spacing: 0.04em;
+      font-size: 1.05em;
+      cursor: pointer;
+      box-shadow: 0 2px 10px #00206018;
+      transition: background 0.15s, color 0.15s, box-shadow 0.2s;
+      outline: none;
+    }
+    button:hover, button:focus {
+      background: linear-gradient(90deg,#002060 40%, #39FF14 100%);
+      color: #fff;
+      box-shadow: 0 4px 22px #00206033;
+    }
+    #qr {
+      width: 200px; height: 200px;
+      margin: 1.1em 0 0.7em 0;
+      border-radius: 24px;
+      box-shadow: 0 2px 24px #39ff1433;
+      background: #fff;
+      transition: box-shadow 0.15s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: aparecer 1s;
+    }
+    .actions {
+      display: flex; gap: 1em; justify-content: center;
+    }
+    .msg {
+      font-size: 1em;
+      color: #1bbf25;
+      margin-top: 0.5em;
+      min-height: 1.2em;
+      transition: color 0.18s;
+    }
+    .copy-btn {
+      background: #002060;
+      color: #fff;
+      font-size: 1em;
+      border-radius: 50%;
+      width: 38px; height: 38px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-left: 0.2em;
+      box-shadow: 0 2px 6px #00206019;
+      border: none;
+      cursor: pointer;
+      transition: background 0.18s;
+    }
+    .copy-btn:hover { background: #39FF14; color: #002060; }
+    .copy-btn:active { background: #222; color: #fff; }
+    .label-url {
+      display: flex; align-items: center; gap: 0.3em; font-size: 0.97em;
+    }
+    @media (max-width:480px) {
+      .qr-section { padding: 1.2rem 0.5rem; min-width: unset; max-width: 98vw;}
+      .form-row { flex-direction: column; gap: 0.7em;}
+      input[type="text"] { width: 98vw; max-width: 300px;}
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Generador QR Estilizado</h1>
+    <p style="color:#334; font-size:1.08em;">Personaliza tu QR: <b>con círculos, colores y logo</b>. ¡Descárgalo en un clic!</p>
+  </header>
+
+  <section class="qr-section">
+    <form id="qr-form" autocomplete="off" onsubmit="return false;">
+      <div class="form-row">
+        <span class="label-url">
+          <label for="qr-data">Enlace o texto:</label>
+          <input id="qr-data" type="text" value="https://evazquez.me/" maxlength="250">
+          <button class="copy-btn" id="copy-btn" title="Copiar texto"><span id="copy-icon">📋</span></button>
+        </span>
+      </div>
+      <div class="form-row">
+        <label for="dots-type">Puntos:</label>
+        <select id="dots-type">
+          <option value="dots">Círculos</option>
+          <option value="rounded">Redondeado</option>
+          <option value="classy">Classy</option>
+          <option value="classy-rounded">Classy Redondeado</option>
+          <option value="square">Cuadrado</option>
+          <option value="extra-rounded">Extra Redondeado</option>
+        </select>
+        <label for="color">Color:</label>
+        <input id="color" type="color" value="#002060">
+        <label for="logo-upload">Logo:</label>
+        <input id="logo-upload" type="file" accept="image/*">
+        <button type="button" id="remove-logo" title="Quitar logo">Quitar logo</button>
+      </div>
+      <div class="actions">
+        <button id="update-btn" type="button">Actualizar QR</button>
+        <button id="download-btn" type="button">Descargar PNG</button>
+      </div>
+      <div class="msg" id="msg"></div>
+    </form>
+    <div id="qr"></div>
+  </section>
+
+  <script>
+    let logoImage = null;
+    const $msg = document.getElementById('msg');
+    const $qrData = document.getElementById('qr-data');
+
+    const getQRConfig = () => ({
+      width: 200,
+      height: 200,
+      data: $qrData.value,
+      image: logoImage,
+      dotsOptions: {
+        color: document.getElementById('color').value,
+        type: document.getElementById('dots-type').value
+      },
+      backgroundOptions: {
+        color: "#fff"
+      },
+      imageOptions: {
+        crossOrigin: "anonymous",
+        margin: 8
+      }
+    });
+
+    let qrCode = new QRCodeStyling(getQRConfig());
+    qrCode.append(document.getElementById('qr'));
+
+    function updateQR() {
+      qrCode.update(getQRConfig());
+      $msg.textContent = "QR actualizado ✔";
+      setTimeout(() => { $msg.textContent = ""; }, 1500);
+    }
+
+    document.getElementById('update-btn').onclick = updateQR;
+
+    // Copiar texto del QR al portapapeles
+    document.getElementById('copy-btn').onclick = function(e) {
+      e.preventDefault();
+      $qrData.select?.();
+      navigator.clipboard.writeText($qrData.value).then(() => {
+        $msg.textContent = "¡Texto copiado!";
+        document.getElementById('copy-icon').textContent = "✅";
+        setTimeout(() => {
+          $msg.textContent = "";
+          document.getElementById('copy-icon').textContent = "📋";
+        }, 1500);
+      });
+    };
+
+    // Logo upload
+    document.getElementById('logo-upload').addEventListener('change', function(e){
+      const file = e.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(ev) {
+          logoImage = ev.target.result;
+          updateQR();
+        }
+        reader.readAsDataURL(file);
+      }
+    });
+
+    // Quitar logo
+    document.getElementById('remove-logo').onclick = function() {
+      logoImage = null;
+      document.getElementById('logo-upload').value = '';
+      updateQR();
+    };
+
+    // Descargar QR
+    document.getElementById('download-btn').onclick = function(){
+      qrCode.download({ name: "qr-estilizado", extension: "png" });
+      $msg.textContent = "Descargando QR...";
+      setTimeout(() => { $msg.textContent = ""; }, 1200);
+    }
+
+    // Interactivo: Actualizar QR al cambiar datos
+    $qrData.oninput = updateQR;
+    document.getElementById('dots-type').onchange = updateQR;
+    document.getElementById('color').onchange = updateQR;
+  </script>
+</body>
+</html>
