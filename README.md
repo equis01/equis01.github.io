@@ -1,36 +1,35 @@
-# 🌌 evazquez.me
+# Eduardo Vázquez - Portafolio Profesional 🌌
 
-Bienvenido a mi sitio web personal y portafolio interactivo. Este proyecto es la base de mi presencia en línea, donde alojo mis enlaces importantes, mi currículum vítae, y algunas de mis herramientas de desarrollo.
+Bienvenido a mi ecosistema digital. Este proyecto ha sido migrado a una arquitectura moderna potenciada por **Vite**, optimizada para el rendimiento, seguridad y una experiencia de usuario premium con diseño **Aurora Glassmorphism**.
 
-![evazquez.me](https://raw.githubusercontent.com/equis01/evazquez.me/main/img/yo/1.jpeg)
+## 🛠️ Tecnologías Utilizadas
 
-## 🚀 Arquitectura del Proyecto
+- **Core**: HTML5 semántico, CSS3 (Vanilla) con variables.
+- **Build System**: [Vite](https://vitejs.dev/) para optimización de assets y hot-reload.
+- **Efectos**: Glassmorphism, animaciones Aurora y micro-interacciones premium.
+- **Seguridad**: Sistema de protección anti-inspección con Web Share API integrado.
 
-El sitio está estructurado en diferentes rutas para mantener una arquitectura limpia y una excelente experiencia de usuario (UX):
+## 📦 Gestión de Contenido Dinámico
 
-- **`/` (Raíz)**: Landing page principal con animaciones, perfil, enlaces a mis redes sociales, contacto directo vía WhatsApp y correo.
-- **`/cv`**: Visualizador interactivo de mi Currículum Vítae. Optimizado tanto para navegadores de escritorio (con un iframe interactivo) como para dispositivos móviles (para descargas nativas sin problemas de renderizado).
-- **`/qr-gen`**: Un generador de códigos QR completamente personalizado.
-- **`/x` (Dev Shop)**: Mi portafolio y hub para servicios de desarrollo de software, tiendas en línea y aplicaciones web.
+Para actualizar el contenido sin tocar el HTML, edita los archivos en `src/data/`:
 
-## 🛠️ Tecnologías
+- `portfolio.json`: Controla los proyectos y herramientas que aparecen en el Hub.
+- `templates.json`: Gestiona el catálogo de la tienda (precios, imágenes, URLs de preview).
+- `experiencia.json`: Actualiza tu trayectoria profesional en el timeline.
 
-Este sitio está construido utilizando tecnologías estándar de la web con un enfoque en rendimiento y un diseño estético avanzado (Glassmorphism, animaciones CSS avanzadas como fondos de auroras boreales).
+## 🛡️ Seguridad y Protección
 
-- **HTML5**: Semántico y accesible.
-- **CSS3 Vanilla**: Sin frameworks pesados. Variables, Flexbox, Grid y animaciones optimizadas para 60 FPS.
-- **JavaScript (ES6)**: Lógica limpia para detección de dispositivos, carga dinámica y control de interacciones.
+El sitio cuenta con un script de protección (`src/js/utils/protection.js`) que:
+- Bloquea el clic derecho y teclas de inspección (F12, Ctrl+U, etc.).
+- Al intentar inspeccionar, se dispara automáticamente la opción de **compartir el perfil** o copia el enlace al portapapeles como fallback.
 
-## 📱 Responsividad y Accesibilidad
+## 💻 Desarrollo Local
 
-El sitio está diseñado con un enfoque Mobile-First, garantizando que todo el contenido (especialmente el CV interactivo) ofrezca la mejor experiencia sin importar el dispositivo que se esté utilizando.
+Para ejecutar el proyecto localmente:
 
-## 🤝 Contacto
-
-¿Interesado en crear algo asombroso?
-- 📧 [luis@evazquez.me](mailto:luis@evazquez.me)
-- 🌐 [LinkedIn](https://linkedin.com/in/eduardo-vázquez)
-- 👾 [GitHub](https://github.com/equis01)
+1. Instalar dependencias: `npm install`
+2. Iniciar servidor de desarrollo: `npm run dev`
+3. Construir para producción: `npm run build`
 
 ---
-*Hecho con 🩵 y mucho código.*
+© 2026 Eduardo Vázquez
