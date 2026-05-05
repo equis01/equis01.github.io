@@ -1,60 +1,27 @@
-# Eduardo Vázquez - Portafolio Profesional 🌌
+# Eduardo Vázquez | Full Stack Developer 🚀
 
-Bienvenido a mi ecosistema digital. Este proyecto ha sido migrado a una arquitectura moderna potenciada por **Vite**, optimizada para el rendimiento, seguridad y una experiencia de usuario premium con diseño **Aurora Glassmorphism**.
+> "Las ideas no surgen completamente formadas, se aclaran a medida que se trabaja en ellas. Solo tienes que empezar."
 
-## 🚀 Estructura del Proyecto
+¡Hola! Soy Eduardo, un desarrollador apasionado por crear experiencias digitales excepcionales. Mi enfoque combina un diseño estético (Aurora & Glassmorphism) con una arquitectura de código robusta y escalable.
 
-El sitio está organizado de forma modular para facilitar su mantenimiento y escalabilidad:
+## 🛠️ Stack Tecnológico
+*   **Frontend**: HTML5, CSS3 (Modern UI/UX), JavaScript (ES6+), Vite.
+*   **Backend**: Node.js, PHP, Integración de APIs (WhatsApp, Mercado Pago).
+*   **Herramientas**: Git, Vercel, Firebase, Google Apps Script.
 
-```
-├── public/                # Archivos estáticos (Imágenes, Iconos, PDFs, Plantillas)
-│   ├── img/               # Recursos visuales del sitio
-│   ├── templates/         # Demos de invitaciones y proyectos para la tienda
-│   └── cv/                # Currículum Vitae en PDF
-│
-├── src/
-│   ├── css/               # Estilos base y por componentes
-│   ├── js/                # Lógica del sitio, utilidades y scripts de protección
-│   └── data/              # Base de datos dinámica (JSON) para experiencias y portafolio
-│
-├── portafolio/            # Hub de proyectos, herramientas y tienda
-│   ├── herramientas/      # Utilidades como Generador QR
-│   ├── proyectos/         # Demos interactivas (Chula Style, etc.)
-│   └── shop/              # Catálogo de venta de plantillas
-│
-├── experiencia/           # Línea de tiempo profesional dinámica
-├── cv/                    # Visor premium de Currículum
-└── index.html             # Página de inicio principal
-```
+## 🚀 Proyectos Destacados
+*   **Dev Shop**: Una tienda interactiva de plantillas web prediseñadas.
+*   **Generador QR Pro**: Herramienta de personalización avanzada de códigos QR.
+*   **Chula Style**: Plataforma e-commerce con enfoque en diseño vibrante.
 
-## 🛠️ Tecnologías Utilizadas
+## 📈 Trayectoria
+Me especializo en transformar conceptos complejos en interfaces sencillas y potentes. Mi experiencia abarca desde el desarrollo de micrositios hasta la implementación de sistemas de gestión administrativa (HR Portals, CRM).
 
-- **Core**: HTML5 semántico, CSS3 (Vanilla) con variables.
-- **Build System**: [Vite](https://vitejs.dev/) para optimización de assets y hot-reload.
-- **Efectos**: Glassmorphism, animaciones Aurora y micro-interacciones premium.
-- **Seguridad**: Sistema de protección anti-inspección con Web Share API integrado.
-
-## 📦 Gestión de Contenido Dinámico
-
-Para actualizar el contenido sin tocar el HTML, edita los archivos en `src/data/`:
-
-- `portfolio.json`: Controla los proyectos y herramientas que aparecen en el Hub.
-- `templates.json`: Gestiona el catálogo de la tienda (precios, imágenes, URLs de preview).
-- `experiencia.json`: Actualiza tu trayectoria profesional en el timeline.
-
-## 🛡️ Seguridad y Protección
-
-El sitio cuenta con un script de protección (`src/js/utils/protection.js`) que:
-- Bloquea el clic derecho y teclas de inspección (F12, Ctrl+U, etc.).
-- Al intentar inspeccionar, se dispara automáticamente la opción de **compartir el perfil** o copia el enlace al portapapeles como fallback.
-
-## 💻 Desarrollo Local
-
-Para ejecutar el proyecto localmente:
-
-1. Instalar dependencias: `npm install`
-2. Iniciar servidor de desarrollo: `npm run dev`
-3. Construir para producción: `npm run build`
+## 📫 Contacto
+*   **Web**: [evamtz.me](https://evamtz.me)
+*   **Email**: [luis@evamtz.me](mailto:luis@evamtz.me)
+*   **WhatsApp**: [+52 442 191 619](https://wa.me/52442191619)
+*   **GitHub**: [@equis01](https://github.com/equis01)
 
 ---
-© 2026 Eduardo Vázquez
+*Hecho con ❤️ y un toque de Aurora.*

@@ -31,7 +31,7 @@
     "descripcion": "Diseño moderno con fondos animados y glassmorphism.",
     "precio_base": "$1,200 MXN",
     "preview_url": "/templates/minimal/index.html",
-    "imagen": "/img/templates/minimal.png",
+    "imagen": "/public/img/templates/minimal.png",
     "opciones": [
       "Solo Código (200)",
       "Instalación en Hosting (+$50)",
