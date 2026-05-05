@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valentina García</title>
+
+    <link rel="icon" href="https://raw.githubusercontent.com/equis01/happy-birthday/7198719cbb7e67cde333e6442f725e43b3ca5694/assets/icon_3.svg" type="image/png">
+
+    <meta property="og:title" content="¡Estás Invitado al Cumpleaños de Valentina García!">
+    <meta property="og:description" content="Acompáñanos a un día mágico para celebrar los 5 años de nuestra princesa Valentina García, estilo Frozen.">
+    <meta property="og:image" content="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTCsOkoMY34N1y0guA8Ta4907ZGEy5HS8MqAQ&s">
+    <meta property="og:url" content="URL_DE_TU_INVITACION"> <meta property="og:type" content="website">
+
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Open+Sans:wght@400;700&family=Satisfy&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="style.css"> </head>
+<body>
+    <div id="welcomeOverlay" class="welcome-overlay">
+        <div class="welcome-message">
+            <p>¡Toca en cualquier lugar para comenzar la magia!</p>
+            <i class="fas fa-hand-point-up"></i>
+        </div>
+    </div>
+
+    <div class="background-layer"></div>
+
+    <div class="lantern"></div><div class="lantern"></div><div class="lantern"></div><div class="lantern"></div><div class="lantern"></div>
+    <div class="lantern"></div><div class="lantern"></div><div class="lantern"></div><div class="lantern"></div><div class="lantern"></div>
+    <div class="lantern"></div><div class="lantern"></div><div class="lantern"></div><div class="lantern"></div><div class="lantern"></div>
+    <div class="lantern"></div><div class="lantern"></div><div class="lantern"></div><div class="lantern"></div><div class="lantern"></div>
+
+    <audio id="backgroundMusic" loop>
+        <source src="https://www.dropbox.com/scl/fi/e6yntvdg4sift6jfd65dl/Chayanne-Danna-Paola-Veo-en-ti-la-luz-De-_Enredados__Video-Oficial.m4a?rlkey=8fhmtovduzt88r1w8n7h7aisl&raw=1" type="audio/mpeg">
+        Tu navegador no soporta el elemento de audio.
+    </audio>
+
+    <button id="musicToggle" class="music-toggle"> <i class="fas fa-music"></i> </button>
+
+    <div class="invitation-container">
+        <h1 class="rapunzel-header">¡Estás Invitado!</h1>
+        <p class="subtitle">A un cuento de hadas para celebrar</p>
+        <img src="https://wallpapers.com/images/hd/rapunzel-pictures-3fdq9icd9made03i.jpg" alt="Valentina García como Elsa" class="rapunzel-image">
+        
+        <h2 class="iris-name">Valentina García</h2>
+        <p class="subtitle">Cumplirá 5 años y te espera en su reino de hielo.</p>
+
+        <p class="details">
+            Acompáñanos a un día mágico donde la <strong>magia del invierno</strong>, la <strong>alegría de los amigos</strong> y la <strong>aventura de un sueño</strong> se unirán para celebrar los 5 años de nuestra querida Valentina García. ¡Será una aventura inolvidable inspirada en los cuentos más encantados!
+        </p>
+
+        <p class="details">
+            <span class="date-time" id="eventDate"><i class="fas fa-calendar-alt"></i> <strong>Fecha:</strong> Domingo, 23 de Febrero de 2025</span><br>
+            <span class="date-time" id="eventTime"><i class="fas fa-clock"></i> <strong>Hora:</strong> 4:00 PM</span><br>
+            <span class="location" id="eventLocation"><i class="fas fa-map-marker-alt"></i> <strong>Lugar:</strong> Salón de Eventos "El Palacio de Cristal"</span><br>
+            <span class="location-address">Avenida de los Sueños 456, Villa Encantada</span>
+        </p>
+
+        <button id="openRsvpForm" class="rsvp-button">
+            <i class="fas fa-magic"></i> ¡Confirma tu Asistencia!
+        </button>
+
+        <p class="details" style="margin-top: 25px; font-size: 0.9em; color: #888;">
+            Por favor, confirma tu asistencia antes del 16 de Febrero para que podamos preparar todo.
+        </p>
+
+        <div class="countdown" id="countdown">
+            Faltan: <span id="days"></span> días <span id="hours"></span> horas <span id="minutes"></span> min <span id="seconds"></span> seg
+        </div>
+    </div>
+
+    <div id="rsvpModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button close-rsvp-modal">×</span>
+            <div class="form-section">
+                <h3>Confirma tu Asistencia</h3>
+                <p style="font-size: 1em; margin-bottom: 15px; color: #777;">
+                    Para que podamos organizar un reino perfecto, por favor, llena este pequeño formulario:
+                </p>
+                <form id="rsvpForm">
+                    <div class="form-group">
+                        <label for="nombre"><i class="fas fa-user"></i> Tu Nombre Completo:</label>
+                        <input type="text" id="nombre" name="Nombre" placeholder="Ej: Elsa de Arendelle" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="totalInvitados"><i class="fas fa-users"></i> Total de Personas en tu Familia (incluyéndote):</label>
+                        <input type="number" id="totalInvitados" name="TotalInvitados" min="1" value="1" required>
+                        <small style="color: #888;">Máximo 6 personas por familia, incluyendo niños.</small>
+                    </div>
+                     <div class="form-group">
+                        <label for="asistencia"><i class="fas fa-check-circle"></i> ¿Podrás asistir?</label>
+                        <select id="asistencia" name="Asistencia" required>
+                            <option value="si">¡Sí, con gusto!</option>
+                            <option value="no">Lo siento, no podré.</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="submit-button">
+                        <i class="fas fa-paper-plane"></i> Enviar Confirmación
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div id="capacityErrorModal" class="modal">
+        <div class="modal-content error-modal-content">
+            <span class="close-button close-error-modal">×</span>
+            <div class="error-message-container">
+                <img src="https://raw.githubusercontent.com/equis01/happy-birthday/refs/heads/main/assets/pascal-enojado-rapunzel.png" alt="Olaf Confundido" class="pascal-image">
+                <h3>¡Espera un momento!</h3>
+                <p>El reino tiene un límite de <strong>6 personas por familia</strong> para que todos podamos disfrutar cómodamente.</p>
+                <p>Por favor, ajusta el número de invitados.</p>
+                <button class="close-error-modal rsvp-button" style="width: auto; margin-top: 15px; padding: 10px 20px;">
+                    Entendido
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div id="successModal" class="modal">
+        <div class="modal-content success-modal-content">
+            <span class="close-button close-success-modal">×</span>
+            <div class="success-message-container">
+                <img src="https://raw.githubusercontent.com/equis01/happy-birthday/refs/heads/main/assets/rapunzel-saludando.png" alt="Elsa Saludando" class="rapunzel-success-image">
+                <h3>¡Confirmación Recibida!</h3>
+                <p>¡Gracias por unirte a la celebración del cumpleaños de Valentina García!</p>
+                <p>Tu asistencia ha sido confirmada en el reino. ¡Nos vemos en la fiesta!</p>
+                <button class="close-success-modal rsvp-button" style="width: auto; margin-top: 15px; padding: 10px 20px;">
+                    ¡Genial!
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script> </body>
+</html>

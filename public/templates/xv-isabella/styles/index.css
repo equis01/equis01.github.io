@@ -1,0 +1,189 @@
+/* Importar fuentes de Google Fonts, si no están ya en el HTML */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Lora:wght@400;700&family=Dancing+Script:wght@400;700&display=swap');
+
+#modalWelcome img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 150px;
+    margin-bottom: 1rem;
+}
+
+body {
+    font-family: 'Lora', serif;
+    background: url('https://wallpapers.com/images/hd/beauty-and-the-beast-pictures-2naz8n70w7luq83t.jpg') no-repeat center center fixed;
+    background-size: cover;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    color: #4A148C; /* Morado Oscuro */
+}
+
+.invitation-container {
+    background: rgba(255, 255, 255, 0.9);
+    padding: 30px;
+    border-radius: 15px;
+    max-width: 450px;
+    width: 100%;
+    text-align: center;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+header h1 {
+    font-family: 'Playfair Display', serif;
+    color: #4a148c;
+    margin-bottom: 15px;
+}
+
+header h2 {
+    font-family: 'Dancing Script', cursive; /* Asegúrate de que esta fuente esté importada */
+    color: #ffd700; /* Dorado */
+    margin-bottom: 25px;
+}
+
+button {
+    margin-top: 20px;
+}
+
+.modal-content {
+    border-radius: 15px;
+    border: 3px solid #4A148C;
+    background: #faf0e6; /* Un color crema/beige suave */
+    font-family: 'Lora', serif;
+    color: #4A148C;
+    box-shadow: 0 10px 30px rgba(74, 20, 140, 0.3);
+}
+
+.modal-title {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 1.75rem;
+    color: #4A148C;
+}
+
+/* Bootstrap Button Overrides */
+.btn-primary {
+    background-color: #4A148C;
+    border-color: #4A148C;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover,
+.btn-primary:focus {
+    background-color: #3a0e75;
+    border-color: #3a0e75;
+    box-shadow: 0 0 8px #4A148Caa;
+}
+
+.btn-secondary {
+    background-color: #b38f00; /* Dorado más oscuro */
+    border-color: #b38f00;
+    font-weight: 600;
+    color: #fff;
+    transition: background-color 0.3s ease;
+}
+
+.btn-secondary:hover,
+.btn-secondary:focus {
+    background-color: #856e00;
+    border-color: #856e00;
+    box-shadow: 0 0 6px #b38f00aa;
+    color: #fff;
+}
+
+.btn-danger {
+    background-color: #d32f2f; /* Rojo */
+    border-color: #d32f2f;
+    font-weight: 600;
+    color: #fff;
+}
+
+.btn-danger:hover,
+.btn-danger:focus {
+    background-color: #9a2222;
+    border-color: #9a2222;
+    box-shadow: 0 0 6px #d32f2faa;
+    color: #fff;
+}
+
+/* Form Control Styles */
+input.form-control {
+    border: 2px solid #4A148C;
+    border-radius: 10px;
+    padding: 0.75rem 1rem;
+    font-size: 1.1rem;
+    transition: border-color 0.3s ease;
+    color: #4A148C;
+}
+
+input.form-control:focus {
+    border-color: #ffd700; /* Dorado al enfocar */
+    box-shadow: 0 0 8px #ffd700aa;
+    outline: none;
+}
+
+/* Bella Alert Styles */
+#bellaAlert {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.8);
+    background: #fff7e6; /* Crema más claro */
+    border: 3px solid #4A148C;
+    border-radius: 15px;
+    padding: 30px 25px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(74, 20, 140, 0.4);
+    z-index: 1055;
+    opacity: 0;
+    pointer-events: none; /* No interactuable cuando oculto */
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    width: 320px;
+}
+
+#bellaAlert.show {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+#bellaAlert img {
+    max-width: 120px;
+    margin-bottom: 15px;
+}
+
+#bellaAlert p {
+    font-size: 1.2rem;
+    color: #4A148C;
+    margin-bottom: 20px;
+    font-family: 'Lora', serif;
+}
+
+#bellaAlert button {
+    background: #d32f2f; /* Rojo */
+    border: none;
+    color: white;
+    padding: 12px 25px;
+    font-weight: 700;
+    font-size: 1.1rem;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 100%;
+}
+
+#bellaAlert button:hover {
+    background-color: #9a2222;
+}
+
+/* Estilo para el párrafo del modal bienvenida */
+#welcomeMessage {
+    font-family: 'Lora', serif;
+    color: #4A148C;
+    font-size: 1.1rem;
+    margin-bottom: 20px;
+}

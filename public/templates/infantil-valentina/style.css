@@ -1,0 +1,699 @@
+:root {
+    --rapunzel-purple: #8A2BE2;   /* Violeta principal */
+    --rapunzel-gold: #FFD700;     /* Dorado */
+    --rapunzel-pink: #FFC0CB;     /* Rosa claro */
+    --rapunzel-blue: #87CEEB;     /* Azul cielo */
+    --rapunzel-light-gold: #FFEC8B; /* Dorado más claro */
+    --tangled-sky-start: #1A237E; /* Azul muy oscuro para la base del cielo nocturno */
+    --tangled-sky-end: #3F51B5;   /* Azul más claro para el cielo nocturno */
+    --lantern-glow-color: rgba(255, 215, 0, 0.7); /* Color de resplandor de las linternas */
+}
+
+body {
+    margin: 0;
+    font-family: 'Open Sans', sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    min-height: 100vh;
+    color: #333;
+    position: relative;
+    box-sizing: border-box;
+    overflow-x: hidden; /* Evita scroll horizontal */
+    background: linear-gradient(to bottom, var(--tangled-sky-start), var(--tangled-sky-end)); /* Fondo degradado nocturno */
+}
+
+/* Overlay para activar el sonido */
+.welcome-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8); /* Fondo oscuro semitransparente */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    color: white;
+    font-size: 1.8em;
+    font-weight: bold;
+    text-align: center;
+    cursor: pointer;
+    z-index: 200; /* Asegura que esté por encima de todo */
+    transition: opacity 0.5s ease-in-out;
+}
+
+.welcome-overlay.hidden {
+    opacity: 0;
+    pointer-events: none; /* Permite clics a través de él una vez oculto */
+}
+
+.welcome-message {
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+}
+
+.welcome-message i {
+    font-size: 2.5em;
+    margin-top: 15px;
+    animation: bounce 1.5s infinite; /* Animación de rebote para el icono de mano */
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-20px);
+    }
+    60% {
+        transform: translateY(-10px);
+    }
+}
+
+
+/* Capa de fondo con la imagen del castillo */
+.background-layer {
+    position: fixed; /* Hace que se quede fijo en la pantalla */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        url('https://i.etsystatic.com/19087786/r/il/4b2348/4172520308/il_fullxfull.4172520308_q3od.jpg'); /* Imagen del castillo */
+    background-size: cover; /* Cubre toda la pantalla */
+    background-position: center bottom; /* Posiciona el castillo abajo */
+    background-repeat: no-repeat;
+    filter: blur(3px) brightness(0.8); /* Aplicar blur y oscurecer un poco la imagen */
+    transform: scale(1.05); /* Escalar un poco para evitar bordes blancos por el blur */
+    z-index: -1; /* Detrás de todo el contenido */
+}
+
+/* Las linternas */
+.lantern {
+    position: fixed; /* Fijo en la pantalla */
+    width: 40px; /* Tamaño por defecto */
+    height: 60px; /* Tamaño por defecto */
+    background-color: var(--rapunzel-light-gold);
+    border-radius: 50% 50% 10px 10px / 60% 60% 40% 40%; /* Forma de linterna */
+    box-shadow: 0 0 15px 5px rgba(255, 215, 0, 0.7);
+    opacity: 0; /* Starts hidden */
+    animation: floatLantern 10s infinite ease-in-out forwards;
+    z-index: 0; /* Entre el background-layer (-1) y el invitation-container (3) */
+}
+
+.lantern::before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 4px;
+    height: 15px;
+    background-color: var(--rapunzel-gold);
+    border-radius: 2px;
+}
+
+/* Posiciones y retrasos para cada linterna adicional */
+/* Se ajustan para 20 linternas, manteniendo la distribución */
+.lantern:nth-child(2) { top: 80%; left: 5%; animation-delay: 0s; }
+.lantern:nth-child(3) { top: 70%; right: 10%; animation-delay: 1.5s; }
+.lantern:nth-child(4) { top: 60%; left: 20%; animation-delay: 3s; }
+.lantern:nth-child(5) { top: 90%; right: 5%; animation-delay: 4.5s; }
+.lantern:nth-child(6) { top: 50%; left: 30%; animation-delay: 6s; }
+.lantern:nth-child(7) { top: 75%; left: 40%; animation-delay: 0.5s; }
+.lantern:nth-child(8) { top: 85%; right: 20%; animation-delay: 2.5s; }
+.lantern:nth-child(9) { top: 65%; left: 15%; animation-delay: 4s; }
+.lantern:nth-child(10) { top: 55%; right: 30%; animation-delay: 5.5s; }
+.lantern:nth-child(11) { top: 95%; left: 25%; animation-delay: 7s; }
+.lantern:nth-child(12) { top: 70%; left: 50%; animation-delay: 1s; }
+.lantern:nth-child(13) { top: 80%; right: 40%; animation-delay: 3.5s; }
+.lantern:nth-child(14) { top: 60%; left: 0%; animation-delay: 5s; }
+.lantern:nth-child(15) { top: 90%; right: 0%; animation-delay: 6.5s; }
+.lantern:nth-child(16) { top: 50%; left: 60%; animation-delay: 7.5s; }
+.lantern:nth-child(17) { top: 75%; right: 25%; animation-delay: 0.8s; }
+.lantern:nth-child(18) { top: 85%; left: 35%; animation-delay: 2.8s; }
+.lantern:nth-child(19) { top: 65%; right: 15%; animation-delay: 4.8s; }
+.lantern:nth-child(20) { top: 55%; left: 45%; animation-delay: 6.8s; }
+
+
+@keyframes floatLantern {
+    0% { transform: translateY(0) scale(1); opacity: 0; }
+    10% { opacity: 0.8; }
+    80% { transform: translateY(-150px) scale(0.8); opacity: 0.8; } /* Suben y se hacen ligeramente más pequeñas */
+    100% { transform: translateY(-200px) scale(0.5); opacity: 0; } /* Desaparecen y se hacen más pequeñas */
+}
+
+
+.invitation-container {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 25px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
+    text-align: center;
+    padding: 40px;
+    max-width: 650px;
+    width: 90%;
+    margin: 40px auto; /* Márgenes superior/inferior para el scroll y centrado */
+    position: relative;
+    z-index: 3; /* Asegura que esté por encima de las luces y el fondo */
+    border: 5px solid var(--rapunzel-gold);
+    box-sizing: border-box;
+}
+
+.rapunzel-header {
+    font-family: 'Great Vibes', cursive;
+    font-size: 4em;
+    color: var(--rapunzel-purple);
+    margin-bottom: 5px;
+    text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.15);
+    position: relative;
+    z-index: 1;
+}
+
+.subtitle {
+    font-family: 'Satisfy', cursive;
+    font-size: 1.8em;
+    color: var(--rapunzel-purple);
+    margin-bottom: 25px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.iris-name {
+    font-family: 'Great Vibes', cursive;
+    font-size: 3.8em;
+    color: var(--rapunzel-gold);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+.rapunzel-image {
+    width: 180px;
+    height: 180px;
+    object-fit: cover;
+    margin-bottom: 25px;
+    border-radius: 50%;
+    border: 6px solid var(--rapunzel-gold);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    transition: transform 0.4s ease-in-out, border-color 0.4s ease;
+}
+
+.rapunzel-image:hover {
+    transform: scale(1.08) rotate(7deg);
+    border-color: var(--rapunzel-purple);
+}
+
+.details {
+    font-size: 1.3em;
+    margin-bottom: 30px;
+    line-height: 1.7;
+    color: #555;
+}
+
+/* Clases para hacer clickables la fecha y la hora */
+.date-time, .location, .location-address {
+    font-weight: bold;
+    color: var(--rapunzel-purple);
+    display: block; /* Para que cada uno ocupe su línea */
+    margin-bottom: 8px;
+    cursor: pointer; /* Indica que son clickeables */
+}
+
+.date-time i, .location i {
+    margin-right: 8px;
+    color: var(--rapunzel-gold);
+}
+
+.rsvp-button {
+    background-color: var(--rapunzel-gold);
+    color: var(--rapunzel-purple);
+    padding: 15px 35px;
+    border: none;
+    border-radius: 30px;
+    font-size: 1.4em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+    margin-top: 20px;
+}
+
+.rsvp-button:hover {
+    background-color: var(--rapunzel-light-gold);
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+.rsvp-button i {
+    margin-right: 10px;
+}
+
+
+.countdown {
+    margin-top: 35px;
+    font-size: 2em;
+    color: var(--rapunzel-purple);
+    font-weight: bold;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.countdown span {
+    display: inline-block;
+    min-width: 65px;
+    padding: 8px 12px;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 12px;
+    margin: 0 6px;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+    border: 1px solid var(--rapunzel-pink);
+}
+
+audio {
+    display: none;
+}
+
+.music-toggle {
+    position: fixed;
+    bottom: 25px;
+    left: 25px;
+    background-color: var(--rapunzel-purple);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 55px;
+    height: 55px;
+    font-size: 1.6em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+    z-index: 100;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.music-toggle:hover {
+    background-color: #6A0DAD;
+    transform: scale(1.05);
+}
+
+/* Modal Styles (general) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 100; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed for modal content */
+    background-color: rgba(0,0,0,0.6); /* Black w/ opacity */
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.modal-content {
+    background-color: #fefefe;
+    padding: 30px;
+    border: 1px solid #888;
+    width: 100%;
+    max-width: 500px;
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    position: relative;
+    box-sizing: border-box;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.close-button {
+    color: #aaa;
+    position: absolute;
+    top: 15px;
+    right: 25px;
+    font-size: 35px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: #333;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Form Section Styles */
+.form-section {
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05);
+    border: 2px dashed var(--rapunzel-pink);
+}
+
+.form-section h3 {
+    font-family: 'Satisfy', cursive;
+    color: var(--rapunzel-purple);
+    font-size: 1.8em;
+    margin-bottom: 20px;
+}
+
+.form-group {
+    margin-bottom: 18px;
+    text-align: left;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #666;
+    font-size: 1.1em;
+}
+
+.form-group label i {
+    margin-right: 8px;
+    color: var(--rapunzel-gold);
+}
+
+.form-group input[type="text"],
+.form-group input[type="number"],
+.form-group select {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid var(--rapunzel-pink);
+    border-radius: 8px;
+    font-size: 1em;
+    color: #333;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease;
+}
+
+.form-group input[type="text"]:focus,
+.form-group input[type="number"]:focus,
+.form-group select:focus {
+    border-color: var(--rapunzel-gold);
+    outline: none;
+    box-shadow: 0 0 8px rgba(255, 215, 0, 0.3);
+}
+
+.form-group small {
+    display: block;
+    margin-top: 5px;
+    font-size: 0.85em;
+    color: #a0a0a0;
+}
+
+
+.submit-button {
+    background-color: var(--rapunzel-gold);
+    color: var(--rapunzel-purple);
+    padding: 15px 35px;
+    border: none;
+    border-radius: 30px;
+    font-size: 1.4em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+    margin-top: 20px;
+    width: auto;
+}
+
+.submit-button:hover {
+    background-color: var(--rapunzel-light-gold);
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Estilos para el modal de error (camaleón) */
+.error-modal-content {
+    background-color: #FFF;
+    border: 3px solid #DC3545; /* Rojo de error */
+    text-align: center;
+    padding-bottom: 20px; /* Ajuste para el botón inferior */
+}
+
+.pascal-image {
+    width: 150px;
+    height: auto;
+    margin-bottom: 15px;
+    display: block; /* Asegura que la imagen sea un bloque y se centre con margin auto */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.error-message-container h3 {
+    font-family: 'Satisfy', cursive;
+    color: #DC3545; /* Rojo para el título de error */
+    font-size: 2em;
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+.error-message-container p {
+    font-size: 1.1em;
+    color: #555;
+    margin-bottom: 15px;
+}
+
+/* Estilos para el modal de éxito */
+.success-modal-content {
+    background-color: #FFF;
+    border: 3px solid #28A745; /* Verde de éxito */
+    text-align: center;
+    padding-bottom: 20px;
+}
+
+.rapunzel-success-image {
+    width: 150px; /* Tamaño similar a Pascal */
+    height: auto;
+    margin-bottom: 15px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.success-message-container h3 {
+    font-family: 'Satisfy', cursive;
+    color: #28A745; /* Verde para el título de éxito */
+    font-size: 2em;
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+.success-message-container p {
+    font-size: 1.1em;
+    color: #555;
+    margin-bottom: 15px;
+}
+
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .welcome-overlay {
+        font-size: 1.4em;
+    }
+    .welcome-message {
+        padding: 15px;
+    }
+    .welcome-message i {
+        font-size: 2em;
+    }
+
+    .invitation-container {
+        padding: 25px;
+        border-radius: 15px;
+        width: 95%;
+        margin: 20px auto;
+    }
+    .rapunzel-header {
+        font-size: 2.8em;
+    }
+    .subtitle {
+        font-size: 1.3em;
+    }
+    .iris-name {
+        font-size: 2.8em;
+    }
+    .rapunzel-image {
+        width: 140px;
+        height: 140px;
+        border-width: 4px;
+    }
+    .details {
+        font-size: 1em;
+    }
+    .countdown {
+        font-size: 1.4em;
+    }
+    .countdown span {
+        min-width: 45px;
+        padding: 5px 6px;
+        font-size: 0.9em;
+    }
+    .rsvp-button {
+        padding: 12px 25px;
+        font-size: 1.1em;
+    }
+    .music-toggle {
+        width: 45px;
+        height: 45px;
+        font-size: 1.3em;
+        bottom: 15px;
+        left: 15px;
+    }
+
+    .modal-content {
+        padding: 20px;
+        width: 95%;
+        max-height: 90vh;
+    }
+    .form-section h3 {
+        font-size: 1.6em;
+    }
+    .form-group label {
+        font-size: 1em;
+    }
+    .form-group input, .form-group select {
+        padding: 10px;
+        font-size: 0.9em;
+    }
+    .submit-button {
+        padding: 12px 25px;
+        font-size: 1.2em;
+    }
+    .close-button {
+        font-size: 30px;
+        top: 10px;
+        right: 15px;
+    }
+    /* Linternas para móviles: más pequeñas y con menor opacidad */
+    .lantern {
+        width: 25px; /* Más pequeñas */
+        height: 35px;
+        box-shadow: 0 0 8px 3px rgba(255, 215, 0, 0.4); /* Menos resplandor */
+        animation-duration: 15s; /* Animación más lenta para ser menos intrusiva */
+    }
+    .lantern::before {
+        width: 3px;
+        height: 10px;
+    }
+    /* Asegurarse de que sigan flotando */
+    @keyframes floatLantern {
+        0% { transform: translateY(0) scale(0.6); opacity: 0; }
+        20% { opacity: 0.6; } /* Menor opacidad máxima */
+        80% { transform: translateY(-100px) scale(0.5); opacity: 0.6; }
+        100% { transform: translateY(-130px) scale(0.3); opacity: 0; }
+    }
+
+    .pascal-image, .rapunzel-success-image {
+        width: 100px; /* Ajuste para móviles */
+    }
+    .error-message-container h3, .success-message-container h3 {
+        font-size: 1.6em;
+    }
+    .error-message-container p, .success-message-container p {
+        font-size: 0.9em;
+    }
+}
+
+/* Landscape mode for small devices */
+@media (max-height: 500px) and (max-width: 900px) and (orientation: landscape) {
+    .welcome-overlay {
+        font-size: 1.2em;
+    }
+    .welcome-message {
+        padding: 10px;
+    }
+    .welcome-message i {
+        font-size: 1.8em;
+    }
+
+    .invitation-container {
+        padding: 15px;
+        width: 85%;
+        max-height: 95vh;
+        margin: 10px auto;
+        overflow-y: auto;
+    }
+    .rapunzel-header {
+        font-size: 2.2em;
+    }
+    .iris-name {
+        font-size: 2.2em;
+    }
+    .rapunzel-image {
+        width: 90px;
+        height: 90px;
+        margin-bottom: 10px;
+    }
+    .details {
+        font-size: 0.8em;
+        margin-bottom: 10px;
+    }
+    .countdown {
+        font-size: 1.1em;
+        margin-top: 10px;
+    }
+    .countdown span {
+        min-width: 30px;
+        padding: 2px 4px;
+        font-size: 0.8em;
+    }
+    .rsvp-button {
+        padding: 8px 15px;
+        font-size: 0.9em;
+        margin-top: 10px;
+    }
+    .modal-content {
+        padding: 15px;
+        width: 90%;
+        max-height: 90vh;
+    }
+    .form-section h3 {
+        font-size: 1.3em;
+    }
+    .form-group label {
+        font-size: 0.85em;
+    }
+    .form-group input, .form-group select {
+        padding: 6px;
+        font-size: 0.75em;
+    }
+    .submit-button {
+        padding: 8px 15px;
+        font-size: 0.9em;
+        margin-top: 8px;
+    }
+    .background-layer {
+        background-size: cover;
+        background-position: center bottom;
+    }
+    .lantern {
+        width: 20px;
+        height: 30px;
+        box-shadow: 0 0 6px 2px rgba(255, 215, 0, 0.3);
+        animation-duration: 20s;
+    }
+    .lantern::before {
+        width: 2px;
+        height: 8px;
+    }
+    .pascal-image, .rapunzel-success-image {
+        width: 80px;
+    }
+    .error-message-container h3, .success-message-container h3 {
+        font-size: 1.4em;
+    }
+    .error-message-container p, .success-message-container p {
+        font-size: 0.8em;
+    }
+}

@@ -1,0 +1,259 @@
+@font-face {
+    font-family: 'Kapakana';
+    src: url('https://ximenav.digital/assets/kapakana-regular.ttf');
+    font-weight: 1 1000;
+}
+
+body{
+    background-image: url('https://raw.githubusercontent.com/equis01/ximenav.digital/refs/heads/main/media/fondo_oro_rosa.jpg'); /* Updated to absolute URL */
+    background-size: cover;
+    background-position: initial;
+    background-color: #E9E4E5;
+    font-family: 'Brygada 1918';
+}
+.personas {
+    text-transform: uppercase;
+}
+.contenedor{
+    max-width: 635px;
+    padding: 0;
+}
+.titulo-quince{
+    color: #000;
+    font-family: 'Kapakana';
+    font-size: 128px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 0.9; /* Increased from 0 to prevent overlap, adjust as needed */
+    position: relative;
+    z-index: 2;
+    margin-bottom: -50px;
+    margin-top: -40px;
+}
+.titulo-ka{
+    color: #000;
+    font-family: 'Kapakana';
+    font-size: 3.5em;
+    font-style: normal;
+    font-weight: 400;
+}
+.frase{
+    color: #000;
+    font-family: 'Kapakana';
+    font-size: 2.5em;
+    font-style: normal;
+    font-weight: 400;
+}
+.subtitulo{
+    font-size: 1.5em;
+    text-transform: uppercase;
+}
+.text-mini {
+    font-size: .7em;
+}
+.numero-grande{
+    color: #C07F6B;
+    font-size: 230px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    letter-spacing: 0px; /* Changed from -29.9px to 0px to prevent clipping '1' */
+    margin-left: 0%; /* Changed from -6% to 0% to give space to '1' */
+    display: inline-block;
+    vertical-align: top;
+}
+
+.row.no-gutters, .row.no-gutters>* {
+    margin-right: 0;
+    margin-left: 0;
+    padding-right: 0 !important;
+    padding-left: 0 !important;
+    width: 100%;
+  }
+
+  .row{
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+.contenedor-central {
+    max-width: 90%;
+    border: 11px solid #D4A596;
+    background: #FFE8DF;
+    padding: 40px;
+    position: relative;
+    margin: 0 auto;
+}
+.space-100{
+    height: 100px;
+    clear: both;
+}
+.space-50{
+    height: 50px;
+    clear: both;
+}
+.nombre-quince{
+    color: #000;
+    font-family: 'Kapakana';
+    font-size: 3.7em;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    display: inline-block;
+}
+#countdown-numbers {
+    font-size: 2.5em;
+    word-spacing: 2rem;
+}
+#countdown-text {
+    font-size: 2em;
+    word-spacing: 2rem;
+    font-family: 'Kapakana';
+    color:black
+}
+
+img.img_demo2 {
+    width: 80% !important;
+    display: inline-block;
+    margin: 0 auto !important;
+    margin-top: -40px !important;
+    z-index: 2;
+}
+
+.row.direccion {
+    z-index: 1;
+    position: relative;
+    margin-top: -40px;
+}
+
+ul.lista-icons {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: block !important;
+}
+li.icon-rec {
+    border-bottom: solid 1px;
+    padding: 20px 0;
+    color: #C07F6B;
+}
+.icon-rec a{
+    text-decoration: none;
+    color: #C07F6B;
+}
+img.icon {
+    max-width: 100%;
+}
+
+.qr-demo{
+    border: 11px solid #D4A596;
+}
+
+.selecciones {
+    width: 70%;
+    margin: 0 auto;
+    text-align: left;
+    text-transform: uppercase;
+    font-size: 0.8em;
+}
+.form-check-input:checked {
+    background-color: #d4a595;
+    border-color: #d4a595;
+}
+a.btn-inv, .btn-general,.btn-inv-cancel {
+    text-decoration: none;
+    color: white;
+    display: inline-block;
+    background-color: #d4a595;
+    padding: 10px;
+    width: 80%;
+    font-size: .8em;
+}
+
+.overlay_head{
+    background-color: rgba(0, 0, 0, .3);
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    z-index: 3;
+}
+.personaliza {
+    margin: 50% auto;
+    color: white;
+    text-align: center;
+    opacity: .6;
+    font-size: 1.2em;
+}
+
+.modal-header {
+    border: none;
+}
+div#dresscode,#hospedaje,#mesa,#efectivo {
+    color: #D4A596;
+    font-size: 1.2em;
+}
+#dresscode img {
+    width: 30%;
+}
+.modal-body {
+    padding: 13%;
+}
+.parrafo-chico {
+    font-size: .7em;
+}
+
+/* Removed styles for demo images as they are no longer needed */
+/* .filepond--root.img-inv.filepond--hopper {
+    height: 600px !important;
+    background-color: grey;
+    color: white !important;
+    background-image: url('../../images/pink/demo_quinceanera.jpeg');
+    background-position: center;
+} */
+
+/* .filepond--root.img-inv-dos.filepond--hopper {
+    height: 600px !important;
+    background-color: grey;
+    color: white !important;
+    background-image: url('../../images/pink/demo_quinceanera2.jpeg');
+    background-position: center;
+} */
+
+.form-check.form-switch {
+    max-width: 200px;
+}
+
+
+@media screen and (max-width: 428px) {
+    .contenedor-central {
+        max-width: 90%;
+    }
+    .titulo-quince {
+        font-size: 88px;
+        line-height: 0.9; /* Adjust for mobile if needed */
+    }
+    .numero-grande {
+        margin-left: 0%; /* Ensure no negative margin on mobile too */
+        letter-spacing: 0px; /* Ensure no negative letter-spacing on mobile too */
+    }
+    .nombre-quince {
+        font-size: 3.5em;
+    }
+    .titulo-ka {
+        font-size: 3em;
+    }
+    .subtitulo {
+        font-size: 1.3em;
+    }
+
+    #countdown-numbers,#countdown-text {
+        font-size: 1.5em;
+        word-spacing: 1.5rem;
+    }
+
+    .ov-img-dos{
+        height: 113% !important;
+    }
+
+  }

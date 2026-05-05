@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Isabella Morales</title>
+    <meta property="og:title" content="Mis XV Años">
+    <meta property="og:description" content="¡Estás invitado a los XV Años de Isabella Morales!">
+    <meta property="og:image" content="https://cinemafaith.com/wp-content/uploads/2017/04/beauty-3-final-2-1050x438.jpg">
+    <link rel="shortcut icon" href="https://static.wixstatic.com/media/b87bc6_cf11cd3750c7441ea84c34ec41995151~mv2.png/v1/fill/w_480,h_480,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/b87bc6_cf11cd3750c7441ea84c34ec41995151~mv2.png" type="image/webp">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body onclick="PlayAudio()">
+    <!-- Reproductor de audio en bucle -->
+    <audio id="audioInstrumental" autoplay loop>
+        <source src="https://www.dropbox.com/scl/fi/rj8ns7qtd68k9ssxh0h5u/Beauty-and-the-Beast-instrumental.mp3?rlkey=ft6bsjr3w53kw0aufy5qwktkk&st=771keoeu&raw=1" type="audio/mp3">
+        Tu navegador no soporta el audio.
+    </audio>
+
+    <div class="invitation-container">
+        <header>
+            <h1>¡Estás Invitado!</h1>
+            <h2>A los XV años de <strong>Isabella Morales</strong></h2>
+        </header>
+        <div class="details">
+            <p>Fecha: <strong>Sábado, 15 de Marzo de 2025</strong></p>
+            <p>Hora: <strong>6:00 PM</strong></p>
+            <p>Ubicación: <strong>Salón Crystal, Guadalajara</strong></p>
+        </div>
+        <button onclick="openModal()">Confirmar Asistencia</button>
+        <footer>
+            <p>Con cariño, familia Morales Hernández.</p>
+        </footer>
+    </div>
+
+    <!-- Modal para Confirmar Asistencia -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <h3>Confirmar Asistencia</h3>
+            <form id="confirmationForm">
+                <input type="text" id="name" name="name" placeholder="Tu nombre completo" required minlength="6">
+                <input type="number" id="guests" name="guests" placeholder="Número de invitados (max 4)" min="1" max="4" required>
+                <button type="submit">Enviar</button>
+            </form>                           
+            <button class="close-btn" onclick="closeModal()">Cerrar</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

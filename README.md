@@ -2,6 +2,31 @@
 
 Bienvenido a mi ecosistema digital. Este proyecto ha sido migrado a una arquitectura moderna potenciada por **Vite**, optimizada para el rendimiento, seguridad y una experiencia de usuario premium con diseño **Aurora Glassmorphism**.
 
+## 🚀 Estructura del Proyecto
+
+El sitio está organizado de forma modular para facilitar su mantenimiento y escalabilidad:
+
+```
+├── public/                # Archivos estáticos (Imágenes, Iconos, PDFs, Plantillas)
+│   ├── img/               # Recursos visuales del sitio
+│   ├── templates/         # Demos de invitaciones y proyectos para la tienda
+│   └── cv/                # Currículum Vitae en PDF
+│
+├── src/
+│   ├── css/               # Estilos base y por componentes
+│   ├── js/                # Lógica del sitio, utilidades y scripts de protección
+│   └── data/              # Base de datos dinámica (JSON) para experiencias y portafolio
+│
+├── portafolio/            # Hub de proyectos, herramientas y tienda
+│   ├── herramientas/      # Utilidades como Generador QR
+│   ├── proyectos/         # Demos interactivas (Chula Style, etc.)
+│   └── shop/              # Catálogo de venta de plantillas
+│
+├── experiencia/           # Línea de tiempo profesional dinámica
+├── cv/                    # Visor premium de Currículum
+└── index.html             # Página de inicio principal
+```
+
 ## 🛠️ Tecnologías Utilizadas
 
 - **Core**: HTML5 semántico, CSS3 (Vanilla) con variables.
