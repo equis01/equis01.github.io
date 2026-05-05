@@ -3,6 +3,9 @@ import { resolve } from 'path';
 
 export default defineConfig({
   root: './',
+  // Desactivamos el mapeo automático de public para que funcione 
+  // con rutas relativas manuales como /public/img/...
+  publicDir: false, 
   build: {
     outDir: 'dist',
     rollupOptions: {
@@ -18,6 +21,5 @@ export default defineConfig({
         404: resolve(__dirname, '404.html'),
       }
     }
-  },
-  publicDir: 'public',
+  }
 });
