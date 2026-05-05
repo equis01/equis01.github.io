@@ -1,5 +1,31 @@
 [
   {
+    "id": "xv-isabella",
+    "nombre": "Invitación XV Años Premium",
+    "descripcion": "Diseño elegante con detalles en oro, música de fondo y confirmación vía WhatsApp.",
+    "precio_base": "$1,200 MXN",
+    "preview_url": "/templates/xv-isabella/details.html",
+    "imagen": "/templates/xv-isabella/index.png",
+    "opciones": [
+      "Solo Código ($1,200)",
+      "Personalización Completa (+$500)",
+      "Hosting 1 Año (+$400)"
+    ]
+  },
+  {
+    "id": "infantil-valentina",
+    "nombre": "Invitación Infantil Mágica",
+    "descripcion": "Efectos de partículas, música integrada y formulario de asistencia dinámico.",
+    "precio_base": "$850 MXN",
+    "preview_url": "/templates/infantil-valentina/index.html",
+    "imagen": "/templates/infantil-valentina/index.png",
+    "opciones": [
+      "Solo Código ($850)",
+      "Personalización (+$300)",
+      "Hosting 1 Año (+$400)"
+    ]
+  },
+  {
     "id": "personal-page",
     "nombre": "Personal Page Template",
     "descripcion": "Diseño moderno con fondos animados y glassmorphism.",

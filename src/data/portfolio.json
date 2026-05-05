@@ -21,10 +21,10 @@
     {
       "id": "chula-style",
       "nombre": "Chula Style",
-      "descripcion": "Plataforma de comercio electrónico con un diseño vibrante y experiencia de usuario fluida.",
+      "descripcion": "Página interactiva de romance para tu pareja.",
       "url": "/portafolio/proyectos/chula/",
       "icono": "fas fa-shopping-bag",
-      "badge": "E-commerce"
+      "badge": "Portfolio"
     },
     {
       "id": "portfolio-aurora",
