@@ -4,10 +4,16 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Eduardo Vázquez</title>
-  <link rel="icon" type="image/png" href="/img/logo/logo-x.png" />
+  <link rel="icon" type="image/png" href="/public/img/logo/logo-x.png" />
   <link rel="stylesheet" href="/src/css/base/main.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
   <style>
+    /* Corrección para iconos de Font Awesome */
+    .fab, .fas, .fa-solid, .fa-brands {
+      font-family: "Font Awesome 6 Brands", "Font Awesome 6 Free" !important;
+      font-weight: 900;
+      font-style: normal;
+    }
     body { overflow: hidden; display: flex; flex-direction: column; height: 100vh; }
     .viewer-header {
       height: 70px;
