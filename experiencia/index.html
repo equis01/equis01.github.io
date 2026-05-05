@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -8,7 +9,7 @@
   <link rel="stylesheet" href="/src/css/base/main.css" />
   <link rel="stylesheet" href="/src/css/components/nav.css" />
   <link rel="stylesheet" href="/src/css/pages/experiencia.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
   <script type="module">
     import { initProtection, triggerShare } from '/src/js/utils/protection.js';
     initProtection();
@@ -32,12 +33,14 @@
       align-items: center;
       justify-content: center;
     }
+
     .share-btn:hover {
       transform: scale(1.2) rotate(20deg);
       box-shadow: 0 0 12px var(--accent-glow);
     }
   </style>
 </head>
+
 <body>
   <div id="loader-wrapper">
     <div class="loader-aurora"></div>
@@ -79,7 +82,7 @@
 
   <script type="module">
     import { loadExperience } from '/src/js/pages/experiencia.js';
-    
+
     window.addEventListener("load", () => {
       const loader = document.getElementById("loader-wrapper");
       loader.style.opacity = "0";
@@ -92,5 +95,5 @@
     });
   </script>
 </body>
-</html>
 
+</html>

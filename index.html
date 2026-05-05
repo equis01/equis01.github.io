@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -7,7 +8,7 @@
   <link rel="icon" type="image/png" href="/public/img/logo/logo-x.png" />
   <link rel="stylesheet" href="/src/css/base/main.css" />
   <link rel="stylesheet" href="/src/css/components/nav.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
   <script type="module">
     import { initProtection, triggerShare } from '/src/js/utils/protection.js';
     initProtection();
@@ -23,6 +24,7 @@
       text-align: center;
       padding: 2rem;
     }
+
     .profile-pic {
       width: 150px;
       height: 150px;
@@ -33,16 +35,50 @@
       object-fit: cover;
       animation: float 6s ease-in-out infinite;
     }
+
     @keyframes float {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-10px); }
+
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-10px);
+      }
     }
-    .hero h1 { font-size: 3rem; margin-bottom: 0.5rem; letter-spacing: -1px; }
-    .hero .subtext { font-size: 1.1rem; color: var(--text-secondary); max-width: 600px; margin-bottom: 2rem; }
-    .social-links { display: flex; gap: 1.8rem; font-size: 1.8rem; margin-bottom: 3rem; }
-    .social-links a { color: var(--text-primary); text-decoration: none; }
-    
-    .cta-container { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; }
+
+    .hero h1 {
+      font-size: 3rem;
+      margin-bottom: 0.5rem;
+      letter-spacing: -1px;
+    }
+
+    .hero .subtext {
+      font-size: 1.1rem;
+      color: var(--text-secondary);
+      max-width: 600px;
+      margin-bottom: 2rem;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 1.8rem;
+      font-size: 1.8rem;
+      margin-bottom: 3rem;
+    }
+
+    .social-links a {
+      color: var(--text-primary);
+      text-decoration: none;
+    }
+
+    .cta-container {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
 
     /* Botón Compartir Original Replicado */
     .share-btn {
@@ -62,12 +98,14 @@
       align-items: center;
       justify-content: center;
     }
+
     .share-btn:hover {
       transform: scale(1.2) rotate(20deg);
       box-shadow: 0 0 12px var(--accent-glow);
     }
   </style>
 </head>
+
 <body>
   <!-- Loader -->
   <div id="loader-wrapper">
@@ -85,13 +123,15 @@
   <section class="hero">
     <img src="/public/img/yo/1.jpeg" alt="Eduardo Vázquez" class="profile-pic" />
     <h1>Eduardo Vázquez</h1>
-    <p class="subtext">“Las ideas no surgen completamente formadas, se aclaran a medida que se trabaja en ellas. Solo tienes que empezar.”</p>
-    
+    <p class="subtext">“Las ideas no surgen completamente formadas, se aclaran a medida que se trabaja en ellas. Solo
+      tienes que empezar.”</p>
+
     <div class="social-links">
       <a href="https://wa.me/52442191619" target="_blank" class="animate-icon"><i class="fab fa-whatsapp"></i></a>
       <a href="mailto:luis@evamtz.me" class="animate-icon"><i class="fas fa-envelope"></i></a>
       <a href="https://github.com/equis01" target="_blank" class="animate-icon"><i class="fab fa-github"></i></a>
-      <a href="https://linkedin.com/in/eduardo-vázquez" target="_blank" class="animate-icon"><i class="fab fa-linkedin"></i></a>
+      <a href="https://linkedin.com/in/eduardo-vázquez" target="_blank" class="animate-icon"><i
+          class="fab fa-linkedin"></i></a>
     </div>
 
     <div class="cta-container">
@@ -114,7 +154,7 @@
 
   <script type="module">
     document.getElementById("year").textContent = new Date().getFullYear();
-    
+
     window.addEventListener("load", () => {
       const loader = document.getElementById("loader-wrapper");
       loader.style.opacity = "0";
@@ -128,5 +168,5 @@
     });
   </script>
 </body>
-</html>
 
+</html>
