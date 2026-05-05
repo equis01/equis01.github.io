@@ -1,0 +1,39 @@
+{
+  "herramientas": [
+    {
+      "id": "qr-gen",
+      "nombre": "Generador QR Pro",
+      "descripcion": "Crea códigos QR con estilo Aurora, personaliza colores e integra tu logo para una marca profesional.",
+      "url": "/portafolio/herramientas/qr-gen/",
+      "icono": "fas fa-qrcode",
+      "badge": "Utilidad"
+    },
+    {
+      "id": "dev-shop",
+      "nombre": "Dev Shop",
+      "descripcion": "Mi catálogo de plantillas web optimizadas y listas para desplegar. Diseño premium al alcance de un clic.",
+      "url": "/portafolio/shop/",
+      "icono": "fas fa-code-branch",
+      "badge": "Productividad"
+    }
+  ],
+  "proyectos": [
+    {
+      "id": "chula-style",
+      "nombre": "Chula Style",
+      "descripcion": "Plataforma de comercio electrónico con un diseño vibrante y experiencia de usuario fluida.",
+      "url": "/portafolio/proyectos/chula/",
+      "icono": "fas fa-shopping-bag",
+      "badge": "E-commerce"
+    },
+    {
+      "id": "portfolio-aurora",
+      "nombre": "Este Portafolio",
+      "descripcion": "Arquitectura moderna con Vite, protección de código y diseño aurora-glassmorphism.",
+      "url": "https://github.com/equis01",
+      "icono": "fas fa-user-astronaut",
+      "badge": "Portfolio",
+      "external": true
+    }
+  ]
+}

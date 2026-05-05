@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dev | Eduardo Vázquez</title>
+  <link rel="icon" type="image/png" href="/img/logo/logo-x.png" />
+  <link rel="stylesheet" href="/src/css/base/main.css" />
+  <link rel="stylesheet" href="/src/css/components/nav.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 2.5rem;
+      padding: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .template-card {
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: 0.4s;
+    }
+
+    .template-card:hover {
+      transform: translateY(-10px);
+    }
+
+    .thumb {
+      height: 200px;
+      background: #111;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.7;
+    }
+
+    .info {
+      padding: 1.5rem;
+      flex-grow: 1;
+    }
+
+    .precio {
+      font-size: 1.2rem;
+      color: var(--accent-color);
+      font-weight: bold;
+      margin-top: 1rem;
+      display: block;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="aurora-bg"></div>
+
+  <header style="padding: 4rem 2rem 1rem; text-align: center;">
+    <h1>Catálogo de Plantillas</h1>
+    <p style="color: var(--text-secondary);">Selecciona una herramienta para ver detalles y previsualización.</p>
+  </header>
+
+  <div id="shop-grid" class="grid"></div>
+
+  <nav class="glass floating-nav">
+    <a href="/" class="nav-link"><i class="fas fa-home"></i><span>Inicio</span></a>
+    <a href="/portafolio/" class="nav-link"><i class="fas fa-th-large"></i><span>Portafolio</span></a>
+    <a href="/portafolio/shop/" class="nav-link active"><i class="fas fa-shopping-cart"></i><span>Tienda</span></a>
+  </nav>
+
+  <script type="module">
+    import { initProtection } from '/src/js/utils/protection.js';
+    initProtection();
+
+    async function loadTemplates() {
+      const response = await fetch('/src/data/templates.json');
+      const templates = await response.json();
+      const grid = document.getElementById('shop-grid');
+
+      templates.forEach(t => {
+        const hash = btoa(t.id);
+        const card = document.createElement('div');
+        card.className = 'glass template-card';
+        card.innerHTML = `
+          <div class="thumb"><img src="${t.imagen}" alt="${t.nombre}"></div>
+          <div class="info">
+            <h3>${t.nombre}</h3>
+            <p>${t.descripcion}</p>
+            <span class="precio">${t.precio_base}</span>
+            <a href="/portafolio/shop/viewer.html?t=${hash}" class="btn-primary" style="width: 100%; justify-content: center; margin-top: 1.5rem;">
+              <i class="fas fa-eye"></i> Previsualizar
+            </a>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+    }
+    loadTemplates();
+  </script>
+</body>
+
+</html>

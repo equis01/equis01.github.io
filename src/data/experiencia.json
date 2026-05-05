@@ -1,0 +1,28 @@
+{
+  "experiencia": [
+    {
+      "puesto": "Líder de Innovacio y Coordinador Operativo",
+      "empresa": "Medios con Valor",
+      "periodo": "2025 - Presente",
+      "descripcion": "Liderazgo en el desarrollo de nuevas iniciativas y mejora de procesos operativos."
+    },
+    {
+      "puesto": "Auxiliar administrtivo",
+      "empresa": "Medios con Valor",
+      "periodo": "2024",
+      "descripcion": "Revisión y seguimiento constante en procesos operativos del día a día de la sucursal de Querétaro."
+    },
+    {
+      "puesto": "Supervisor",
+      "empresa": "Domino's Pizza",
+      "periodo": "2022 - 2023",
+      "descripcion": "Supervisión de operaciones diarias, gestión de equipo y atención al cliente para garantizar la calidad del servicio."
+    },
+    {
+      "puesto": "Preparador de Pizzas Perfectas",
+      "empresa": "Domino's Pizza",
+      "periodo": "2022",
+      "descripcion": "Elaboración de productos siguiendo estándares de calidad y seguridad alimentaria."
+    }
+  ]
+}

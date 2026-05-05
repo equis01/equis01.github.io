@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Eduardo Vázquez</title>
+  <link rel="icon" type="image/png" href="/img/logo/logo-x.png" />
+  <link rel="stylesheet" href="/src/css/base/main.css" />
+  <link rel="stylesheet" href="/src/css/components/nav.css" />
+  <link rel="stylesheet" href="/src/css/pages/qr.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <script src="https://cdn.jsdelivr.net/npm/qr-code-styling@1.6.0/lib/qr-code-styling.min.js"></script>
+  <script type="module">
+    import { initProtection, triggerShare } from '/src/js/utils/protection.js';
+    initProtection();
+    window.triggerShare = triggerShare;
+  </script>
+  <style>
+    .share-btn {
+      position: fixed;
+      top: 1rem;
+      left: 1rem;
+      background: #111;
+      border: 1px solid var(--accent-color);
+      color: var(--accent-color);
+      font-size: 1.3rem;
+      padding: 0.6rem 0.7rem;
+      border-radius: 50%;
+      cursor: pointer;
+      z-index: 1001;
+      transition: 0.3s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .share-btn:hover {
+      transform: scale(1.2) rotate(20deg);
+      box-shadow: 0 0 12px var(--accent-glow);
+    }
+  </style>
+</head>
+<body>
+  <div class="aurora-bg"></div>
+
+  <button class="share-btn" title="Compartir Perfil">
+    <i class="fas fa-arrow-up-from-bracket"></i>
+  </button>
+
+  <div class="qr-container">
+    <div class="glass qr-card">
+      <header>
+        <h2 style="color: var(--accent-color)">Generador QR Pro</h2>
+        <p style="font-size: 0.9rem; color: var(--text-secondary)">Personalización avanzada con estilo Aurora.</p>
+      </header>
+
+      <div class="form-group">
+        <label>Contenido del QR</label>
+        <div style="display: flex; gap: 0.5rem">
+          <input id="qr-data" type="text" value="https://midominio.com/" placeholder="Escribe tu enlace...">
+          <button class="copy-btn-mini" id="copy-btn"><i class="fas fa-copy"></i></button>
+        </div>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem">
+        <div class="form-group">
+          <label>Estilo de puntos</label>
+          <select id="dots-type">
+            <option value="dots">Círculos</option>
+            <option value="rounded">Redondeado</option>
+            <option value="classy">Classy</option>
+            <option value="square">Cuadrado</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Color</label>
+          <input id="color" type="color" value="#00ffff" style="height: 45px; padding: 2px; cursor: pointer">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Añadir Logo</label>
+        <input id="logo-upload" type="file" accept="image/*">
+      </div>
+
+      <div id="qr" class="qr-result"></div>
+
+      <div class="qr-actions">
+        <button id="update-btn" class="btn-primary" style="flex: 1">Actualizar</button>
+        <button id="download-btn" class="btn-primary" style="flex: 1">Descargar</button>
+      </div>
+      <div id="msg" style="font-size: 0.8rem; height: 1rem; color: var(--accent-color)"></div>
+    </div>
+  </div>
+
+  <nav class="glass floating-nav">
+    <a href="/" class="nav-link"><i class="fas fa-home"></i><span>Inicio</span></a>
+    <a href="/experiencia/" class="nav-link"><i class="fas fa-history"></i><span>Experiencia</span></a>
+    <a href="/portafolio/" class="nav-link active"><i class="fas fa-th-large"></i><span>Portafolio</span></a>
+  </nav>
+
+  <footer>
+    <div style="text-align: center; padding: 2rem 0 8rem; color: var(--text-secondary); font-size: 0.8rem;">
+      © <span id="year"></span> Eduardo Vázquez
+    </div>
+  </footer>
+
+  <script type="module" src="/src/js/pages/qr.js"></script>
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+    document.querySelector('.share-btn').addEventListener('click', () => {
+      window.triggerShare();
+    });
+  </script>
+</body>
+</html>
+

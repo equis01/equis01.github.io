@@ -3,52 +3,130 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Evazquez.me</title>
-  <link rel="icon" type="image/png" href="https://www.evazquez.me/img/logo/x%3D.png" />
-  <link rel="stylesheet" href="styles/index.css" />
-  <script src="script/index.js" defer></script>
+  <title>Eduardo Vázquez</title>
+  <link rel="icon" type="image/png" href="/img/logo/logo-x.png" />
+  <link rel="stylesheet" href="/src/css/base/main.css" />
+  <link rel="stylesheet" href="/src/css/components/nav.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <script type="module">
+    import { initProtection, triggerShare } from '/src/js/utils/protection.js';
+    initProtection();
+    window.triggerShare = triggerShare;
+  </script>
+  <style>
+    .hero {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 2rem;
+    }
+    .profile-pic {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      border: 3px solid var(--accent-color);
+      box-shadow: 0 0 30px var(--accent-glow);
+      margin-bottom: 1.5rem;
+      object-fit: cover;
+      animation: float 6s ease-in-out infinite;
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+    .hero h1 { font-size: 3rem; margin-bottom: 0.5rem; letter-spacing: -1px; }
+    .hero .subtext { font-size: 1.1rem; color: var(--text-secondary); max-width: 600px; margin-bottom: 2rem; }
+    .social-links { display: flex; gap: 1.8rem; font-size: 1.8rem; margin-bottom: 3rem; }
+    .social-links a { color: var(--text-primary); text-decoration: none; }
+    
+    .cta-container { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; }
+
+    /* Botón Compartir Original Replicado */
+    .share-btn {
+      position: fixed;
+      top: 1rem;
+      left: 1rem;
+      background: #111;
+      border: 1px solid var(--accent-color);
+      color: var(--accent-color);
+      font-size: 1.3rem;
+      padding: 0.6rem 0.7rem;
+      border-radius: 50%;
+      cursor: pointer;
+      z-index: 1001;
+      transition: 0.3s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .share-btn:hover {
+      transform: scale(1.2) rotate(20deg);
+      box-shadow: 0 0 12px var(--accent-glow);
+    }
+  </style>
 </head>
 <body>
+  <!-- Loader -->
+  <div id="loader-wrapper">
+    <div class="loader-aurora"></div>
+    <div class="spinner"></div>
+    <p style="margin-top: 1.5rem; letter-spacing: 2px; font-size: 0.8rem; color: var(--accent-color);">CARGANDO</p>
+  </div>
 
-  <div id="loader">
-  <div class="aurora-loader"></div>
-  <div class="spinner"></div>
-</div>
-  <!-- Fondo animado -->
   <div class="aurora-bg"></div>
 
-  <!-- Botón compartir -->
-  <button class="share-btn" onclick="shareProfile()" aria-label="Compartir perfil">
+  <button class="share-btn" title="Compartir Perfil">
     <i class="fas fa-arrow-up-from-bracket"></i>
   </button>
 
-  <div class="container">
-    <img src="img/yo/1.jpeg" alt="x=Eduardo" class="profile-pic" />
+  <section class="hero">
+    <img src="/img/yo/1.jpeg" alt="Eduardo Vázquez" class="profile-pic" />
     <h1>Eduardo Vázquez</h1>
-    <p class="subtext">“Las ideas no surgen completamente formadas, se aclaran a medida que se trabaja en ellas. Solo tienes que empezar.” - Mark Zuckerberg.</p>
-
-    <div class="top-icons">
-      <a href="https://wa.me/524462220020" target="_blank"><i class="fab fa-whatsapp"></i></a>
-      <a href="mailto:luis@evazquez.me"><i class="fas fa-envelope"></i></a>
-      <a href="https://github.com/equis01" target="_blank"><i class="fab fa-github"></i></a>
+    <p class="subtext">“Las ideas no surgen completamente formadas, se aclaran a medida que se trabaja en ellas. Solo tienes que empezar.”</p>
+    
+    <div class="social-links">
+      <a href="https://wa.me/52442191619" target="_blank" class="animate-icon"><i class="fab fa-whatsapp"></i></a>
+      <a href="mailto:luis@evamtz.me" class="animate-icon"><i class="fas fa-envelope"></i></a>
+      <a href="https://github.com/equis01" target="_blank" class="animate-icon"><i class="fab fa-github"></i></a>
+      <a href="https://linkedin.com/in/eduardo-vázquez" target="_blank" class="animate-icon"><i class="fab fa-linkedin"></i></a>
     </div>
 
-    <a href="https://linkedin.com/in/eduardo-vázquez" class="button-link" target="_blank">
-      <i class="fab fa-linkedin"></i> LinkedIn
-    </a>
-    <a href="/cv" class="button-link" target="_blank">
-      <i class="fas fa-file-lines"></i> CV
-    </a>
-    <a href="https://instagram.com/equisx01" class="button-link" target="_blank">
-      <i class="fab fa-instagram"></i> Instagram
-    </a>
-    <a href="https://tiktok.com/@equisxo1" class="button-link" target="_blank">
-      <i class="fab fa-tiktok"></i> TikTok
-    </a>
+    <div class="cta-container">
+      <a href="/experiencia/" class="btn-primary"><i class="fas fa-history"></i> Mi Experiencia</a>
+      <a href="/cv/" class="btn-primary"><i class="fas fa-file-pdf"></i> Ver CV</a>
+    </div>
+  </section>
 
-    <footer>© <span id="year"></span> equisx01</footer>
-  </div>
+  <nav class="glass floating-nav">
+    <a href="/" class="nav-link active"><i class="fas fa-home"></i><span>Inicio</span></a>
+    <a href="/portafolio/" class="nav-link"><i class="fas fa-th-large"></i><span>Portafolio</span></a>
+    <a href="/portafolio/shop/" class="nav-link"><i class="fas fa-shopping-cart"></i><span>Tienda</span></a>
+  </nav>
 
+  <footer>
+    <div style="text-align: center; padding: 2rem 0 8rem; color: var(--text-secondary); font-size: 0.8rem;">
+      © <span id="year"></span> Eduardo Vázquez
+    </div>
+  </footer>
+
+  <script type="module">
+    document.getElementById("year").textContent = new Date().getFullYear();
+    
+    window.addEventListener("load", () => {
+      const loader = document.getElementById("loader-wrapper");
+      loader.style.opacity = "0";
+      setTimeout(() => {
+        loader.style.visibility = "hidden";
+      }, 800);
+    });
+
+    document.querySelector('.share-btn').addEventListener('click', () => {
+      window.triggerShare();
+    });
+  </script>
 </body>
 </html>
+

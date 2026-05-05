@@ -1,0 +1,65 @@
+.qr-container {
+  max-width: 500px;
+  margin: 4rem auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.qr-card {
+  padding: 2.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.form-group {
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.form-group label {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  margin-left: 0.5rem;
+}
+
+input[type="text"], select {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--glass-border);
+  border-radius: 12px;
+  padding: 0.8rem 1rem;
+  color: white;
+  outline: none;
+  width: 100%;
+  transition: border 0.3s;
+}
+
+input[type="text"]:focus {
+  border-color: var(--accent-color);
+}
+
+.qr-result {
+  margin: 1rem auto;
+  padding: 1rem;
+  background: white;
+  border-radius: 20px;
+  width: fit-content;
+  box-shadow: 0 0 30px var(--accent-glow);
+}
+
+.qr-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.copy-btn-mini {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  padding: 0.5rem;
+  border-radius: 8px;
+  color: var(--text-primary);
+  cursor: pointer;
+}
