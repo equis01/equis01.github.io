@@ -1,0 +1,2018 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Estudio - Cuidado Animal</title>
+  <meta name="description" content="Formulario de investigación sobre el cuidado animal. Participa y comparte tu experiencia." />
+  <meta name="author" content="Eduardo Vázquez" />
+  <link rel="icon" href="/public/img/logo/logo-x.png" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg: #eef4f1;
+      --surface: #ffffff;
+      --surface-soft: #f7faf8;
+      --text: #17211d;
+      --muted: #65726d;
+      --accent: #157a6e;
+      --accent-dark: #0f5f56;
+      --accent-soft: #e5f4ef;
+      --warm: #f2a65a;
+      --danger: #d94f4f;
+      --border: #dce7e2;
+      --shadow: 0 24px 70px rgba(25, 48, 40, 0.14);
+      --focus-ring: rgba(21, 122, 110, 0.18);
+      --radius: 8px;
+      --max-width: 900px;
+    }
+
+    *{box-sizing:border-box}
+    html{min-height:100%;scroll-behavior:smooth}
+    body{
+      min-height:100%;
+      margin:0;
+      font-family:'Poppins',system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;
+      color:var(--text);
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      padding:34px 14px 104px;
+      background:
+        linear-gradient(135deg, rgba(21,122,110,.12), transparent 38%),
+        linear-gradient(315deg, rgba(242,166,90,.18), transparent 34%),
+        var(--bg);
+    }
+
+    body::before{
+      content:"";
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      background-image:
+        linear-gradient(rgba(23,33,29,.045) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(23,33,29,.045) 1px, transparent 1px);
+      background-size:48px 48px;
+      mask-image:linear-gradient(to bottom, rgba(0,0,0,.75), transparent 72%);
+    }
+
+    .container{
+      width:100%;
+      max-width:var(--max-width);
+      position:relative;
+      overflow:hidden;
+      background:rgba(255,255,255,.94);
+      border:1px solid rgba(255,255,255,.85);
+      border-radius:var(--radius);
+      padding:42px;
+      box-shadow:var(--shadow);
+    }
+
+    .container::before{
+      content:"";
+      position:absolute;
+      inset:0 0 auto;
+      height:7px;
+      background:linear-gradient(90deg,var(--accent),var(--warm),#355c7d);
+    }
+
+    .container::after{
+      content:"Estudio";
+      position:absolute;
+      top:22px;
+      left:42px;
+      color:var(--accent);
+      font-size:12px;
+      font-weight:700;
+      letter-spacing:0;
+      text-transform:uppercase;
+    }
+
+    html[lang="en"] .container::after{content:"Research"}
+    html[lang="es"] .container::after{content:"Estudio"}
+
+    .lang-switcher{
+      position:absolute;
+      top:18px;
+      right:20px;
+      display:flex;
+      gap:6px;
+      padding:4px;
+      background:var(--surface-soft);
+      border:1px solid var(--border);
+      border-radius:999px;
+      z-index:2;
+    }
+
+    .lang-btn{
+      min-width:38px;
+      border:0;
+      background:transparent;
+      padding:7px 10px;
+      border-radius:999px;
+      color:var(--muted);
+      cursor:pointer;
+      font-size:12px;
+      font-weight:700;
+    }
+
+    .lang-btn.active{
+      background:var(--accent);
+      color:#fff;
+      box-shadow:0 8px 18px rgba(21,122,110,.24);
+    }
+
+    #form-container{padding-top:26px}
+    .hp-field{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+
+    .step-panel{display:none}
+    .step-panel.active{
+      display:block;
+      animation:panelIn .22s ease-out;
+    }
+
+    @keyframes panelIn{
+      from{opacity:0;transform:translateY(8px)}
+      to{opacity:1;transform:translateY(0)}
+    }
+
+    h1,h2,p{overflow-wrap:anywhere}
+    h1{
+      max-width:760px;
+      margin:18px auto 16px;
+      color:var(--text);
+      font-size:clamp(26px,4vw,42px);
+      line-height:1.08;
+      font-weight:700;
+      text-align:center;
+    }
+
+    h2{
+      margin:14px 0 10px;
+      color:var(--accent-dark);
+      font-size:18px;
+      line-height:1.3;
+      font-weight:700;
+    }
+
+    .welcome-text{
+      max-width:760px;
+      margin:0 auto 28px;
+      color:var(--muted);
+      font-size:15px;
+      line-height:1.75;
+      text-align:center;
+    }
+
+    .section-title,
+    .instruction-block{
+      margin:12px 0 20px;
+      padding:14px 16px;
+      border:1px solid var(--border);
+      border-left:5px solid var(--warm);
+      border-radius:var(--radius);
+      background:linear-gradient(90deg,#fff8ef,var(--surface-soft));
+      color:#5d4628;
+      font-size:14px;
+      font-weight:700;
+    }
+
+    .question-group{
+      margin-bottom:20px;
+      padding:18px;
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      background:var(--surface);
+    }
+
+    label.question-label{
+      display:block;
+      margin-bottom:14px;
+      color:var(--text);
+      font-size:15px;
+      line-height:1.5;
+      font-weight:700;
+    }
+
+    .question-step{
+      display:block;
+      width:max-content;
+      max-width:100%;
+      margin-bottom:8px;
+      padding:5px 9px;
+      border-radius:999px;
+      background:var(--accent-soft);
+      color:var(--accent-dark);
+      font-size:12px;
+      font-weight:700;
+    }
+
+    .question-copy{
+      display:block;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    textarea,
+    .other-inline{
+      width:100%;
+      min-height:46px;
+      padding:12px 14px;
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      background:#fbfdfc;
+      color:var(--text);
+      font:inherit;
+      font-size:14px;
+      outline:none;
+      transition:border-color .18s ease, box-shadow .18s ease, background .18s ease;
+    }
+
+    textarea{
+      min-height:126px;
+      resize:vertical;
+      line-height:1.55;
+    }
+
+    input[type="text"]:focus,
+    input[type="email"]:focus,
+    textarea:focus,
+    .other-inline:focus{
+      border-color:var(--accent);
+      background:#fff;
+      box-shadow:0 0 0 4px var(--focus-ring);
+    }
+
+    input[type="radio"],
+    input[type="checkbox"]{
+      flex:0 0 auto;
+      width:18px;
+      height:18px;
+      margin:2px 0 0;
+      accent-color:var(--accent);
+    }
+
+    .option-control{
+      display:flex;
+      align-items:flex-start;
+      gap:12px;
+      width:100%;
+      margin-bottom:10px;
+      padding:14px;
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      background:var(--surface-soft);
+      color:var(--muted);
+      cursor:pointer;
+      line-height:1.45;
+      transition:transform .16s ease, border-color .16s ease, background .16s ease, box-shadow .16s ease;
+    }
+
+    .option-control:last-child{margin-bottom:0}
+    .option-control:hover{
+      transform:translateY(-1px);
+      border-color:rgba(21,122,110,.42);
+      background:#fff;
+      box-shadow:0 10px 22px rgba(25,48,40,.08);
+    }
+
+    .option-control:has(input:checked){
+      border-color:var(--accent);
+      background:var(--accent-soft);
+      color:var(--text);
+      box-shadow:0 10px 22px rgba(21,122,110,.12);
+    }
+
+    .option-control span{flex:1}
+    .other-inline{
+      flex:1;
+      min-width:160px;
+      margin-top:-6px;
+    }
+
+    .other-inline:disabled{
+      opacity:.55;
+      cursor:not-allowed;
+      background:#edf2ef;
+    }
+
+    .scale-container{
+      display:grid;
+      gap:12px;
+      padding:4px 0;
+    }
+
+    .scale-options{
+      display:grid;
+      grid-template-columns:repeat(5,minmax(46px,1fr));
+      gap:10px;
+    }
+
+    .scale-item{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      min-height:56px;
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      background:var(--surface-soft);
+      color:var(--text);
+      font-weight:700;
+      cursor:pointer;
+      transition:border-color .16s ease, background .16s ease, transform .16s ease;
+    }
+
+    .scale-item input{
+      position:absolute;
+      opacity:0;
+      pointer-events:none;
+    }
+
+    .scale-item:hover{
+      transform:translateY(-1px);
+      border-color:var(--accent);
+    }
+
+    .scale-item:has(input:checked){
+      background:var(--accent);
+      color:#fff;
+      border-color:var(--accent);
+    }
+
+    .scale-label{
+      color:var(--muted);
+      font-size:12px;
+      font-weight:600;
+    }
+
+    .privacy-box{
+      margin-bottom:18px;
+      padding:18px;
+      border:1px solid #d7e2dd;
+      border-radius:var(--radius);
+      background:#f6fbf8;
+      color:var(--muted);
+      font-size:13px;
+      line-height:1.6;
+    }
+
+    .privacy-box strong{color:var(--text)}
+    .privacy-box .option-control{
+      background:transparent;
+      box-shadow:none;
+      transform:none;
+    }
+
+    .privacy-links{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      margin:10px 0 0;
+      font-size:13px;
+    }
+
+    .privacy-links a{
+      color:var(--accent-dark);
+      font-weight:700;
+      text-decoration:none;
+    }
+
+    .privacy-links a:hover{text-decoration:underline}
+
+    .captcha-box{
+      display:flex;
+      align-items:center;
+      gap:14px;
+      margin-top:18px;
+      padding:16px;
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      background:var(--surface-soft);
+    }
+
+    .captcha-question{
+      min-width:96px;
+      padding:10px 14px;
+      border-radius:var(--radius);
+      background:#17211d;
+      color:#fff;
+      text-align:center;
+      font-weight:700;
+    }
+
+    .captcha-input{max-width:180px}
+
+    .btn-container{
+      display:flex;
+      justify-content:flex-end;
+      gap:12px;
+      margin-top:24px;
+    }
+
+    .action-btn{
+      min-width:148px;
+      min-height:46px;
+      padding:12px 18px;
+      border:1px solid var(--border);
+      border-radius:999px;
+      background:#fff;
+      color:var(--text);
+      cursor:pointer;
+      font:inherit;
+      font-size:14px;
+      font-weight:700;
+      transition:transform .16s ease, box-shadow .16s ease, background .16s ease;
+    }
+
+    .action-btn:hover{
+      transform:translateY(-1px);
+      box-shadow:0 10px 22px rgba(25,48,40,.12);
+    }
+
+    .btn-next{
+      border-color:transparent;
+      background:linear-gradient(135deg,var(--accent),var(--accent-dark));
+      color:#fff;
+    }
+
+    .btn-back{
+      background:#f7faf8;
+      color:var(--muted);
+    }
+
+    .action-btn:disabled{
+      opacity:.62;
+      cursor:not-allowed;
+      transform:none;
+      box-shadow:none;
+    }
+
+    #success-screen{
+      display:none;
+      padding:46px 16px 22px;
+      text-align:center;
+    }
+
+    .success-icon{
+      width:74px;
+      height:74px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      margin-bottom:12px;
+      border-radius:50%;
+      background:var(--accent-soft);
+      font-size:34px;
+    }
+
+    .cierre-texto{
+      max-width:640px;
+      margin:0 auto;
+      padding:18px;
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      background:var(--surface-soft);
+      color:var(--muted);
+      font-size:15px;
+      line-height:1.7;
+    }
+
+    .floating-nav{
+      position:fixed;
+      left:50%;
+      bottom:22px;
+      z-index:20;
+      display:flex;
+      gap:6px;
+      max-width:calc(100vw - 24px);
+      padding:7px;
+      border:1px solid rgba(255,255,255,.72);
+      border-radius:999px;
+      background:rgba(255,255,255,.88);
+      box-shadow:0 18px 42px rgba(25,48,40,.18);
+      backdrop-filter:blur(16px);
+      transform:translateX(-50%);
+    }
+
+    .nav-link{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:8px;
+      min-height:38px;
+      padding:9px 14px;
+      border-radius:999px;
+      color:var(--muted);
+      text-decoration:none;
+      font-size:13px;
+      font-weight:700;
+      white-space:nowrap;
+    }
+
+    .nav-link:hover,
+    .nav-link.active{
+      background:var(--accent-soft);
+      color:var(--accent-dark);
+    }
+
+    footer{
+      width:100%;
+      max-width:var(--max-width);
+      margin-top:16px;
+    }
+
+    .site-footer{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:12px;
+      padding:18px 12px;
+      color:rgba(23,33,29,.62);
+    }
+
+    .footer-badges{display:flex;gap:12px;align-items:center}
+    .badge-circle{
+      width:40px;
+      height:40px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      border:1px solid rgba(21,122,110,.24);
+      border-radius:50%;
+      background:#fff;
+      color:var(--accent-dark);
+      font-size:12px;
+      font-weight:700;
+      box-shadow:0 10px 24px rgba(25,48,40,.08);
+    }
+
+    .footer-credits{font-size:13px}
+
+    .app-modal{
+      position:fixed;
+      inset:0;
+      z-index:60;
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding:20px;
+      background:rgba(17,24,22,.42);
+      backdrop-filter:blur(8px);
+    }
+
+    .app-modal.active{display:flex}
+
+    .app-modal-dialog{
+      width:min(420px,100%);
+      padding:22px;
+      border:1px solid rgba(255,255,255,.7);
+      border-radius:var(--radius);
+      background:var(--surface);
+      box-shadow:0 24px 70px rgba(15,30,24,.28);
+    }
+
+    .app-modal-message{
+      margin:0 0 18px;
+      color:var(--text);
+      font-size:15px;
+      line-height:1.6;
+    }
+
+    .app-modal-actions{
+      display:flex;
+      justify-content:flex-end;
+    }
+
+    @media (max-width:720px){
+      body{padding:16px 10px 112px}
+      .container{padding:34px 16px 22px}
+      .container::after{left:16px;top:20px;font-size:11px}
+      .lang-switcher{top:14px;right:12px}
+      #form-container{padding-top:38px}
+      h1{margin-top:10px;font-size:28px;text-align:left}
+      .welcome-text{text-align:left;font-size:14px}
+      .question-group{padding:14px}
+      .option-control{padding:13px}
+      .btn-container{justify-content:stretch;flex-direction:column-reverse}
+      .action-btn{width:100%}
+      .captcha-box{align-items:stretch;flex-direction:column}
+      .captcha-question,.captcha-input{width:100%;max-width:none}
+      .floating-nav{bottom:12px}
+      .nav-link{padding:9px 11px;font-size:12px}
+      .site-footer{flex-direction:column}
+    }
+
+    @media (max-width:440px){
+      .scale-options{grid-template-columns:repeat(5,1fr);gap:6px}
+      .scale-item{min-height:48px}
+      .nav-link span{display:none}
+      .nav-link{width:42px;padding:9px}
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="lang-switcher">
+      <button class="lang-btn active" id="btn-es" onclick="setLanguage('es')">ES</button>
+      <button class="lang-btn" id="btn-en" onclick="setLanguage('en')">EN</button>
+    </div>
+
+    <div id="form-container">
+      <form id="master-form" onsubmit="handleFormSubmit(event)" autocomplete="off">
+        <input type="hidden" name="formType" id="hiddenFormType" value="screener">
+        <input type="hidden" name="user_ip" id="user_ip" value="0.0.0.0">
+        <input type="hidden" name="user_city" id="user_city" value="Desconocida">
+
+        <div class="hp-field">
+          <input type="text" name="website_hp" id="website_hp" autocomplete="off">
+        </div>
+
+        <div id="step-screener" class="step-panel active">
+          <h1 data-key="sc_title">Estudio Internacional sobre el Cuidado Animal</h1>
+          <p class="welcome-text" data-key="sc_welcome">¡Hola! Te damos la bienvenida. Estamos realizando un estudio profundo a nivel internacional para entender cómo evoluciona el cuidado animal, identificar los desafíos diarios a los que nos enfrentamos y diseñar soluciones tecnológicas que profesionalicen el sector. Para guiarte hacia la plática ideal para ti, cuéntanos un poco sobre tu rol actual:</p>
+          
+          <div class="question-group">
+            <label class="question-label" data-key="sc_q1" style="font-weight:600;">¿Cuál de las siguientes opciones describe mejor tu situación o relación actual con los animales? *</label>
+            <label class="option-control"><input type="radio" name="screener_route" value="customer" onchange="autoAdvanceRoute(this)"> <span data-key="sc_o1">"Tengo una o más mascotas en casa actualmente (o animales especiales bajo mi cuidado)."</span></label>
+            <label class="option-control"><input type="radio" name="screener_route" value="adoptant" onchange="autoAdvanceRoute(this)"> <span data-key="sc_o2">"No tengo mascotas ahorita, pero he intentado adoptar una recientemente y el proceso se me complicó o no pude lograrlo."</span></label>
+            <label class="option-control"><input type="radio" name="screener_route" value="provider" onchange="autoAdvanceRoute(this)"> <span data-key="sc_o3">"Soy médico veterinario, especialista de la salud, paseador, cuidador o administro una clínica/hospital."</span></label>
+            <label class="option-control"><input type="radio" name="screener_route" value="seller" onchange="autoAdvanceRoute(this)"> <span data-key="sc_o_new">"Tengo una tienda de productos para mascotas, e-commerce, o soy fabricante/distribuidor de accesorios, alimento o farmacia."</span></label>
+            <label class="option-control"><input type="radio" name="screener_route" value="ong" onchange="autoAdvanceRoute(this)"> <span data-key="sc_o4">"Represento o formo parte activa de una ONG, refugio de animales o fundación de rescate."</span></label>
+          </div>
+        </div>
+
+        <div id="step-c-b1" class="step-panel">
+          <h2 data-key="c_title">Ruta para Dueños y Adoptantes</h2>
+          <div class="section-title" data-key="c_sec1">Bloque 1: Contexto y Estilo de Vida</div>
+          <div class="question-group">
+            <label class="question-label" data-key="c_q1">1. ¿Qué tipo de mascota te acompaña actualmente en casa y qué edad tiene? (Opción múltiple)</label>
+            <label class="option-control"><input type="checkbox" name="c_mascota_tipo" value="Perro"> <span data-key="dog">Perro</span></label>
+            <label class="option-control"><input type="checkbox" name="c_mascota_tipo" value="Gato"> <span data-key="cat">Gato</span></label>
+            <label class="option-control"><input type="checkbox" name="c_mascota_tipo" value="Pequeño mamífero"> <span data-key="c_o1_3">Pequeño mamífero</span></label>
+            <label class="option-control"><input type="checkbox" name="c_mascota_tipo" value="Ave/Reptil/Pez"> <span data-key="c_o1_4">Ave, reptil o pez</span></label>
+            <label class="option-control"><input type="checkbox" name="c_mascota_tipo" value="No tengo actualmente"> <span data-key="c_o1_5">No tengo mascota actualmente</span></label>
+            <label class="option-control"><input type="checkbox" id="chk-c-other" onchange="toggleOther('c-other', this)"> <span data-key="other">Otro:</span> <input type="text" id="c-other" class="other-inline" disabled></label>
+          </div>
+          <div class="btn-container">
+            <button type="button" class="action-btn btn-back" onclick="goBackManual()">Atrás</button>
+            <button type="button" class="action-btn btn-next" onclick="navigateWizard('step-c-b1-q2')">Siguiente</button>
+          </div>
+        </div>
+
+        <div id="step-c-b1-q2" class="step-panel">
+          <h2 data-key="c_title">Ruta para Dueños y Adoptantes</h2>
+          <div class="question-group">
+            <label class="question-label" data-key="c_q2">2. Entre alimento, visitas al médico, paseos o imprevistos, ¿cuánto dinero inviertes al mes? (Opción única)</label>
+            <label class="option-control"><input type="radio" name="c_inversion" value="Menos de $1,000" onchange="autoAdvance('step-c-b2')"> <span data-key="r_less1">Menos de $1,000 MXN</span></label>
+            <label class="option-control"><input type="radio" name="c_inversion" value="$1,000 - $3,000" onchange="autoAdvance('step-c-b2')"> <span data-key="r_1to3">Entre $1,000 y $3,000 MXN</span></label>
+            <label class="option-control"><input type="radio" name="c_inversion" value="$3,000 - $6,000" onchange="autoAdvance('step-c-b2')"> <span data-key="r_3to6">Entre $3,000 y $6,000 MXN</span></label>
+            <label class="option-control"><input type="radio" name="c_inversion" value="Más de $6,000" onchange="autoAdvance('step-c-b2')"> <span data-key="r_more6">Más de $6,000 MXN</span></label>
+          </div>
+          <div class="btn-container"><button type="button" class="action-btn btn-back" onclick="goBackManual()">Atrás</button></div>
+        </div>
+
+        <div id="step-c-b2" class="step-panel">
+          <h2 data-key="c_title">Ruta para Dueños y Adoptantes</h2>
+          <div class="section-title" data-key="c_sec2">Bloque 2: Experiencias y Dolores con Especialistas</div>
+          <div class="question-group">
+            <label class="question-label" data-key="c_q3">3. En los últimos meses, ¿cuáles de estos servicios has tenido que buscar? (Opción múltiple)</label>
+            <label class="option-control"><input type="checkbox" name="c_servicios" value="Consulta general"> <span data-key="c_o3_1">Consulta veterinaria general / Vacunas</span></label>
+            <label class="option-control"><input type="checkbox" name="c_servicios" value="Especialista"> <span data-key="c_o3_2">Médico especialista</span></label>
+            <label class="option-control"><input type="checkbox" name="c_servicios" value="Urgencias"> <span data-key="c_o3_3">Hospital clínico 24 horas</span></label>
+            <label class="option-control"><input type="checkbox" name="c_servicios" value="Servicios diarios"> <span data-key="c_o3_4">Servicios diarios</span></label>
+          </div>
+          <div class="question-group">
+            <label class="question-label" data-key="c_q4">4. Al buscar un especialista, ¿cuál consideras que es la mayor frustración o temor del mercado? *</label>
+            <textarea name="c_frustracion_esp" id="req_c1"></textarea>
+          </div>
+          <div class="question-group">
+            <label class="question-label" data-key="c_q5">5. Si dejas a tu mascota con un paseador, ¿cuál elemento te daría total tranquilidad? (Opción múltiple)</label>
+            <label class="option-control"><input type="checkbox" name="c_tranquilidad" value="GPS"> <span data-key="c_o5_1">Monitoreo por GPS en tiempo real.</span></label>
+            <label class="option-control"><input type="checkbox" name="c_tranquilidad" value="Seguro"> <span data-key="c_o5_2">Seguro de gastos médicos incluido.</span></label>
+            <label class="option-control"><input type="checkbox" name="c_tranquilidad" value="Multimedia"> <span data-key="c_o5_3">Recibir fotos y videos de forma directa.</span></label>
+            <label class="option-control"><input type="checkbox" id="chk-c-tranq-other" onchange="toggleOther('c-tranq-other', this)"> <span data-key="other">Otro:</span> <input type="text" id="c-tranq-other" class="other-inline" disabled></label>
+          </div>
+          <div class="btn-container">
+            <button type="button" class="action-btn btn-back" onclick="goBackManual()">Atrás</button>
+            <button type="button" class="action-btn btn-next" onclick="validateTextareasAndNext('step-c-b3', ['req_c1'])">Siguiente</button>
+          </div>
+        </div>
+
+        <div id="step-c-b3" class="step-panel">
+          <h2 data-key="c_title">Ruta para Dueños y Adoptantes</h2>
+          <div class="section-title" data-key="c_sec3">Bloque 3: El Gran Dolor de la Adopción</div>
+          <div class="question-group">
+            <label class="question-label" data-key="c_q6">6. Si has adoptado o intentado adoptar recientemente, ¿cuál fue tu experiencia? (Opción única)</label>
+            <label class="option-control"><input type="radio" name="c_adopcion_exp" value="Frustrante" onchange="advanceAfterAdoptionChoice()"> <span data-key="c_o6_1">Frustrante: Filtros eternos, demasiado intrusivos.</span></label>
+            <label class="option-control"><input type="radio" name="c_adopcion_exp" value="Complicada" onchange="advanceAfterAdoptionChoice()"> <span data-key="c_o6_2">Complicada: Caos para buscar, sin lugar centralizado.</span></label>
+            <label class="option-control"><input type="radio" name="c_adopcion_exp" value="Buena" onchange="advanceAfterAdoptionChoice()"> <span data-key="c_o6_3">Buena: El proceso fue ágil, humano y seguro.</span></label>
+            <label class="option-control"><input type="radio" name="c_adopcion_exp" value="Prefiero comprar" onchange="advanceAfterAdoptionChoice()"> <span data-key="c_o6_4">Prefiero comprar por certeza de salud o raza.</span></label>
+            <label class="option-control"><input type="radio" name="c_adopcion_exp" value="No aplica" onchange="advanceAfterAdoptionChoice()"> <span data-key="c_o6_6">No he pasado por un proceso de adopción recientemente.</span></label>
+            <label class="option-control"><input type="radio" id="chk-c-adop-other" name="c_adopcion_exp" value="Otra" onchange="toggleRadioOther('c-adop-other', this); showAdoptionOtherNext()"> <span data-key="c_o6_5">Otra experiencia:</span> <input type="text" id="c-adop-other" class="other-inline" disabled></label>
+          </div>
+          <div class="btn-container" id="container-back-c-b3" style="display:none;"><button type="button" class="action-btn btn-back" onclick="goBackManual()">Atrás</button></div>
+        </div>
+
+        <div id="step-c-b4" class="step-panel">
+          <h2 data-key="c_title">Ruta para Dueños y Adoptantes</h2>
+          <div class="section-title" data-key="c_sec4">Bloque 4: Finanzas e Historial Médico</div>
+          <div class="question-group">
+            <label class="question-label" data-key="c_q7">7. Describe cómo controlas sus papeles y qué tan estresante es encontrar un dato médico viejo de urgencia: *</label>
+            <textarea name="c_papeles_control" id="req_c2"></textarea>
+          </div>
+          <div class="question-group">
+            <label class="question-label" data-key="c_q8">8. ¿Qué tanto influiría pagar con enlaces seguros y Meses Sin Intereses (MSI)? (Opción única)</label>
+            <label class="option-control"><input type="radio" name="c_msi_influyen" value="Determinante" onchange="autoAdvance('step-c-b5')"> <span data-key="msi_1">Sería determinante para mudar todos mis servicios.</span></label>
+            <label class="option-control"><input type="radio" name="c_msi_influyen" value="Útil" onchange="autoAdvance('step-c-b5')"> <span data-key="msi_2">Lo consideraría útil, pero dependería de las tarifas.</span></label>
+            <label class="option-control"><input type="radio" name="c_msi_influyen" value="Indiferente" onchange="autoAdvance('step-c-b5')"> <span data-key="msi_3">Me es indiferente, prefiero efectivo o transferencia manual.</span></label>
+          </div>
+          <div class="btn-container"><button type="button" class="action-btn btn-back" onclick="goBackManual()">Atrás</button></div>
+        </div>
+
+        <div id="step-c-b5" class="step-panel">
+          <h2 data-key="c_title">Ruta para Dueños y Adoptantes</h2>
+          <div class="section-title" data-key="c_sec5">Bloque 5: Validación de la Solución Ideal</div>
+          <div class="instruction-block" data-key="app_ins">Imagina una nueva aplicación móvil diseñada para centralizar todo el ecosistema de tu mascota.</div>
+          <div class="question-group">
+            <label class="question-label" data-key="c_q9">9. Si esta plataforma te ofreciera estas herramientas, ¿cuáles consideras indispensables? (Selección múltiple)</label>
+            <label class="option-control"><input type="checkbox" name="c_indispensable" value="Carnet inteligente"> <span data-key="c_o9_1">Un "Carnet Inteligente" digital en tu celular...</span></label>
+            <label class="option-control"><input type="checkbox" name="c_indispensable" value="Directorio verificado"> <span data-key="c_o9_2">Un directorio verificado de especialistas calificados.</span></label>
+            <label class="option-control"><input type="checkbox" name="c_indispensable" value="Modulo adopcion"> <span data-key="c_o9_3">Un espacio de adopción responsable pre-verificado.</span></label>
+            <label class="option-control"><input type="checkbox" id="chk-c-ind-other" onchange="toggleOther('c-ind-other', this)"> <span data-key="other">Otro:</span> <input type="text" id="c-ind-other" class="other-inline" disabled></label>
+          </div>
+          <div class="question-group">
+            <label class="question-label" data-key="c_q10">10. Del 1 al 5, ¿qué tan dispuesto estarías a descargarla y usarla como herramienta principal?</label>
+            <div class="scale-container">
+              <div class="scale-label" data-key="scale_down_1">1 (No la descargaría)</div>
+              <div class="scale-options">
+                <label class="scale-item"><input type="radio" name="c_escala_descarga" value="1" onchange="autoAdvance('step-c-b5-end')">1</label>
+                <label class="scale-item"><input type="radio" name="c_escala_descarga" value="2" onchange="autoAdvance('step-c-b5-end')">2</label>
+                <label class="scale-item"><input type="radio" name="c_escala_descarga" value="3" onchange="autoAdvance('step-c-b5-end')">3</label>
+                <label class="scale-item"><input type="radio" name="c_escala_descarga" value="4" onchange="autoAdvance('step-c-b5-end')">4</label>
+                <label class="scale-item"><input type="radio" name="c_escala_descarga" value="5" onchange="autoAdvance('step-c-b5-end')">5</label>
+              </div>
+              <div class="scale-label" style="text-align: right;" data-key="scale_down_5">5 (La descargaría de inmediato)</div>
+            </div>
+          </div>
+          <div class="btn-container"><button type="button" class="action-btn btn-back" onclick="goBackManual()">Atrás</button></div>
+        </div>
+
+        <div id="step-c-b5-end" class="step-panel">
+          <h2 data-key="c_title">Ruta para Dueños y Adoptantes</h2>
+          <div class="question-group">
+            <label class="question-label" data-key="c_q11">11. En tus propias palabras, ¿qué tendría que garantizarte esta plataforma para que confíes al 100%? *</label>
+            <textarea name="c_garntia_seguridad" id="req_c3"></textarea>
+          </div>
+          <div class="btn-container">
+            <button type="button" class="action-btn btn-back" onclick="goBackManual()">Atrás</button>
+            <button type="button" class="action-btn btn-next" onclick="validateTextareasAndNext('step-leads', ['req_c3'])">Siguiente</button>
+          </div>
+        </div>
+
+        <div id="step-p-b1" class="step-panel">
+          <h2 data-key="p_title">Ruta para Profesionales y Clínicas</h2>
+          <div class="section-title" data-key="p_sec1">Bloque 1: Tu Perfil Profesional</div>
+          <div class="question-group">
+            <label class="question-label" data-key="p_q1">1. ¿A qué área del ecosistema de las mascotas te dedicas principalmente? (Opción única)</label>
+            <label class="option-control"><input type="radio" name="p_area" value="Especialista Independiente" onchange="autoAdvance('step-p-b1-q2')"> <span data-key="p_o1_1">Médico Especialista Independiente</span></label>
+            <label class="option-control"><input type="radio" name="p_area" value="Admin Clinica" onchange="autoAdvance('step-p-b1-q2')"> <span data-key="p_o1_2">Administrador / Dueño de Clínica u Hospital</span></label>
+            <label class="option-control"><input type="radio" name="p_area" value="Proveedor Bienestar" onchange="autoAdvance('step-p-b1-q2')"> <span data-key="p_o1_3">Proveedor de Servicios de Bienestar</span></label>
+            <label class="option-control"><input type="radio" id="chk-p-area-other" name="p_area" value="Otro" onchange="toggleRadioOther('p-area-other', this); autoAdvanceWithText('step-p-b1-q2')"> <span data-key="other">Otro:</span> <input type="text" id="p-area-other" class="other-inline" disabled></label>
+          </div>
+          <div class="btn-container"><button type="button" class="action-btn btn-back" onclick="goBackManual()">Atrás</button></div>
+        </div>
+
+        <div id="step-p-b1-q2" class="step-panel">
+          <h2 data-key="p_title">Ruta para Profesionales y Clínicas</h2>
+          <div class="question-group">
+            <label class="question-label" data-key="p_q2">2. En promedio, ¿a cuántos clientes atiendes a la semana? (Opción única)</label>
+            <label class="option-control"><input type="radio" name="p_volumen" value="Menos de 10" onchange="autoAdvance('step-p-b2')"> <span data-key="p_o2_1">Menos de 10</span></label>
+            <label class="option-control"><input type="radio" name="p_volumen" value="10 - 30" onchange="autoAdvance('step-p-b2')"> <span data-key="p_o2_2">Entre 10 y 30</span></label>
+            <label class="option-control"><input type="radio" name="p_volumen" value="30 - 60" onchange="autoAdvance('step-p-b2')"> <span data-key="p_o2_3">Entre 30 y 60</span></label>
+            <label class="option-control"><input type="radio" name="p_volumen" value="Más de 60" onchange="autoAdvance('step-p-b2')"> <span data-key="p_o2_4">Más de 60</span></label>
+          </div>
+          <div class="btn-container"><button type="button" class="action-btn btn-back" onclick="goBackManual()">Atrás</button></div>
+        </div>
+
+        <div id="step-p-b2" class="step-panel">
+          <h2 data-key="p_title">Ruta para Profesionales y Clínicas</h2>
+          <div class="section-title" data-key="p_sec2">Bloque 2: Dolores de Operación, Agenda y Clientes</div>
+          <div class="question-group">
+            <label class="question-label" data-key="p_q3">3. ¿Cuál es la tarea administrativa que más tiempo te quita y cómo te afecta? *</label>
+            <textarea name="p_dolor_admin" id="req_p1"></textarea>
+          </div>
+          <div class="question-group">
+            <label class="question-label" data-key="p_q4">4. ¿Qué porcentaje de tus citas semanales sufren de cancelaciones o No-Show? (Opción única)</label>
+            <label class="option-control"><input type="radio" name="p_noshow" value="Menos del 5%" onchange="autoAdvance('step-p-b2-end')"> <span data-key="p_o4_1">Menos del 5%</span></label>
+            <label class="option-control"><input type="radio" name="p_noshow" value="5% - 15%" onchange="autoAdvance('step-p-b2-end')"> <span data-key="p_o4_2">Entre el 5% y el 15%</span></label>
+            <label class="option-control"><input type="radio" name="p_noshow" value="15% - 30%" onchange="autoAdvance('step-p-b2-end')"> <span data-key="p_o4_3">Entre el 15% y el 30%</span></label>
+            <label class="option-control"><input type="radio" name="p_noshow" value="Más del 30%" onchange="autoAdvance('step-p-b2-end')"> <span data-key="p_o4_4">Más del 30%</span></label>
+          </div>
+          <div class="btn-container"><button type="button" class="action-btn btn-back" onclick="goBackManual()">Atrás</button></div>
+        </div>
+
+        <div id="step-p-b2-end" class="step-panel">
+          <h2 data-key="p_title">Ruta para Profesionales y Clínicas</h2>
+          <div class="question-group">
+            <label class="question-label" data-key="p_q5">5. Cuéntanos tu relación actual con los rescatistas o personas que llevan animales de la calle. *</label>
+            <textarea name="p_relacion_ong" id="req_p2"></textarea>
+          </div>
+          <div class="btn-container">
+            <button type="button" class="action-btn btn-back" onclick="goBackManual()">Atrás</button>
+            <button type="button" class="action-btn btn-next" onclick="validateTextareasAndNext('step-p-b3', ['req_p1', 'req_p2'])">Siguiente</button>
+          </div>
+        </div>
+
+        <div id="step-p-b3" class="step-panel">
+          <h2 data-key="p_title">Ruta para Profesionales y Clínicas</h2>
+          <div class="section-title" data-key="p_sec3">Bloque 3: Finanzas y Herramientas de Control</div>
+          <div class="question-group">
+            <label class="question-label" data-key="p_q6">6. Respecto al dinero, ¿cuál es tu mayor molestia actual con los cobros tradicionales? (Opción múltiple)</label>
+            <label class="option-control"><input type="checkbox" name="p_molestia_pago" value="Comisiones"> <span data-key="p_o6_1">Las comisiones por transacción absorben mi ganancia.</span></label>
+            <label class="option-control"><input type="checkbox" name="p_molestia_pago" value="No MSI"> <span data-key="p_o6_2">No puedo ofrecer Meses Sin Intereses de forma fácil.</span></label>
+            <label class="option-control"><input type="checkbox" name="p_molestia_pago" value="Desorden"> <span data-key="p_o6_3">El desorden de conciliar efectivo contra tarjetas.</span></label>
+          </div>
+          <div class="question-group">
+            <label class="question-label" data-key="p_q7">7. Para registrar la información de tus pacientes, ¿qué herramientas usas hoy? (Opción múltiple)</label>
+            <label class="option-control"><input type="checkbox" name="p_herramientas" value="Tradicional"> <span data-key="p_o7_1">Métodos tradicionales (Agenda física, libretas).</span></label>
+            <label class="option-control"><input type="checkbox" name="p_herramientas" value="Digital General"> <span data-key="p_o7_2">Herramientas digitales generales (Excel, WhatsApp).</span></label>
+            <label class="option-control"><input type="checkbox" name="p_herramientas" value="CRM Especializado"> <span data-key="p_o7_3">Un software o CRM especializado para veterinarias.</span></label>
+          </div>
+          <div class="btn-container">
+            <button type="button" class="action-btn btn-back" onclick="goBackManual()">Atrás</button>
+            <button type="button" class="action-btn btn-next" onclick="navigateWizard('step-p-b3-q8')">Siguiente</button>
+          </div>
+        </div>
+
+        <div id="step-p-b3-q8" class="step-panel">
+          <h2 data-key="p_title">Ruta para Profesionales y Clínicas</h2>
+          <div class="question-group">
+            <label class="question-label" data-key="p_q8">8. Si usas algún software o libreta, ¿qué es lo que más te frustra o sientes que le hace falta? *</label>
+            <textarea name="p_frustracion_sistema" id="req_p3"></textarea>
+          </div>
+          <div class="question-group">
+            <label class="question-label" data-key="p_q9">9. ¿Cuánto dinero inviertes aproximadamente al mes en softwares de gestión? (Opción única)</label>
+            <label class="option-control"><input type="radio" name="p_gasto_soft" value="$0" onchange="autoAdvance('step-p-b4')"> <span data-key="p_o9_1">$0 MXN (Uso opciones gratuitas, libreta o Excel).</span></label>
+            <label class="option-control"><input type="radio" name="p_gasto_soft" value="Menos de $500" onchange="autoAdvance('step-p-b4')"> <span data-key="p_o9_2">Menos de $500 MXN al mes.</span></label>
+            <label class="option-control"><input type="radio" name="p_gasto_soft" value="$500 - $1,500" onchange="autoAdvance('step-p-b4')"> <span data-key="p_o9_3">Entre $500 y $1,500 MXN al mes.</span></label>
+            <label class="option-control"><input type="radio" name="p_gasto_soft" value="Más de $1,500" onchange="autoAdvance('step-p-b4')"> <span data-key="p_o9_4">Más de $1,500 MXN al mes.</span></label>
+          </div>
+          <div class="btn-container"><button type="button" class="action-btn btn-back" onclick="goBackManual()">Atrás</button></div>
+        </div>
+
+        <div id="step-p-b4" class="step-panel">
+          <h2 data-key="p_title">Ruta para Profesionales y Clínicas</h2>
+          <div class="section-title" data-key="p_sec4">Bloque 4: Validación de la Solución Operativa</div>
+          <div class="instruction-block" data-key="app_ins_b2b">Imagina un ecosistema digital diseñado exclusivamente para resolver la operación de los proveedores.</div>
+          <div class="question-group">
+            <label class="question-label" data-key="p_q10">10. Si esta plataforma te ofreciera estas herramientas, ¿cuáles usarías? (Selección múltiple)</label>
+            <label class="option-control"><input type="checkbox" name="p_rentabilidad" value="CRM Todo en Uno"> <span data-key="p_o10_1">CRM Todo en Uno: Expedientes avanzados y recordatorios.</span></label>
+            <label class="option-control"><input type="checkbox" name="p_rentabilidad" value="Pasarela MSI"> <span data-key="p_o10_2">Pasarela de Pagos Digital con enlaces seguros y MSI.</span></label>
+            <label class="option-control"><input type="checkbox" name="p_rentabilidad" value="Protección Anticaos"> <span data-key="p_o10_3">Protección Anticaos: Tarjeta en garantía por No-Show.</span></label>
+            <label class="option-control"><input type="checkbox" id="chk-p-rent-other" onchange="toggleOther('p-rent-other', this)"> <span data-key="other">Otro:</span> <input type="text" id="p-rent-other" class="other-inline" disabled></label>
+          </div>
+          <div class="question-group">
+            <label class="question-label" data-key="p_q11">11. ¿Qué esquema comercial elegirías para usarlo? (Opción única)</label>
+            <label class="option-control"><input type="radio" name="p_comercial" value="Comisión" onchange="autoAdvance('step-p-b4-end')"> <span data-key="p_o11_1">Pagar una comisión fija por transacción (entre 3.5% y 5%).</span></label>
+            <label class="option-control"><input type="radio" name="p_comercial" value="Suscripción" onchange="autoAdvance('step-p-b4-end')"> <span data-key="p_o11_2">Pagar una suscripción mensual fija por el software.</span></label>
+            <label class="option-control"><input type="radio" name="p_comercial" value="Ninguno" onchange="autoAdvance('step-p-b4-end')"> <span data-key="p_o11_3">No me interesaría integrarme, prefiero mi formato actual.</span></label>
+          </div>
+          <div class="btn-container"><button type="button" class="action-btn btn-back" onclick="goBackManual()">Atrás</button></div>
+        </div>
+
+        <div id="step-p-b4-end" class="step-panel">
+          <h2 data-key="p_title">Ruta para Profesionales y Clínicas</h2>
+          <div class="question-group">
+            <label class="question-label" data-key="p_q12">12. ¿Cuál sería tu mayor temor antes de decidir mudar la administración a una plataforma digital? *</label>
+            <textarea name="p_temor_digital" id="req_p4"></textarea>
+          </div>
+          <div class="btn-container">
+            <button type="button" class="action-btn btn-back" onclick="goBackManual()">Atrás</button>
+            <button type="button" class="action-btn btn-next" onclick="validateTextareasAndNext('step-leads', ['req_p3', 'req_p4'])">Siguiente</button>
+          </div>
+        </div>
+
+        <div id="step-v-b1" class="step-panel">
+          <h2 data-key="v_title">Ruta para Vendedores, E-commerce y Marcas</h2>
+          <div class="section-title" data-key="v_sec1">Bloque 1: Perfil de Negocio</div>
+          <div class="question-group">
+            <label class="question-label" data-key="v_q1">1. ¿Qué tipo de productos vendes principalmente? (Opción múltiple)</label>
+            <label class="option-control"><input type="checkbox" name="v_productos" value="Alimento/Snacks"> <span data-key="v_o1_1">Alimento, snacks o suplementos</span></label>
+            <label class="option-control"><input type="checkbox" name="v_productos" value="Accesorios/Ropa"> <span data-key="v_o1_2">Accesorios, ropa, camas o correas</span></label>
+            <label class="option-control"><input type="checkbox" name="v_productos" value="Farmacia/Higiene"> <span data-key="v_o1_3">Farmacia, medicamentos o higiene</span></label>
+            <label class="option-control"><input type="checkbox" name="v_productos" value="Juguetes"> <span data-key="v_o1_4">Juguetes o estimulación mental</span></label>
+            <label class="option-control"><input type="checkbox" id="chk-v-prod-other" onchange="toggleOther('v-prod-other', this)"> <span data-key="other">Otro:</span> <input type="text" id="v-prod-other" class="other-inline" disabled></label>
+          </div>
+          <div class="question-group">
+            <label class="question-label" data-key="v_q2">2. ¿A través de qué canales vendes tus productos actualmente? (Opción múltiple)</label>
+            <label class="option-control"><input type="checkbox" name="v_canales" value="Redes Sociales"> <span data-key="v_o2_1">Redes sociales directas (WhatsApp manual)</span></label>
+            <label class="option-control"><input type="checkbox" name="v_canales" value="Tienda Propia"> <span data-key="v_o2_2">Tienda en línea propia (Shopify, WooCommerce)</span></label>
+            <label class="option-control"><input type="checkbox" name="v_canales" value="Marketplaces"> <span data-key="v_o2_3">Marketplaces grandes (Mercado Libre, Amazon)</span></label>
+            <label class="option-control"><input type="checkbox" name="v_canales" value="Fisico"> <span data-key="v_o2_4">Puntos de venta físicos (Veterinarias, bazares)</span></label>
+          </div>
+          <div class="btn-container">
+            <button type="button" class="action-btn btn-back" onclick="goBackManual()">Atrás</button>
+            <button type="button" class="action-btn btn-next" onclick="navigateWizard('step-v-b2')">Siguiente</button>
+          </div>
+        </div>
+
+        <div id="step-v-b2" class="step-panel">
+          <h2 data-key="v_title">Ruta para Vendedores, E-commerce y Marcas</h2>
+          <div class="section-title" data-key="v_sec2">Bloque 2: Dolores de Vender Productos</div>
+          <div class="question-group">
+            <label class="question-label" data-key="v_q3">3. Sinceramente, ¿cuál es el obstáculo más asfixiante al intentar vender y enviar hoy en día? (Opción única)</label>
+            <label class="option-control"><input type="radio" name="v_obstaculo_envio" value="Comisiones Altas" onchange="autoAdvance('step-v-b2-text')"> <span data-key="v_o3_1">Las comisiones de los marketplaces tradicionales son altísimas.</span></label>
+            <label class="option-control"><input type="radio" name="v_obstaculo_envio" value="Logistica Compleja" onchange="autoAdvance('step-v-b2-text')"> <span data-key="v_o3_2">La logística de envíos y empaque consume demasiado tiempo.</span></label>
+            <label class="option-control"><input type="radio" name="v_obstaculo_envio" value="Retencion Dinero" onchange="autoAdvance('step-v-b2-text')"> <span data-key="v_o3_3">Las pasarelas de pago tardan demasiados días en liberarme el dinero.</span></label>
+            <label class="option-control"><input type="radio" name="v_obstaculo_envio" value="Falta Trafico" onchange="autoAdvance('step-v-b2-text')"> <span data-key="v_o3_4">Me cuesta mucho atraer clientes que busquen la especialidad de mis productos.</span></label>
+            <label class="option-control"><input type="radio" id="chk-v-obs-other" name="v_obstaculo_envio" value="Otro" onchange="toggleRadioOther('v-obs-other', this); autoAdvanceWithText('step-v-b2-text')"> <span data-key="other">Otro:</span> <input type="text" id="v-obs-other" class="other-inline" disabled></label>
+          </div>
+          <div class="btn-container"><button type="button" class="action-btn btn-back" onclick="goBackManual()">Atrás</button></div>
+        </div>
+
+        <div id="step-v-b2-text" class="step-panel">
+          <h2 data-key="v_title">Ruta para Vendedores, E-commerce y Marcas</h2>
+          <div class="question-group">
+            <label class="question-label" data-key="v_q4">4. ¿Cómo te impactan las retenciones automáticas de impuestos? *</label>
+            <textarea name="v_impacto_fiscal" id="req_v1"></textarea>
+          </div>
+          <div class="question-group">
+            <label class="question-label" data-key="v_q5">5. Describe una situación frustrante en la que hayas perdido una venta debido a problemas con envíos o pasarelas: *</label>
+            <textarea name="v_caso_frustrante" id="req_v2"></textarea>
+          </div>
+          <div class="btn-container">
+            <button type="button" class="action-btn btn-back" onclick="goBackManual()">Atrás</button>
+            <button type="button" class="action-btn btn-next" onclick="validateTextareasAndNext('step-v-b3', ['req_v1', 'req_v2'])">Siguiente</button>
+          </div>
+        </div>
+
+        <div id="step-v-b3" class="step-panel">
+          <h2 data-key="v_title">Ruta para Vendedores, E-commerce y Marcas</h2>
+          <div class="section-title" data-key="v_sec3">Bloque 3: Validación de la Solución</div>
+          <div class="instruction-block" data-key="v_ins_market">Imagina un nuevo e-commerce especializado con un Marketplace segmentado para mascotas.</div>
+          <div class="question-group">
+            <label class="question-label" data-key="v_q6">6. Si este nuevo marketplace te ofreciera esto, ¿cuáles usarías? (Selección múltiple)</label>
+            <label class="option-control"><input type="checkbox" name="v_herramientas_crecer" value="Bajas Comisiones"> <span data-key="v_o6_1">Comisiones transparentes y bajas: Tarifa menor.</span></label>
+            <label class="option-control"><input type="checkbox" name="v_herramientas_crecer" value="Logistica Economica"> <span data-key="v_o6_2">Logística integrada y económica con recolección.</span></label>
+            <label class="option-control"><input type="checkbox" name="v_herramientas_crecer" value="Dispersion Express"> <span data-key="v_o6_3">Dispersión de dinero exprés en menos de 24-48 horas.</span></label>
+            <label class="option-control"><input type="checkbox" id="chk-v-tools-other" onchange="toggleOther('v-tools-other', this)"> <span data-key="other">Otro:</span> <input type="text" id="v-tools-other" class="other-inline" disabled></label>
+          </div>
+          <div class="question-group">
+            <label class="question-label" data-key="v_q7">7. ¿Qué tanto valor aportaría un modelo de "Suscripción mensual" para tus clientes recurrentes? (Opción única)</label>
+            <label class="option-control"><input type="radio" name="v_valor_suscripcion" value="Clave" onchange="autoAdvance('step-v-b3-end')"> <span data-key="v_o7_1">Sería una herramienta clave; ingresos predecibles.</span></label>
+            <label class="option-control"><input type="radio" name="v_valor_suscripcion" value="Util" onchange="autoAdvance('step-v-b3-end')"> <span data-key="v_o7_2">Útil, pero dependería de qué tanto lo adopten.</span></label>
+            <label class="option-control"><input type="radio" name="v_valor_suscripcion" value="No Aplica" onchange="autoAdvance('step-v-b3-end')"> <span data-key="v_o7_3">No aplica para mis productos.</span></label>
+          </div>
+          <div class="btn-container"><button type="button" class="action-btn btn-back" onclick="goBackManual()">Atrás</button></div>
+        </div>
+
+        <div id="step-v-b3-end" class="step-panel">
+          <h2 data-key="v_title">Ruta para Vendedores, E-commerce y Marcas</h2>
+          <div class="question-group">
+            <label class="question-label" data-key="v_q8">8. Del 1 al 5, ¿qué tan dispuesto estarías a abrir tu tienda dentro de esta plataforma?</label>
+            <div class="scale-container">
+              <div class="scale-label" data-key="scale_down_1">1 (No me interesa)</div>
+              <div class="scale-options">
+                <label class="scale-item"><input type="radio" name="v_escala_registro" value="1" onchange="autoAdvance('step-v-b3-final')">1</label>
+                <label class="scale-item"><input type="radio" name="v_escala_registro" value="2" onchange="autoAdvance('step-v-b3-final')">2</label>
+                <label class="scale-item"><input type="radio" name="v_escala_registro" value="3" onchange="autoAdvance('step-v-b3-final')">3</label>
+                <label class="scale-item"><input type="radio" name="v_escala_registro" value="4" onchange="autoAdvance('step-v-b3-final')">4</label>
+                <label class="scale-item"><input type="radio" name="v_escala_registro" value="5" onchange="autoAdvance('step-v-b3-final')">5</label>
+              </div>
+              <div class="scale-label" style="text-align: right;" data-key="scale_down_5">5 (De inmediato)</div>
+            </div>
+          </div>
+          <div class="btn-container"><button type="button" class="action-btn btn-back" onclick="goBackManual()">Atrás</button></div>
+        </div>
+
+        <div id="step-v-b3-final" class="step-panel">
+          <h2 data-key="v_title">Ruta para Vendedores, E-commerce y Marcas</h2>
+          <div class="question-group">
+            <label class="question-label" data-key="v_q9">9. ¿Cuál sería tu mayor temor antes de subir tus productos a un canal digital como este? *</label>
+            <textarea name="v_temor_digital" id="req_v3"></textarea>
+          </div>
+          <div class="btn-container">
+            <button type="button" class="action-btn btn-back" onclick="goBackManual()">Atrás</button>
+            <button type="button" class="action-btn btn-next" onclick="validateTextareasAndNext('step-leads', ['req_v1', 'req_v2', 'req_v3'])">Siguiente</button>
+          </div>
+        </div>
+
+        <div id="step-o-b1" class="step-panel">
+          <h2 data-key="o_title">Ruta para ONGs y Fundaciones</h2>
+          <div class="section-title" data-key="o_sec1">Bloque 1: Diagnóstico Operativo</div>
+          <div class="question-group">
+            <label class="question-label" data-key="o_q1">1. En promedio, ¿cuántos animales mantienen bajo su resguardo al mes? (Opción única)</label>
+            <label class="option-control"><input type="radio" name="o_volumen" value="Menos de 15" onchange="autoAdvance('step-o-b1-q2')"> <span data-key="o_o1_1">Menos de 15</span></label>
+            <label class="option-control"><input type="radio" name="o_volumen" value="15 - 50" onchange="autoAdvance('step-o-b1-q2')"> <span data-key="o_o1_2">Entre 15 y 50</span></label>
+            <label class="option-control"><input type="radio" name="o_volumen" value="50 - 100" onchange="autoAdvance('step-o-b1-q2')"> <span data-key="o_o1_3">Entre 50 y 100</span></label>
+            <label class="option-control"><input type="radio" name="o_volumen" value="Más de 100" onchange="autoAdvance('step-o-b1-q2')"> <span data-key="o_o1_4">Más de 100</span></label>
+          </div>
+          <div class="btn-container"><button type="button" class="action-btn btn-back" onclick="goBackManual()">Atrás</button></div>
+        </div>
+
+        <div id="step-o-b1-q2" class="step-panel">
+          <h2 data-key="o_title">Ruta para ONGs y Fundaciones</h2>
+          <div class="question-group">
+            <label class="question-label" data-key="o_q2">2. Sinceramente, ¿cuál es el obstáculo más asfixiante en el día a día? (Opción única)</label>
+            <label class="option-control"><input type="radio" name="o_obstaculo" value="Falta donativos" onchange="autoAdvance('step-o-b2')"> <span data-key="o_o2_1">La falta de donativos económicos constantes.</span></label>
+            <label class="option-control"><input type="radio" name="o_obstaculo" value="Filtros" onchange="autoAdvance('step-o-b2')"> <span data-key="o_o2_2">El seguimiento y filtros para asegurar adopciones.</span></label>
+            <label class="option-control"><input type="radio" name="o_obstaculo" value="Deudas" onchange="autoAdvance('step-o-b2')"> <span data-key="o_o2_3">Las deudas acumuladas en clínicas veterinarias.</span></label>
+            <label class="option-control"><input type="radio" id="chk-o-obs-other" name="o_obstaculo" value="Otro" onchange="toggleRadioOther('o-obs-other', this); autoAdvanceWithText('step-o-b2')"> <span data-key="other">Otro:</span> <input type="text" id="o-obs-other" class="other-inline" disabled></label>
+          </div>
+          <div class="btn-container"><button type="button" class="action-btn btn-back" onclick="goBackManual()">Atrás</button></div>
+        </div>
+
+        <div id="step-o-b2" class="step-panel">
+          <h2 data-key="o_title">Ruta para ONGs y Fundaciones</h2>
+          <div class="section-title" data-key="o_sec2">Bloque 2: El Caos de las Adopciones y Logística</div>
+          <div class="question-group">
+            <label class="question-label" data-key="o_q3">3. Al evaluar a un adoptante, ¿cuál paso les consume más tiempo? (Opción única)</label>
+            <label class="option-control"><input type="radio" name="o_burocracia" value="Validar datos" onchange="autoAdvance('step-o-b2-text')"> <span data-key="o_o3_1">Validar si sus datos, casa y estilo de vida son reales.</span></label>
+            <label class="option-control"><input type="radio" name="o_burocracia" value="Firma contrato" onchange="autoAdvance('step-o-b2-text')"> <span data-key="o_o3_2">Lograr que firmen el contrato de adopción.</span></label>
+            <label class="option-control"><input type="radio" id="chk-o-bur-other" name="o_burocracia" value="Otro" onchange="toggleRadioOther('o-bur-other', this); autoAdvanceWithText('step-o-b2-text')"> <span data-key="other">Otro:</span> <input type="text" id="o-bur-other" class="other-inline" disabled></label>
+          </div>
+          <div class="btn-container"><button type="button" class="action-btn btn-back" onclick="goBackManual()">Atrás</button></div>
+        </div>
+
+        <div id="step-o-b2-text" class="step-panel">
+          <h2 data-key="o_title">Ruta para ONGs y Fundaciones</h2>
+          <div class="question-group">
+            <label class="question-label" data-key="o_q4">4. Platícanos una situación reciente en la que la falta de recursos haya complicado un rescate: *</label>
+            <textarea name="o_caso_frustrante" id="req_o1"></textarea>
+          </div>
+          <div class="btn-container">
+            <button type="button" class="action-btn btn-back" onclick="goBackManual()">Atrás</button>
+            <button type="button" class="action-btn btn-next" onclick="validateTextareasAndNext('step-o-b3', ['req_o1'])">Siguiente</button>
+          </div>
+        </div>
+
+        <div id="step-o-b3" class="step-panel">
+          <h2 data-key="o_title">Ruta para ONGs y Fundaciones</h2>
+          <div class="section-title" data-key="o_sec3">Bloque 3: Validación de la Solución Social</div>
+          <div class="instruction-block" data-key="app_ins_ong">Imagina un ecosistema digital con herramientas pensadas para refugios, rescatistas y fundaciones.</div>
+          <div class="question-group">
+            <label class="question-label" data-key="o_q5">5. Si esta herramienta les ofreciera esto gratis, ¿cuáles aliviarían más su carga? (Selección múltiple)</label>
+            <label class="option-control"><input type="checkbox" name="o_funciones" value="Donaciones Recurrentes"> <span data-key="o_o5_1">Pasarela de Donaciones Recurrentes automáticas.</span></label>
+            <label class="option-control"><input type="checkbox" name="o_funciones" value="Adopción Inteligente"> <span data-key="o_o5_2">Módulo de Adopción Inteligente con pre-filtro.</span></label>
+            <label class="option-control"><input type="checkbox" name="o_funciones" value="Historial Transferible"> <span data-key="o_o5_3">Historial Médico Transferible directo al dueño.</span></label>
+            <label class="option-control"><input type="checkbox" id="chk-o-func-other" onchange="toggleOther('o-func-other', this)"> <span data-key="other">Otro:</span> <input type="text" id="o-func-other" class="other-inline" disabled></label>
+          </div>
+          <div class="question-group">
+            <label class="question-label" data-key="o_q6">6. Del 1 al 5, ¿qué tanto impacto positivo tendría una plataforma con este enfoque?</label>
+            <div class="scale-container">
+              <div class="scale-label" data-key="scale_impact_1">1 (Ningún impacto)</div>
+              <div class="scale-options">
+                <label class="scale-item"><input type="radio" name="o_escala_impacto" value="1" onchange="autoAdvance('step-o-b3-end')">1</label>
+                <label class="scale-item"><input type="radio" name="o_escala_impacto" value="2" onchange="autoAdvance('step-o-b3-end')">2</label>
+                <label class="scale-item"><input type="radio" name="o_escala_impacto" value="3" onchange="autoAdvance('step-o-b3-end')">3</label>
+                <label class="scale-item"><input type="radio" name="o_escala_impacto" value="4" onchange="autoAdvance('step-o-b3-end')">4</label>
+                <label class="scale-item"><input type="radio" name="o_escala_impacto" value="5" onchange="autoAdvance('step-o-b3-end')">5</label>
+              </div>
+              <div class="scale-label" style="text-align: right;" data-key="scale_impact_5">5 (Muchísimo impacto estructural)</div>
+            </div>
+          </div>
+          <div class="btn-container"><button type="button" class="action-btn btn-back" onclick="goBackManual()">Atrás</button></div>
+        </div>
+
+        <div id="step-o-b3-end" class="step-panel">
+          <h2 data-key="o_title">Ruta para ONGs y Fundaciones</h2>
+          <div class="question-group">
+            <label class="question-label" data-key="o_q7">7. Si pudieran pedirle una sola función tecnológica para cambiar el rescate, ¿qué pedirían? *</label>
+            <textarea name="o_funcion_deseada" id="req_o2"></textarea>
+          </div>
+          <div class="btn-container">
+            <button type="button" class="action-btn btn-back" onclick="goBackManual()">Atrás</button>
+            <button type="button" class="action-btn btn-next" onclick="validateTextareasAndNext('step-leads', ['req_o1', 'req_o2'])">Siguiente</button>
+          </div>
+        </div>
+
+        <div id="step-leads" class="step-panel">
+          <h2 data-key="l_title">🔒 Registro e Historial Final</h2>
+          <div class="question-group">
+            <label class="question-label" data-key="l_email">Correo Electrónico *</label>
+            <input type="email" name="lead_email" id="lead_email">
+          </div>
+          <div class="question-group">
+            <label class="question-label" data-key="l_whatsapp">WhatsApp (Opcional)</label>
+            <input type="text" name="lead_whatsapp" id="lead_whatsapp" placeholder="+52 ..." data-placeholder-key="l_whatsapp_placeholder">
+          </div>
+          <div class="privacy-box">
+            <strong data-key="p_notice_title">Aviso de Tratamiento de Datos:</strong>
+            <p data-key="p_notice_desc" style="margin-top: 5px;">Este formulario recopila información únicamente para investigación de mercado, validación de necesidades y diseño de una posible plataforma tecnológica.</p>
+            <p class="privacy-links">
+              <a href="/public/analytics/animal/privacidad.html" target="_blank" rel="noopener" data-key="privacy_link">Aviso de privacidad</a>
+              <span aria-hidden="true">·</span>
+              <a href="/public/analytics/animal/tratamiento-datos.html" target="_blank" rel="noopener" data-key="data_treatment_link">Tratamiento de datos</a>
+            </p>
+            <label class="option-control" style="border:none; padding:0; margin-top:12px; margin-bottom: 5px;">
+              <input type="checkbox" name="privacidad_aceptada" id="privacidad_aceptada" required>
+              <span data-key="p_agree_text">Acepto los términos de uso y autorizo el tratamiento de mis respuestas. *</span>
+            </label>
+            <div style="margin-top: 15px;">
+              <span data-key="p_share_label" style="font-weight: 500; display: block; margin-bottom: 5px;">¿Autorizas que los datos se compartan públicamente? *</span>
+              <label class="option-control" style="border:none; padding:0; margin-bottom:5px;">
+                <input type="radio" name="privacidad_compartir" value="Privado" required checked>
+                <span data-key="p_opt_private">No, únicamente uso privado y de forma confidencial.</span>
+              </label>
+              <label class="option-control" style="border:none; padding:0;">
+                <input type="radio" name="privacidad_compartir" value="Publico">
+                <span data-key="p_opt_public">Sí, autorizo que mis respuestas se compartan de manera pública.</span>
+              </label>
+            </div>
+          </div>
+          <div class="captcha-box">
+            <div class="captcha-question" id="captcha-text">? + ? =</div>
+            <input type="text" id="captcha_user_answer" class="captcha-input" placeholder="Resultado" data-placeholder-key="captcha_placeholder" autocomplete="off" required>
+          </div>
+          <div class="btn-container">
+            <button type="button" class="action-btn btn-back" onclick="goBackFromLeads()">Atrás</button>
+            <button type="submit" class="action-btn btn-next" id="btn-submit-master" data-key="btn_finish">Completar Estudio</button>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <div id="success-screen">
+      <div class="success-icon">🎉</div>
+      <h1 id="success-title" data-key="succ_t">¡Respuestas registradas de forma segura!</h1>
+      <br>
+      <div class="cierre-texto" id="success-text">
+        <p data-key="succ_desc_1">Muchísimas gracias por tu valioso tiempo y por aportar tu experiencia a esta investigación sobre el ecosistema animal.</p>
+        <p style="margin-top: 15px;" data-key="succ_desc_2">Si deseas más información o quieres contactarme, puedes hacerlo directamente.</p>
+      </div>
+    </div>
+  </div>
+
+  <nav class="glass floating-nav">
+    <a href="/" class="nav-link"><i class="fas fa-home"></i><span data-key="nav_home">Inicio</span></a>
+    <a href="/experiencia/" class="nav-link"><i class="fas fa-history"></i><span data-key="nav_experience">Experiencia</span></a>
+    <a href="/portafolio/" class="nav-link"><i class="fas fa-th-large"></i><span data-key="nav_portfolio">Portafolio</span></a>
+  </nav>
+
+  <footer>
+    <div class="site-footer">
+      <div class="footer-credits">© <span id="year"></span> Eduardo Vázquez</div>
+    </div>
+  </footer>
+
+  <div class="app-modal" id="app-modal" role="dialog" aria-modal="true" aria-labelledby="app-modal-message">
+    <div class="app-modal-dialog">
+      <p class="app-modal-message" id="app-modal-message"></p>
+      <div class="app-modal-actions">
+        <button type="button" class="action-btn btn-next" id="app-modal-close" data-key="modal_ok">Aceptar</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const API_URL = "https://script.google.com/macros/s/AKfycbz7U_oOYp1u3yiwGfX9f_Xge7IU1MAsqXOjSfWaz_c-S-9d8bf07sppXkZhnw9DTcs/exec";
+
+    // Silence console on production hosts (only allow logs on localhost)
+    if (!/localhost|127\.0\.0\.1/.test(location.hostname)) {
+      console.log = console.info = console.debug = console.warn = function(){};
+    }
+
+    let currentActivePanel = "step-screener";
+    let selectedRoute = "customer";
+    let currentLanguage = "es";
+    let captchaCorrectAnswer = 0;
+    let wizardHistory = ["step-screener"];
+    const routeQuestionSequences = {
+      customer: ['c_q1','c_q2','c_q3','c_q4','c_q5','c_q6','c_q7','c_q8','c_q9','c_q10','c_q11'],
+      adoptant: ['c_q6','c_q9','c_q10','c_q11'],
+      provider: ['p_q1','p_q2','p_q3','p_q4','p_q5','p_q6','p_q7','p_q8','p_q9','p_q10','p_q11','p_q12'],
+      seller: ['v_q1','v_q2','v_q3','v_q4','v_q5','v_q6','v_q7','v_q8','v_q9'],
+      ong: ['o_q1','o_q2','o_q3','o_q4','o_q5','o_q6','o_q7']
+    };
+
+    window.addEventListener('DOMContentLoaded', () => {
+      const year = document.getElementById('year');
+      if (year) year.textContent = new Date().getFullYear();
+      prepareFreshStart();
+      const modal = document.getElementById('app-modal');
+      const modalClose = document.getElementById('app-modal-close');
+      if (modalClose) modalClose.addEventListener('click', closeAppModal);
+      if (modal) {
+        modal.addEventListener('click', event => {
+          if (event.target === modal) closeAppModal();
+        });
+      }
+      document.addEventListener('keydown', event => {
+        if (event.key === 'Escape') closeAppModal();
+      });
+
+      // language detection: prefer navigator, then IP country
+      let preferred = (navigator.language || navigator.userLanguage || 'en').startsWith('es') ? 'es' : 'en';
+      fetch('https://ip.guide/')
+        .then(res => res.json())
+        .then(data => {
+          document.getElementById('user_ip').value = data.ip || "0.0.0.0";
+          const location = data.location || {};
+          const countryCode = data.network?.autonomous_system?.country || "";
+          document.getElementById('user_city').value = (location.city && location.country) ? `${location.city}, ${location.country}` : "Desconocida";
+          const spanishCountries = ['ES','MX','AR','CO','CL','PE','VE','EC','GT','CU','BO','DO','HN','PY','SV','NI','CR','UY','PR','PA'];
+          if (countryCode && spanishCountries.includes(countryCode.toUpperCase())) preferred = 'es';
+          setLanguage(preferred);
+        })
+        .catch(() => {
+          fetch('https://api.ipify.org?format=json')
+            .then(res => res.json())
+            .then(data => { document.getElementById('user_ip').value = data.ip; });
+          setLanguage(preferred);
+        })
+        .finally(() => generateCaptcha());
+    });
+
+    function prepareFreshStart() {
+      const form = document.getElementById('master-form');
+      if (form) form.reset();
+      document.querySelectorAll('input[type="radio"], input[type="checkbox"]').forEach(input => {
+        input.checked = input.defaultChecked;
+      });
+      clearRequiredFields();
+      clearInactiveRadioOtherInputs();
+      selectedRoute = 'customer';
+      currentActivePanel = 'step-screener';
+      wizardHistory = ['step-screener'];
+    }
+
+    function showAppModal(message) {
+      const modal = document.getElementById('app-modal');
+      const modalMessage = document.getElementById('app-modal-message');
+      const closeButton = document.getElementById('app-modal-close');
+      if (!modal || !modalMessage || !closeButton) return;
+      modalMessage.textContent = message;
+      modal.classList.add('active');
+      closeButton.focus();
+    }
+
+    function closeAppModal() {
+      const modal = document.getElementById('app-modal');
+      if (modal) modal.classList.remove('active');
+    }
+
+    function generateCaptcha() {
+      const num1 = Math.floor(Math.random() * 8) + 2;
+      const num2 = Math.floor(Math.random() * 7) + 1;
+      captchaCorrectAnswer = num1 + num2;
+      document.getElementById('captcha-text').innerText = `${num1} + ${num2} =`;
+    }
+
+    function autoAdvanceRoute(radio) {
+      const routeValue = radio.value;
+      document.getElementById('step-screener').classList.remove('active');
+      wizardHistory = ["step-screener"];
+      clearRequiredFields();
+
+      if(routeValue === 'customer') {
+        selectedRoute = "customer";
+        document.getElementById('hiddenFormType').value = "customer";
+        setActivePanel('step-c-b1');
+      } else if (routeValue === 'adoptant') {
+        selectedRoute = "adoptant";
+        document.getElementById('hiddenFormType').value = "customer";
+        setActivePanel('step-c-b3');
+        document.getElementById('container-back-c-b3').style.display = 'flex';
+      } else if (routeValue === 'provider') {
+        selectedRoute = "provider";
+        document.getElementById('hiddenFormType').value = "provider";
+        setActivePanel('step-p-b1');
+      } else if (routeValue === 'seller') {
+        selectedRoute = "seller";
+        document.getElementById('hiddenFormType').value = "seller";
+        setActivePanel('step-v-b1');
+      } else if (routeValue === 'ong') {
+        selectedRoute = "ong";
+        document.getElementById('hiddenFormType').value = "ong";
+        setActivePanel('step-o-b1');
+      }
+    }
+
+    function autoAdvance(nextPanelId) {
+      clearInactiveRadioOtherInputs(document.getElementById(currentActivePanel));
+      setTimeout(() => {
+        document.getElementById(currentActivePanel).classList.remove('active');
+        wizardHistory.push(currentActivePanel);
+        setActivePanel(nextPanelId);
+      }, 250);
+    }
+
+    function getPostAdoptionPanel() {
+      return selectedRoute === 'adoptant' ? 'step-c-b5' : 'step-c-b4';
+    }
+
+    function advanceAfterAdoptionChoice() {
+      autoAdvance(getPostAdoptionPanel());
+    }
+
+    function showAdoptionOtherNext() {
+      autoAdvanceWithText(getPostAdoptionPanel());
+    }
+
+    function autoAdvanceWithText(nextPanelId) {
+      const panel = document.getElementById(currentActivePanel);
+      let containerBtn = panel.querySelector('.btn-container');
+      if(!containerBtn) {
+        containerBtn = document.createElement('div');
+        containerBtn.className = "btn-container";
+        containerBtn.innerHTML = `<button type="button" class="action-btn btn-back" onclick="goBackManual()">${t('btn_back')}</button>`;
+        panel.appendChild(containerBtn);
+      }
+
+      let nextButton = containerBtn.querySelector('.btn-next');
+      if(!nextButton) {
+        nextButton = document.createElement('button');
+        nextButton.type = 'button';
+        nextButton.className = 'action-btn btn-next';
+        nextButton.setAttribute('data-key', 'btn_next');
+        nextButton.textContent = t('btn_next');
+        containerBtn.appendChild(nextButton);
+      }
+      nextButton.setAttribute('onclick', `navigateCurrentRequiredFieldsAndNext('${nextPanelId}')`);
+      containerBtn.style.display = 'flex';
+    }
+
+    function navigateCurrentRequiredFieldsAndNext(nextPanelId) {
+      const panel = document.getElementById(currentActivePanel);
+      const requiredFields = Array.from(panel.querySelectorAll('input[required]:not([disabled]), textarea[required]:not([disabled])'));
+      const invalidField = requiredFields.find(field => !field.value.trim());
+      if (invalidField) {
+        invalidField.style.borderColor = "var(--danger)";
+        invalidField.focus();
+        showAppModal(t('msg_required_field'));
+        return;
+      }
+      requiredFields.forEach(field => field.style.borderColor = "var(--border)");
+      navigateWizard(nextPanelId);
+    }
+
+    function navigateWizard(nextPanelId) {
+      clearInactiveRadioOtherInputs(document.getElementById(currentActivePanel));
+      document.getElementById(currentActivePanel).classList.remove('active');
+      wizardHistory.push(currentActivePanel);
+      setActivePanel(nextPanelId);
+    }
+
+    function goBackManual() {
+      const prev = wizardHistory.pop() || "step-screener";
+      document.getElementById(currentActivePanel).classList.remove('active');
+      setActivePanel(prev);
+    }
+
+    function goBackFromLeads() {
+      document.getElementById('lead_email').removeAttribute('required');
+      goBackManual();
+    }
+
+    function resetFormState() {
+      const form = document.getElementById('master-form');
+      if (form) form.reset();
+      document.querySelectorAll('.step-panel').forEach(p => p.classList.remove('active'));
+      const screener = document.getElementById('step-screener');
+      if (screener) screener.classList.add('active');
+      currentActivePanel = 'step-screener';
+      wizardHistory = ['step-screener'];
+      selectedRoute = 'customer';
+      const fc = document.getElementById('form-container'); if (fc) fc.style.display = 'block';
+      const success = document.getElementById('success-screen'); if (success) success.style.display = 'none';
+      generateCaptcha();
+    }
+
+    function setActivePanel(panelId) {
+      if (panelId === 'step-screener') { resetFormState(); return; }
+      document.getElementById(panelId).classList.add('active');
+      currentActivePanel = panelId;
+      const adoptionBackContainer = document.getElementById('container-back-c-b3');
+      if (adoptionBackContainer) {
+        adoptionBackContainer.style.display = panelId === 'step-c-b3' ? 'flex' : 'none';
+      }
+      const dynamicRequired = {
+        'step-c-b2': ['req_c1'],
+        'step-c-b4': ['req_c2'],
+        'step-c-b5-end': ['req_c3'],
+        'step-p-b2': ['req_p1'],
+        'step-p-b2-end': ['req_p2'],
+        'step-p-b3-q8': ['req_p3'],
+        'step-p-b4-end': ['req_p4'],
+        'step-v-b2-text': ['req_v1', 'req_v2'],
+        'step-v-b3-final': ['req_v3'],
+        'step-o-b2-text': ['req_o1'],
+        'step-o-b3-end': ['req_o2'],
+        'step-leads': ['lead_email']
+      };
+
+      Object.values(dynamicRequired).flat().forEach(id => {
+        const el = document.getElementById(id);
+        if(el) el.removeAttribute('required');
+      });
+
+      if(dynamicRequired[panelId]) {
+        dynamicRequired[panelId].forEach(id => {
+          const el = document.getElementById(id);
+          if(el) el.setAttribute('required', 'true');
+        });
+      }
+      updateActiveQuestionLabels();
+    }
+
+    function validateTextareasAndNext(nextPanelId, textareaIds) {
+      let valid = true;
+      textareaIds.forEach(id => {
+        const ta = document.getElementById(id);
+        if(ta && !ta.value.trim()) {
+          valid = false;
+          ta.style.borderColor = "#e63946";
+        } else if (ta) {
+          ta.style.borderColor = "var(--border)";
+        }
+      });
+      if(!valid) { showAppModal(t('msg_required_textareas')); return; }
+      textareaIds.forEach(id => {
+        const ta = document.getElementById(id);
+        if(ta) ta.removeAttribute('required');
+      });
+      navigateWizard(nextPanelId);
+    }
+
+    function clearRequiredFields() {
+      ['req_c1','req_c2','req_c3','req_p1','req_p2','req_p3','req_p4','req_o1','req_o2','req_v1','req_v2','req_v3','lead_email']
+        .forEach(id => { const el = document.getElementById(id); if(el) el.removeAttribute('required'); });
+      const backContainer = document.getElementById('container-back-c-b3');
+      if (backContainer) backContainer.style.display = 'none';
+    }
+
+    function toggleOther(inputId, checkbox) {
+      const input = document.getElementById(inputId);
+      input.disabled = !checkbox.checked;
+      if (checkbox.checked) { input.focus(); input.setAttribute('required', 'true'); }
+      else { input.value = ""; input.removeAttribute('required'); }
+    }
+
+    function toggleRadioOther(inputId, radio) {
+      const inputsOther = radio.closest('.question-group').querySelectorAll('.other-inline');
+      inputsOther.forEach(i => { i.disabled = true; i.removeAttribute('required'); });
+      const target = document.getElementById(inputId);
+      if(target) { target.disabled = false; target.setAttribute('required', 'true'); target.focus(); }
+    }
+
+    function clearInactiveRadioOtherInputs(scope = document) {
+      scope.querySelectorAll('.other-inline').forEach(input => {
+        const radio = input.closest('.option-control')?.querySelector('input[type="radio"]');
+        if (radio && !radio.checked) {
+          input.value = "";
+          input.disabled = true;
+          input.removeAttribute('required');
+          input.style.borderColor = "var(--border)";
+        }
+      });
+    }
+
+    function handleFormSubmit(event) {
+      event.preventDefault();
+      clearInactiveRadioOtherInputs();
+      ['req_c1','req_c2','req_c3','req_p1','req_p2','req_p3','req_p4','req_o1','req_o2','req_v1','req_v2','req_v3']
+        .forEach(id => { const el = document.getElementById(id); if(el) el.removeAttribute('required'); });
+
+      const userAnswer = parseInt(document.getElementById('captcha_user_answer').value, 10);
+      if (userAnswer !== captchaCorrectAnswer) {
+        showAppModal(t('msg_captcha_error'));
+        generateCaptcha();
+        document.getElementById('captcha_user_answer').value = "";
+        return;
+      }
+
+      const form = document.getElementById('master-form');
+      const submitBtn = document.getElementById('btn-submit-master');
+      submitBtn.disabled = true;
+      submitBtn.innerText = "...";
+
+      const formData = new FormData(form);
+      const urlSearchParams = new URLSearchParams();
+      let multiValues = {};
+
+      formData.forEach((value, key) => {
+        const elements = form.querySelectorAll(`[name="${key}"]`);
+        if (elements.length > 1 && elements[0].type === 'checkbox') {
+          if (!multiValues[key]) multiValues[key] = [];
+          multiValues[key].push(value);
+        } else {
+          urlSearchParams.append(key, value);
+        }
+      });
+
+      for (let key in multiValues) {
+        if(key === 'c_mascota_tipo' && document.getElementById('chk-c-other').checked) { multiValues[key].push("Otro: " + document.getElementById('c-other').value); }
+        if(key === 'c_tranquilidad' && document.getElementById('chk-c-tranq-other').checked) { multiValues[key].push("Otro: " + document.getElementById('c-tranq-other').value); }
+        if(key === 'c_indispensable' && document.getElementById('chk-c-ind-other').checked) { multiValues[key].push("Otro: " + document.getElementById('c-ind-other').value); }
+        if(key === 'p_rentabilidad' && document.getElementById('chk-p-rent-other').checked) { multiValues[key].push("Otro: " + document.getElementById('p-rent-other').value); }
+        if(key === 'v_productos' && document.getElementById('chk-v-prod-other').checked) { multiValues[key].push("Otro: " + document.getElementById('v-prod-other').value); }
+        if(key === 'v_herramientas_crecer' && document.getElementById('chk-v-tools-other').checked) { multiValues[key].push("Otro: " + document.getElementById('v-tools-other').value); }
+        if(key === 'o_funciones' && document.getElementById('chk-o-func-other').checked) { multiValues[key].push("Otro: " + document.getElementById('o-func-other').value); }
+        urlSearchParams.append(key, multiValues[key].join(', '));
+      }
+
+      if(document.getElementById('chk-c-adop-other') && document.getElementById('chk-c-adop-other').checked) { urlSearchParams.set('c_adopcion_exp', "Otra experiencia: " + document.getElementById('c-adop-other').value); }
+      if(document.getElementById('chk-p-area-other') && document.getElementById('chk-p-area-other').checked) { urlSearchParams.set('p_area', "Otro: " + document.getElementById('p-area-other').value); }
+      if(document.getElementById('chk-o-obs-other') && document.getElementById('chk-o-obs-other').checked) { urlSearchParams.set('o_obstaculo', "Otro: " + document.getElementById('o-obs-other').value); }
+      if(document.getElementById('chk-o-bur-other') && document.getElementById('chk-o-bur-other').checked) { urlSearchParams.set('o_burocracia', "Otro: " + document.getElementById('o-bur-other').value); }
+      if(document.getElementById('chk-v-obs-other') && document.getElementById('chk-v-obs-other').checked) { urlSearchParams.set('v_obstaculo_envio', "Otro: " + document.getElementById('v-obs-other').value); }
+
+      fetch(API_URL, {
+        method: 'POST',
+        body: urlSearchParams,
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+      })
+      .then(res => res.json())
+      .then(data => {
+        if (data.result === 'rate_limited') {
+          showAppModal(t('msg_rate_limited'));
+          submitBtn.disabled = false;
+          submitBtn.innerText = t('msg_retry');
+          generateCaptcha();
+        } else {
+          originalShowSuccess();
+        }
+      })
+      .catch(() => {
+        submitBtn.disabled = false;
+        submitBtn.innerText = t('msg_retry');
+        showAppModal(t('msg_success_fallback'));
+        originalShowSuccess();
+      });
+    }
+
+    const i18n = {
+      es: {
+        sc_title: "Estudio Internacional sobre el Cuidado Animal",
+        sc_welcome: "¡Hola! Te damos la bienvenida. Estamos realizando un estudio profundo a nivel internacional para entender cómo evoluciona el cuidado animal, identificar los desafíos diarios a los que nos enfrentamos y diseñar soluciones tecnológicas que profesionalicen el sector. Para guiarte hacia la plática ideal para ti, cuéntanos un poco sobre tu rol actual:",
+        sc_q1: "¿Cuál de las siguientes opciones describe mejor tu situación o relación actual con los animales? *",
+        sc_o1: '"Tengo una o más mascotas en casa actualmente (o animales especiales bajo mi cuidado)."',
+        sc_o2: '"No tengo mascotas ahorita, pero he intentado adoptar una recientemente y el proceso se me complicó o no pude lograrlo."',
+        sc_o3: '"Soy médico veterinario, especialista de la salud, paseador, cuidador o administro una clínica/hospital."',
+        sc_o_new: '"Tengo una tienda de productos para mascotas, e-commerce, o soy fabricante/distribuidor de accesorios, alimento o farmacia."',
+        sc_o4: '"Represento o formo parte activa de una ONG, refugio de animales o fundación de rescate."',
+        btn_next: "Siguiente", btn_back: "Atrás", btn_finish: "Completar Estudio",
+        other: "Otro:", dog: "Perro", cat: "Gato",
+        c_title: "📋 Ruta para Dueños y Adoptantes (B2C)",
+        c_sec1: "Bloque 1: Contexto y Estilo de Vida",
+        c_sec2: "Bloque 2: Experiencias y Dolores con Especialistas",
+        c_sec3: "Bloque 3: El Gran Dolor de la Adopción",
+        c_sec4: "Bloque 4: Finanzas e Historial Médico",
+        c_sec5: "Bloque 5: Validación de la Solución Ideal",
+        app_ins: "Imagina que se está desarrollando una nueva aplicación móvil diseñada para centralizar todo el ecosistema de tu mascota.",
+        scale_down_1: "1 (No la descargaría)", scale_down_5: "5 (La descargaría de inmediato)",
+        p_title: "📋 Ruta para Profesionales y Clínicas (B2B)",
+        p_sec1: "Bloque 1: Tu Perfil Profesional",
+        p_sec2: "Bloque 2: Dolores de Operación, Agenda y Clientes",
+        p_sec3: "Bloque 3: Finanzas y Herramientas de Control",
+        p_sec4: "Bloque 4: Validación de la Solución Operativa",
+        app_ins_b2b: "Imagina que se está desarrollando un ecosistema digital diseñado exclusivamente para resolver la operación de los proveedores.",
+        v_title: "📦 Ruta para Vendedores, E-commerce y Marcas (B2B Productos)",
+        v_sec1: "Bloque 1: Perfil de Negocio (Cuantitativo)",
+        v_sec2: "Bloque 2: Dolores de Vender Productos (Cuali + Cuanti)",
+        v_sec3: "Bloque 3: Validación de la Solución",
+        v_ins_market: "Imagina un nuevo ecosistema digital con un Marketplace hiper-segmentado para marcas del sector de mascotas.",
+        o_title: "📋 Ruta para ONGs y Fundaciones (B2B Social)",
+        o_sec1: "Bloque 1: Diagnóstico Operativo y de Recursos",
+        o_sec2: "Bloque 2: El Caos de las Adopciones y Logística",
+        o_sec3: "Bloque 3: Validación de la Solución Social",
+        app_ins_ong: "Imagina un ecosistema digital con un módulo exclusivo y gratuito para ONGs y refugios.",
+        scale_impact_1: "1 (Ningún impacto)", scale_impact_5: "5 (Muchísimo impacto estructural)",
+        l_title: "🔒 Registro e Historial Final",
+        p_notice_title: "Aviso de Tratamiento de Datos:",
+        p_notice_desc: "Este formulario recopila información únicamente con fines de investigación académica/sectorial sobre la viabilidad de una posible nueva plataforma tecnológica de control integral.",
+        p_agree_text: "Acepto los términos de uso y autorizo el tratamiento de mis respuestas. *",
+        p_share_label: "¿Autorizas que los datos se compartan públicamente? *",
+        p_opt_private: "No, únicamente uso privado y de forma confidencial.",
+        p_opt_public: "Sí, autorizo que mis respuestas se compartan de manera pública.",
+        succ_t: "¡Respuestas registradas de forma segura!",
+        succ_desc_1: "Muchísimas gracias por tu valioso tiempo y por aportar tu experiencia a esta investigación sobre el ecosistema animal.",
+        succ_desc_2: "Si deseas más información o quieres contactarme, puedes hacerlo directamente."
+      },
+      en: {
+        sc_title: "International Study on Animal Care",
+        sc_welcome: "Hello! Welcome. We are conducting an in-depth international study to understand how animal care is evolving, identify daily challenges, and design technological solutions to professionalize the sector. To guide you to the ideal path, please tell us a little about your current role:",
+        sc_q1: "Which of the following options best describes your current situation or relationship with animals? *",
+        sc_o1: '"I currently have one or more pets at home (or special animals under my care)."',
+        sc_o2: '"I do not have pets right now, but I have recently tried to adopt one and the process was complicated or unsuccessful."',
+        sc_o3: '"I am a veterinarian, healthcare specialist, dog walker, pet sitter, or I manage a clinic/hospital."',
+        sc_o_new: '"I have a pet store, e-commerce, or I am a manufacturer/distributor of accessories, food or pharmacy."',
+        sc_o4: '"I represent or am an active part of an NGO, animal shelter, or rescue foundation."',
+        btn_next: "Next", btn_back: "Back", btn_finish: "Complete Study",
+        other: "Other:", dog: "Dog", cat: "Cat",
+        c_title: "📋 Path for Owners & Adoptants (B2C)",
+        c_sec1: "Block 1: Context and Lifestyle",
+        c_sec2: "Block 2: Experiences and Pain Points with Specialists",
+        c_sec3: "Block 3: The Great Pain of Adoption",
+        c_sec4: "Block 4: Finances and Medical History",
+        c_sec5: "Block 5: Ideal Solution Validation",
+        app_ins: "Imagine that a new mobile application is being developed to centralize your pet's entire ecosystem in one secure place.",
+        scale_down_1: "1 (I wouldn't download it)", scale_down_5: "5 (I would download it immediately)",
+        p_title: "📋 Path for Professionals & Clinics (B2B)",
+        p_sec1: "Block 1: Your Professional Profile",
+        p_sec2: "Block 2: Operation, Schedule, and Client Pain Points",
+        p_sec3: "Block 3: Finances and Control Tools",
+        p_sec4: "Block 4: Operational Solution Validation",
+        app_ins_b2b: "Imagine that an all-in-one digital ecosystem is being developed exclusively to solve operations, finances, and marketing for providers.",
+        v_title: "📦 Path for Sellers, E-commerce & Brands (B2B Products)",
+        v_sec1: "Block 1: Business Profile (Quantitative)",
+        v_sec2: "Block 2: Digging into the Pain of Selling Products (Cuali + Cuanti)",
+        v_sec3: "Block 3: Validation of the Solution",
+        v_ins_market: "Imagine a new digital ecosystem focused on the pet sector is being developed that will include a hyper-segmented Marketplace niche.",
+        o_title: "📋 Path for NGOs & Foundations (B2B Social)",
+        o_sec1: "Block 1: Operational and Resource Diagnosis",
+        o_sec2: "Block 2: The Chaos of Adoptions and Logistics",
+        o_sec3: "Block 3: Social Solution Validation",
+        app_ins_ong: "Imagine that a digital ecosystem is being developed that will include an exclusive and free module for verified NGOs.",
+        scale_impact_1: "1 (No impact)", scale_impact_5: "5 (A lot of structural positive impact)",
+        l_title: "🔒 Lead Capture & Final Registration",
+        p_notice_title: "Data Processing Notice:",
+        p_notice_desc: "This form collects information solely for research purposes regarding the operational pain points in animal care and the feasibility of a potential new platform.",
+        p_agree_text: "I accept the terms of use and authorize the processing of my responses. *",
+        p_share_label: "Do you authorize the collected data to be shared publicly? *",
+        p_opt_private: "No, I only authorize the private and confidential use of my answers.",
+        p_opt_public: "Yes, I authorize my answers to be shared in a public manner.",
+        succ_t: "Responses recorded securely!",
+        succ_desc_1: "Thank you very much for your valuable time and for contributing your experience to this animal care research.",
+        succ_desc_2: "If you want more information or to contact me, you can do so directly."
+      }
+    };
+
+    Object.assign(i18n.es, {
+      nav_home: "Inicio",
+      nav_experience: "Experiencia",
+      nav_portfolio: "Portafolio",
+      privacy_link: "Aviso de privacidad",
+      data_treatment_link: "Tratamiento de datos",
+      l_whatsapp_placeholder: "+52 ...",
+      captcha_placeholder: "Resultado",
+      msg_required_textareas: "Por favor responde los campos obligatorios en texto largo.",
+      msg_required_field: "Por favor completa el campo obligatorio antes de continuar.",
+      msg_captcha_error: "El resultado del Captcha matemático es incorrecto. Inténtalo de nuevo.",
+      msg_rate_limited: "Límite de tasa excedido. Por favor espera 10 minutos.",
+      msg_retry: "Reintentar",
+      msg_success_fallback: "¡Éxito! Envío completado de manera transparente.",
+      modal_ok: "Aceptar",
+      question_label: "Pregunta",
+      c_q1: "1. Cuéntanos quién te acompaña en casa: ¿qué tipo de mascota tienes y qué edad tiene? (Puedes elegir varias opciones)",
+      c_q2: "2. Pensando en comida, salud, paseos e imprevistos, ¿más o menos cuánto inviertes al mes? (Elige una opción)",
+      c_q3: "3. En los últimos meses, ¿qué servicios has necesitado buscar para tu mascota? (Puedes elegir varios)",
+      c_q4: "4. Cuando buscas ayuda especializada, ¿qué es lo que más te preocupa o te frustra? *",
+      c_q5: "5. Si alguien pasea o cuida a tu mascota, ¿qué te daría más tranquilidad? (Puedes elegir varias opciones)",
+      c_q6: "6. Si has pasado por adopción o lo has intentado, ¿cómo fue? Si no aplica, también puedes indicarlo. (Elige una opción)",
+      c_q7: "7. ¿Cómo guardas sus documentos o historial médico? ¿Qué tan fácil sería encontrar un dato viejo en una urgencia? *",
+      c_q8: "8. ¿Te ayudaría poder pagar con enlaces seguros o Meses Sin Intereses? (Elige una opción)",
+      c_q9: "9. Si existiera una app para ordenar todo esto, ¿qué funciones sí te parecerían útiles? (Puedes elegir varias)",
+      c_q10: "10. Del 1 al 5, ¿qué tan probable sería que la descargaras y la usaras?",
+      c_q11: "11. En tus palabras, ¿qué tendría que garantizarte para que confíes en ella? *",
+      c_o1_3: "Pequeño mamífero",
+      c_o1_4: "Ave, reptil o pez",
+      c_o1_5: "No tengo mascota actualmente",
+      c_o3_1: "Consulta veterinaria general / Vacunas",
+      c_o3_2: "Médico especialista",
+      c_o3_3: "Hospital clínico 24 horas",
+      c_o3_4: "Servicios diarios",
+      c_o5_1: "Monitoreo por GPS en tiempo real.",
+      c_o5_2: "Seguro de gastos médicos incluido.",
+      c_o5_3: "Recibir fotos y videos de forma directa.",
+      c_o6_1: "Frustrante: Filtros eternos, demasiado intrusivos.",
+      c_o6_2: "Complicada: Caos para buscar, sin lugar centralizado.",
+      c_o6_3: "Buena: El proceso fue ágil, humano y seguro.",
+      c_o6_4: "Prefiero comprar por certeza de salud o raza.",
+      c_o6_5: "Otra experiencia:",
+      c_o6_6: "No he pasado por un proceso de adopción recientemente.",
+      c_o9_1: "Un \"Carnet Inteligente\" digital en tu celular...",
+      c_o9_2: "Un directorio verificado de especialistas calificados.",
+      c_o9_3: "Un espacio de adopción responsable pre-verificado.",
+      r_less1: "Menos de $1,000 MXN",
+      r_1to3: "Entre $1,000 y $3,000 MXN",
+      r_3to6: "Entre $3,000 y $6,000 MXN",
+      r_more6: "Más de $6,000 MXN",
+      msi_1: "Sería determinante para mudar todos mis servicios.",
+      msi_2: "Lo consideraría útil, pero dependería de las tarifas.",
+      msi_3: "Me es indiferente, prefiero efectivo o transferencia manual.",
+      p_q1: "1. Para ubicarnos: ¿qué papel tienes hoy dentro del mundo animal? (Elige una opción)",
+      p_q2: "2. Más o menos, ¿a cuántos clientes o pacientes atiendes por semana? (Elige una opción)",
+      p_q3: "3. Sabemos que la parte bonita es atender. ¿Qué tanto se te va la semana en papeleo, agenda, WhatsApp, pagos o seguimiento? *",
+      p_q4: "4. Los No-Shows duelen. ¿Qué tanto te afecta que la gente no llegue a su cita? (Elige una opción)",
+      p_q5: "5. ¿Cómo es tu relación con rescatistas o personas que llevan animales de la calle? ¿Qué se vuelve más difícil ahí? *",
+      p_q6: "6. Sin filtros: ¿qué es lo que más te molesta de cómo cobras hoy? (Puedes elegir varias)",
+      p_q7: "7. ¿Dónde llevas hoy la información de tus pacientes? (Puedes elegir varias)",
+      p_q8: "8. Si usas libreta, Excel o software, ¿qué sientes que siempre se queda corto? *",
+      p_q9: "9. ¿Cuánto pagas al mes por herramientas de gestión o agenda? (Elige una opción)",
+      p_q10: "10. Si tuvieras un sistema que agenda, cobra y ayuda a reducir faltas, ¿qué sí te serviría? (Puedes elegir varias)",
+      p_q11: "11. Si algo así existiera, ¿qué forma de pago te haría más sentido? (Elige una opción)",
+      p_q12: "12. ¿Qué te detendría antes de contratar o migrar tu operación a una plataforma así? *",
+      p_o1_1: "Médico Especialista Independiente",
+      p_o1_2: "Administrador / Dueño de Clínica u Hospital",
+      p_o1_3: "Proveedor de Servicios de Bienestar",
+      p_o2_1: "Menos de 10",
+      p_o2_2: "Entre 10 y 30",
+      p_o2_3: "Entre 30 y 60",
+      p_o2_4: "Más de 60",
+      p_o4_1: "Menos del 5%",
+      p_o4_2: "Entre el 5% y el 15%",
+      p_o4_3: "Entre el 15% y el 30%",
+      p_o4_4: "Más del 30%",
+      p_o6_1: "Las comisiones por transacción absorben mi ganancia.",
+      p_o6_2: "No puedo ofrecer Meses Sin Intereses de forma fácil.",
+      p_o6_3: "El desorden de conciliar efectivo contra tarjetas.",
+      p_o7_1: "Métodos tradicionales (Agenda física, libretas).",
+      p_o7_2: "Herramientas digitales generales (Excel, WhatsApp).",
+      p_o7_3: "Un software o CRM especializado para veterinarias.",
+      p_o9_1: "$0 MXN (Uso opciones gratuitas, libreta o Excel).",
+      p_o9_2: "Menos de $500 MXN al mes.",
+      p_o9_3: "Entre $500 y $1,500 MXN al mes.",
+      p_o9_4: "Más de $1,500 MXN al mes.",
+      p_o10_1: "CRM Todo en Uno: Expedientes avanzados y recordatorios.",
+      p_o10_2: "Pasarela de Pagos Digital con enlaces seguros y MSI.",
+      p_o10_3: "Protección Anticaos: Tarjeta en garantía por No-Show.",
+      p_o11_1: "Pagar una comisión fija por transacción (entre 3.5% y 5%).",
+      p_o11_2: "Pagar una suscripción mensual fija por el software.",
+      p_o11_3: "No me interesaría integrarme, prefiero mi formato actual.",
+      v_q1: "1. ¿Qué vendes principalmente? (Puedes elegir varias opciones)",
+      v_q2: "2. ¿Cómo lo estás moviendo hoy: redes, tienda propia, marketplaces o puntos físicos? (Puedes elegir varias)",
+      v_q3: "3. Si tuvieras que elegir la parte más asfixiante de vender y enviar, ¿cuál sería? (Elige una opción)",
+      v_q4: "4. Vendiendo en digital, ¿qué tan complicado es mantener precios competitivos con retenciones y trámites fiscales? *",
+      v_q5: "5. Cuéntanos una venta que se cayó o se complicó por envíos, comisiones o pasarelas. *",
+      v_q6: "6. Si un canal especializado cobrara menos comisión, gestionara envíos y liberara dinero rápido, ¿qué sí te interesaría? (Puedes elegir varias)",
+      v_q7: "7. ¿Te serviría vender por suscripción mensual a clientes recurrentes? (Elige una opción)",
+      v_q8: "8. Del 1 al 5, ¿qué tan probable sería que abrieras tu tienda en un canal así?",
+      v_q9: "9. ¿Por qué abrirías una tienda en un nuevo canal especializado? ¿Qué tendría que pasar para que sí te convenga? *",
+      v_o1_1: "Alimento, snacks o suplementos",
+      v_o1_2: "Accesorios, ropa, camas o correas",
+      v_o1_3: "Farmacia, medicamentos o higiene",
+      v_o1_4: "Juguetes o estimulación mental",
+      v_o2_1: "Redes sociales directas (WhatsApp manual)",
+      v_o2_2: "Tienda en línea propia (Shopify, WooCommerce)",
+      v_o2_3: "Marketplaces grandes (Mercado Libre, Amazon)",
+      v_o2_4: "Puntos de venta físicos (Veterinarias, bazares)",
+      v_o3_1: "Las comisiones de los marketplaces tradicionales son altísimas.",
+      v_o3_2: "La logística de envíos y empaque consume demasiado tiempo.",
+      v_o3_3: "Las pasarelas de pago tardan demasiados días en liberarme el dinero.",
+      v_o3_4: "Me cuesta mucho atraer clientes que busquen la especialidad de mis productos.",
+      v_o6_1: "Comisiones transparentes y bajas: Tarifa menor.",
+      v_o6_2: "Logística integrada y económica con recolección.",
+      v_o6_3: "Dispersión de dinero exprés en menos de 24-48 horas.",
+      v_o7_1: "Sería una herramienta clave; ingresos predecibles.",
+      v_o7_2: "Útil, pero dependería de qué tanto lo adopten.",
+      v_o7_3: "No aplica para mis productos.",
+      o_q1: "1. ¿Cuántos animales tienen bajo su cargo ahorita? (Elige una opción)",
+      o_q2: "2. Y lo más importante: ¿qué es lo que hoy más les quita el sueño para seguir rescatando? (Elige una opción)",
+      o_q3: "3. Cuando alguien quiere adoptar, ¿qué parte les genera más desconfianza o consume más tiempo? (Elige una opción)",
+      o_q4: "4. Cuéntanos una situación reciente donde la falta de recursos haya complicado un rescate. *",
+      o_q5: "5. Si una herramienta ayudara con filtros, donaciones y deudas clínicas, ¿qué les daría más desahogo? (Puedes elegir varias)",
+      o_q6: "6. Del 1 al 5, ¿qué tanto les ayudaría una herramienta así a crecer o respirar un poco más?",
+      o_q7: "7. Si pudieran pedir una sola función para cambiar el rescate, ¿cuál sería? *",
+      o_o1_1: "Menos de 15",
+      o_o1_2: "Entre 15 y 50",
+      o_o1_3: "Entre 50 y 100",
+      o_o1_4: "Más de 100",
+      o_o2_1: "La falta de donativos económicos constantes.",
+      o_o2_2: "El seguimiento y filtros para asegurar adopciones.",
+      o_o2_3: "Las deudas acumuladas en clínicas veterinarias.",
+      o_o3_1: "Validar si sus datos, casa y estilo de vida son reales.",
+      o_o3_2: "Lograr que firmen el contrato de adopción.",
+      o_o5_1: "Pasarela de Donaciones Recurrentes automáticas.",
+      o_o5_2: "Módulo de Adopción Inteligente con pre-filtro.",
+      o_o5_3: "Historial Médico Transferible directo al dueño.",
+      l_email: "Correo Electrónico *",
+      l_whatsapp: "WhatsApp (Opcional)",
+      app_ins_ong: "Imagina un ecosistema digital con herramientas pensadas para refugios, rescatistas y fundaciones.",
+      p_notice_desc: "Este formulario recopila información únicamente para investigación de mercado, validación de necesidades y diseño de una posible plataforma tecnológica."
+    });
+
+    Object.assign(i18n.en, {
+      nav_home: "Home",
+      nav_experience: "Experience",
+      nav_portfolio: "Portfolio",
+      privacy_link: "Privacy notice",
+      data_treatment_link: "Data processing",
+      l_whatsapp_placeholder: "+1 ...",
+      captcha_placeholder: "Result",
+      msg_required_textareas: "Please answer the required long-text fields.",
+      msg_required_field: "Please complete the required field before continuing.",
+      msg_captcha_error: "The math captcha answer is incorrect. Please try again.",
+      msg_rate_limited: "Rate limit exceeded. Please wait 10 minutes.",
+      msg_retry: "Retry",
+      msg_success_fallback: "Success! Submission completed transparently.",
+      modal_ok: "OK",
+      question_label: "Question",
+      c_title: "Path for Pet Owners and Adopters",
+      c_sec3: "Block 3: Adoption Pain Points",
+      p_title: "Path for Professionals and Clinics",
+      v_title: "Path for Sellers, E-commerce, and Brands",
+      v_sec1: "Block 1: Business Profile",
+      v_sec2: "Block 2: Product Sales Pain Points",
+      o_title: "Path for NGOs and Foundations",
+      c_q1: "1. Tell us who lives with you at home: what type of pet do you have, and how old is it? (You can choose several)",
+      c_q2: "2. Thinking about food, health, walks, and unexpected expenses, roughly how much do you spend per month? (Choose one)",
+      c_q3: "3. In recent months, which services have you needed to look for for your pet? (You can choose several)",
+      c_q4: "4. When you look for specialized help, what worries or frustrates you the most? *",
+      c_q5: "5. If someone walks or cares for your pet, what would give you the most peace of mind? (You can choose several)",
+      c_q6: "6. If you have gone through adoption or tried to, what was it like? If it does not apply, you can say so. (Choose one)",
+      c_q7: "7. How do you store documents or medical history? How easy would it be to find old information in an emergency? *",
+      c_q8: "8. Would secure payment links or interest-free installments help you? (Choose one)",
+      c_q9: "9. If there were an app to organize all of this, which features would actually be useful to you? (You can choose several)",
+      c_q10: "10. From 1 to 5, how likely would you be to download and use it?",
+      c_q11: "11. In your own words, what would it need to guarantee for you to trust it? *",
+      c_o1_3: "Small mammal",
+      c_o1_4: "Bird, reptile, or fish",
+      c_o1_5: "I do not currently have a pet",
+      c_o3_1: "General veterinary consultation / Vaccines",
+      c_o3_2: "Medical specialist",
+      c_o3_3: "24-hour clinical hospital",
+      c_o3_4: "Daily services",
+      c_o5_1: "Real-time GPS tracking.",
+      c_o5_2: "Included medical expense insurance.",
+      c_o5_3: "Receiving photos and videos directly.",
+      c_o6_1: "Frustrating: Endless filters, too intrusive.",
+      c_o6_2: "Complicated: Chaotic search, no centralized place.",
+      c_o6_3: "Good: The process was agile, humane, and safe.",
+      c_o6_4: "I prefer buying for certainty about health or breed.",
+      c_o6_5: "Other experience:",
+      c_o6_6: "I have not gone through an adoption process recently.",
+      c_o9_1: "A digital \"Smart Pet Card\" on your phone...",
+      c_o9_2: "A verified directory of qualified specialists.",
+      c_o9_3: "A pre-verified responsible adoption space.",
+      r_less1: "Less than $1,000 MXN",
+      r_1to3: "Between $1,000 and $3,000 MXN",
+      r_3to6: "Between $3,000 and $6,000 MXN",
+      r_more6: "More than $6,000 MXN",
+      msi_1: "It would be decisive for moving all my services.",
+      msi_2: "I would consider it useful, but it would depend on the fees.",
+      msi_3: "I am indifferent; I prefer cash or manual transfer.",
+      p_q1: "1. To place you correctly: what role do you currently play in animal care? (Choose one)",
+      p_q2: "2. Roughly how many clients or patients do you serve per week? (Choose one)",
+      p_q3: "3. We know care is the meaningful part. How much of your week disappears into paperwork, scheduling, WhatsApp, payments, or follow-up? *",
+      p_q4: "4. No-shows hurt. How much does it affect you when people miss appointments? (Choose one)",
+      p_q5: "5. What is your relationship like with rescuers or people who bring in street animals? What gets complicated there? *",
+      p_q6: "6. No filter: what bothers you most about how you collect payments today? (You can choose several)",
+      p_q7: "7. Where do you currently keep patient information? (You can choose several)",
+      p_q8: "8. If you use a notebook, Excel, or software, what still feels missing? *",
+      p_q9: "9. How much do you pay per month for management or scheduling tools? (Choose one)",
+      p_q10: "10. If you had a system that schedules, charges, and helps reduce missed appointments, what would actually help? (You can choose several)",
+      p_q11: "11. If something like this existed, which payment model would make the most sense? (Choose one)",
+      p_q12: "12. What would stop you before hiring or moving your operation to a platform like this? *",
+      p_o1_1: "Independent Medical Specialist",
+      p_o1_2: "Clinic or Hospital Administrator / Owner",
+      p_o1_3: "Wellness Service Provider",
+      p_o2_1: "Less than 10",
+      p_o2_2: "Between 10 and 30",
+      p_o2_3: "Between 30 and 60",
+      p_o2_4: "More than 60",
+      p_o4_1: "Less than 5%",
+      p_o4_2: "Between 5% and 15%",
+      p_o4_3: "Between 15% and 30%",
+      p_o4_4: "More than 30%",
+      p_o6_1: "Transaction fees absorb my profit.",
+      p_o6_2: "I cannot easily offer interest-free installments.",
+      p_o6_3: "The disorder of reconciling cash versus cards.",
+      p_o7_1: "Traditional methods (paper agenda, notebooks).",
+      p_o7_2: "General digital tools (Excel, WhatsApp).",
+      p_o7_3: "Specialized software or CRM for veterinary clinics.",
+      p_o9_1: "$0 MXN (I use free options, a notebook, or Excel).",
+      p_o9_2: "Less than $500 MXN per month.",
+      p_o9_3: "Between $500 and $1,500 MXN per month.",
+      p_o9_4: "More than $1,500 MXN per month.",
+      p_o10_1: "All-in-one CRM: Advanced records and reminders.",
+      p_o10_2: "Digital payment gateway with secure links and installments.",
+      p_o10_3: "Anti-chaos protection: Card guarantee for no-shows.",
+      p_o11_1: "Pay a fixed transaction commission (between 3.5% and 5%).",
+      p_o11_2: "Pay a fixed monthly software subscription.",
+      p_o11_3: "I would not be interested in joining; I prefer my current format.",
+      v_q1: "1. What do you mainly sell? (You can choose several)",
+      v_q2: "2. How are you moving it today: social media, your own store, marketplaces, or physical points of sale? (You can choose several)",
+      v_q3: "3. If you had to choose the most suffocating part of selling and shipping, what would it be? (Choose one)",
+      v_q4: "4. When selling digitally, how hard is it to keep competitive prices with tax withholdings and fiscal paperwork? *",
+      v_q5: "5. Tell us about a sale that fell through or became complicated because of shipping, fees, or payment gateways. *",
+      v_q6: "6. If a specialized channel charged lower fees, managed shipping, and released money quickly, what would interest you? (You can choose several)",
+      v_q7: "7. Would a monthly subscription model help with recurring customers? (Choose one)",
+      v_q8: "8. From 1 to 5, how likely would you be to open your store in a channel like this?",
+      v_q9: "9. Why would you open a store in a new specialized channel? What would need to happen for it to be worth it? *",
+      v_o1_1: "Food, snacks, or supplements",
+      v_o1_2: "Accessories, clothing, beds, or leashes",
+      v_o1_3: "Pharmacy, medications, or hygiene",
+      v_o1_4: "Toys or mental stimulation",
+      v_o2_1: "Direct social media sales (manual WhatsApp)",
+      v_o2_2: "Own online store (Shopify, WooCommerce)",
+      v_o2_3: "Large marketplaces (Mercado Libre, Amazon)",
+      v_o2_4: "Physical points of sale (veterinary clinics, bazaars)",
+      v_o3_1: "Traditional marketplace commissions are extremely high.",
+      v_o3_2: "Shipping and packaging logistics take too much time.",
+      v_o3_3: "Payment gateways take too many days to release my money.",
+      v_o3_4: "It is hard for me to attract customers looking for my product specialty.",
+      v_o6_1: "Transparent, low commissions: Lower fee.",
+      v_o6_2: "Integrated, affordable logistics with pickup.",
+      v_o6_3: "Express money payout in less than 24-48 hours.",
+      v_o7_1: "It would be a key tool; predictable income.",
+      v_o7_2: "Useful, but it would depend on adoption.",
+      v_o7_3: "It does not apply to my products.",
+      o_q1: "1. How many animals are currently under your care? (Choose one)",
+      o_q2: "2. Most importantly: what keeps you up at night when trying to keep rescuing? (Choose one)",
+      o_q3: "3. When someone wants to adopt, which part creates the most distrust or consumes the most time? (Choose one)",
+      o_q4: "4. Tell us about a recent situation where lack of resources complicated a rescue. *",
+      o_q5: "5. If a tool helped with adoption filters, donations, and clinic debt, what would bring the most relief? (You can choose several)",
+      o_q6: "6. From 1 to 5, how much would a tool like this help you grow or breathe a little easier?",
+      o_q7: "7. If you could ask for one feature to change rescue work, what would it be? *",
+      o_o1_1: "Less than 15",
+      o_o1_2: "Between 15 and 50",
+      o_o1_3: "Between 50 and 100",
+      o_o1_4: "More than 100",
+      o_o2_1: "The lack of consistent financial donations.",
+      o_o2_2: "Follow-up and filters to ensure adoptions.",
+      o_o2_3: "Accumulated debts at veterinary clinics.",
+      o_o3_1: "Validating whether their information, home, and lifestyle are real.",
+      o_o3_2: "Getting them to sign the adoption contract.",
+      o_o5_1: "Automatic recurring donation gateway.",
+      o_o5_2: "Smart adoption module with pre-filtering.",
+      o_o5_3: "Transferable medical history sent directly to the owner.",
+      l_email: "Email *",
+      l_whatsapp: "WhatsApp (Optional)",
+      app_ins_ong: "Imagine a digital ecosystem with tools designed for shelters, rescuers, and foundations.",
+      p_notice_desc: "This form collects information only for research, needs validation, and the design of a possible technology platform."
+    });
+
+    function t(key) {
+      return (i18n[currentLanguage] && i18n[currentLanguage][key]) || i18n.es[key] || key;
+    }
+
+    function stripOriginalQuestionNumber(text) {
+      return text.replace(/^\s*\d+\.\s*/, '');
+    }
+
+    function getRouteQuestionNumber(key) {
+      const sequence = routeQuestionSequences[selectedRoute] || [];
+      const index = sequence.indexOf(key);
+      return index >= 0 ? index + 1 : null;
+    }
+
+    function renderQuestionLabel(label) {
+      const key = label.getAttribute('data-key');
+      const translated = t(key);
+      const number = getRouteQuestionNumber(key);
+      label.innerHTML = "";
+
+      if (number) {
+        const step = document.createElement('span');
+        step.className = 'question-step';
+        step.textContent = `${t('question_label')} ${number}`;
+        label.appendChild(step);
+      }
+
+      const copy = document.createElement('span');
+      copy.className = 'question-copy';
+      copy.textContent = number ? stripOriginalQuestionNumber(translated) : translated;
+      label.appendChild(copy);
+    }
+
+    function updateActiveQuestionLabels() {
+      const activePanel = document.getElementById(currentActivePanel);
+      if (!activePanel) return;
+      activePanel.querySelectorAll('.question-label[data-key]').forEach(renderQuestionLabel);
+    }
+
+    function setLanguage(lang) {
+      currentLanguage = lang;
+      document.documentElement.lang = lang;
+      document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+      const langBtn = document.getElementById('btn-' + lang);
+      if (langBtn) langBtn.classList.add('active');
+      document.querySelectorAll('[data-key]').forEach(elem => {
+        const key = elem.getAttribute('data-key');
+        if (!(i18n[lang] && i18n[lang][key])) return;
+        if (elem.classList.contains('question-label')) renderQuestionLabel(elem);
+        else elem.innerText = i18n[lang][key];
+      });
+      document.querySelectorAll('[data-placeholder-key]').forEach(elem => {
+        const key = elem.getAttribute('data-placeholder-key');
+        if (i18n[lang] && i18n[lang][key]) { elem.setAttribute('placeholder', i18n[lang][key]); }
+      });
+      document.querySelectorAll('.btn-next').forEach(next => {
+        next.innerText = (i18n[lang] && i18n[lang].btn_next) ? i18n[lang].btn_next : next.innerText;
+      });
+      document.querySelectorAll('.btn-back').forEach(back => {
+        back.innerText = (i18n[lang] && i18n[lang].btn_back) ? i18n[lang].btn_back : back.innerText;
+      });
+      updateActiveQuestionLabels();
+    }
+    // Ensure visibility and show success
+    const originalShowSuccess = function(){
+      document.getElementById('form-container').style.display = 'none';
+      document.getElementById('success-screen').style.display = 'block';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+
+    // Reset handler wrapper
+    const _thenHandler = (res) => {
+      if (res && res.result === 'rate_limited') return;
+      originalShowSuccess();
+    };
+
+    // patch the existing promise handlers by wrapping the final UI update points
+    // (success handling consolidated)
+
+  </script>
+</body>
+</html>

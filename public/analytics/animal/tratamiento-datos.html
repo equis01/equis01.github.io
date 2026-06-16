@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tratamiento de Datos - Estudio de Cuidado Animal</title>
+  <meta name="description" content="Resumen del tratamiento de datos del formulario de investigación de mercado sobre cuidado animal.">
+  <link rel="icon" href="/public/img/logo/logo-x.png">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#eef4f1;
+      --surface:#fff;
+      --text:#17211d;
+      --muted:#65726d;
+      --accent:#157a6e;
+      --accent-dark:#0f5f56;
+      --border:#dce7e2;
+      --radius:8px;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:'Poppins',system-ui,-apple-system,'Segoe UI',sans-serif;
+      background:linear-gradient(315deg,rgba(242,166,90,.18),transparent 34%),var(--bg);
+      color:var(--text);
+      line-height:1.7;
+      padding:32px 14px;
+    }
+    main{
+      max-width:920px;
+      margin:0 auto;
+      background:var(--surface);
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      padding:36px;
+      box-shadow:0 24px 70px rgba(25,48,40,.12);
+    }
+    h1{margin:0 0 10px;font-size:34px;line-height:1.15}
+    h2{margin:30px 0 8px;color:var(--accent-dark);font-size:19px}
+    p,li,td,th{color:var(--muted)}
+    a{color:var(--accent-dark);font-weight:700;text-decoration:none}
+    a:hover{text-decoration:underline}
+    table{width:100%;border-collapse:collapse;margin-top:14px}
+    th,td{border:1px solid var(--border);padding:12px;text-align:left;vertical-align:top}
+    th{background:#f7faf8;color:var(--text)}
+    .meta{padding:12px 14px;border:1px solid var(--border);border-radius:var(--radius);background:#f7faf8;color:var(--muted)}
+    .actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}
+    .btn{display:inline-flex;align-items:center;justify-content:center;min-height:42px;padding:10px 16px;border-radius:999px;background:var(--accent);color:#fff;text-decoration:none}
+    .btn.secondary{background:#f7faf8;color:var(--accent-dark);border:1px solid var(--border)}
+    @media (max-width:700px){main{padding:24px 18px}h1{font-size:28px}table,tbody,tr,th,td{display:block}th{border-bottom:0}}
+  </style>
+</head>
+<body>
+  <main>
+    <p class="meta">Última actualización: 16 de junio de 2026</p>
+    <h1>Tratamiento de Datos</h1>
+    <p>Esta página resume de forma práctica cómo se tratan los datos del formulario. La intención es recopilar señales de mercado para entender qué problemas existen, qué tan urgentes son y qué tipo de solución comercial podría tener sentido.</p>
+
+    <h2>Resumen operativo</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Dato</th>
+          <th>Uso</th>
+          <th>Motivo</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Respuestas sobre experiencia, operación, costos, adopción, ventas o rescate</td>
+          <td>Análisis cualitativo y cuantitativo</td>
+          <td>Detectar dolores, patrones, disposición de uso y oportunidades de producto</td>
+        </tr>
+        <tr>
+          <td>Correo electrónico</td>
+          <td>Contacto posterior si la persona lo proporciona</td>
+          <td>Entrevistas, aclaraciones, validación de hipótesis o comunicación del proyecto</td>
+        </tr>
+        <tr>
+          <td>WhatsApp</td>
+          <td>Contacto opcional</td>
+          <td>Seguimiento más directo si la persona lo autoriza</td>
+        </tr>
+        <tr>
+          <td>IP, ciudad y país aproximados</td>
+          <td>Contexto geográfico y seguridad</td>
+          <td>Entender mercados, evitar abuso y filtrar respuestas duplicadas o automatizadas</td>
+        </tr>
+        <tr>
+          <td>Preferencias de privacidad indicadas en el formulario</td>
+          <td>Control de uso público o privado de respuestas</td>
+          <td>Respetar si las respuestas pueden compartirse públicamente o solo usarse de forma confidencial</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>Uso público de respuestas</h2>
+    <p>Si autorizas compartir información públicamente, se procurará usarla de forma agregada, resumida, anonimizada o editada para evitar identificarte directamente. Si no autorizas uso público, tus respuestas se usarán solo para análisis interno del proyecto.</p>
+
+    <h2>Datos sensibles</h2>
+    <p>El formulario no busca recopilar datos personales sensibles. Evita incluir información médica humana, documentos oficiales, domicilios completos, datos bancarios o cualquier dato que no sea necesario para explicar tu experiencia.</p>
+
+    <h2>Seguridad</h2>
+    <p>Se aplicarán medidas razonables para limitar el acceso a las respuestas y reducir exposición innecesaria. Al estar en etapa temprana, el sistema puede apoyarse en herramientas externas de formularios, alojamiento, automatización o análisis.</p>
+
+    <h2>Contacto</h2>
+    <p>Para dudas, solicitudes de acceso, rectificación, cancelación, oposición o revocación de consentimiento, escribe a <a href="mailto:luis@evamtz.me">luis@evamtz.me</a>.</p>
+
+    <div class="actions">
+      <a class="btn" href="/public/analytics/animal/cuidado.html">Volver al formulario</a>
+      <a class="btn secondary" href="/public/analytics/animal/privacidad.html">Ver aviso de privacidad</a>
+    </div>
+  </main>
+</body>
+</html>

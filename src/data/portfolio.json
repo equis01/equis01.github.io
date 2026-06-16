@@ -15,6 +15,14 @@
       "url": "/portafolio/shop/",
       "icono": "fas fa-code-branch",
       "badge": "Productividad"
+    },
+    {
+      "id": "cuidado",
+      "nombre": "Estudio de Cuidado Animal",
+      "descripcion": "Formulario de investigación sobre el cuidado animal, con diseño claro y rutas adaptadas para distintos públicos.",
+      "url": "/cuidado.html",
+      "icono": "fas fa-paw",
+      "badge": "Investigación"
     }
   ],
   "proyectos": [

@@ -1,0 +1,4 @@
+RewriteEngine On
+# hide .html for cuidado
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^analytics/animal/cuidado/?$ /analytics/animal/cuidado.html [L,QSA]
