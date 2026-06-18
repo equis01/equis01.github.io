@@ -2,5 +2,34 @@
     "framework": "vite",
     "buildCommand": "npm run build",
     "outputDirectory": "dist",
-    "cleanUrls": true
+    "cleanUrls": true,
+    "redirects": [
+        {
+            "source": "/animal/cuidado",
+            "destination": "/cuidado/animal",
+            "permanent": true
+        }
+    ],
+    "rewrites": [
+        {
+            "source": "/cuidado/animal",
+            "destination": "/public/analytics/animal/cuidado.html"
+        },
+        {
+            "source": "/cuidado/animal/privacidad",
+            "destination": "/public/analytics/animal/privacidad.html"
+        },
+        {
+            "source": "/cuidado/animal/tratamiento-datos",
+            "destination": "/public/analytics/animal/tratamiento-datos.html"
+        },
+        {
+            "source": "/tours",
+            "destination": "/public/analytics/tours/index.html"
+        },
+        {
+            "source": "/tours/privacidad",
+            "destination": "/public/analytics/tours/privacidad.html"
+        }
+    ]
 }

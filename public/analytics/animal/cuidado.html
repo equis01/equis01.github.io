@@ -642,6 +642,29 @@
           </div>
         </div>
 
+        <div id="step-demographics" class="step-panel">
+          <h2 data-key="demo_title">Un poco de contexto</h2>
+          <div class="question-group">
+            <label class="question-label" data-key="demo_q_age">¿En qué rango de edad te encuentras? (Esto nos ayuda a entender cómo diferentes generaciones viven el cuidado animal).</label>
+            <label class="option-control"><input type="radio" name="rango_edad" value="18-24"> <span data-key="age_18_24">18-24</span></label>
+            <label class="option-control"><input type="radio" name="rango_edad" value="25-34"> <span data-key="age_25_34">25-34</span></label>
+            <label class="option-control"><input type="radio" name="rango_edad" value="35-44"> <span data-key="age_35_44">35-44</span></label>
+            <label class="option-control"><input type="radio" name="rango_edad" value="45-54"> <span data-key="age_45_54">45-54</span></label>
+            <label class="option-control"><input type="radio" name="rango_edad" value="55+"> <span data-key="age_55_plus">55+</span></label>
+          </div>
+          <div class="question-group">
+            <label class="question-label" data-key="demo_q_gender">¿Con qué género te identificas?</label>
+            <label class="option-control"><input type="radio" name="genero" value="Mujer"> <span data-key="gender_woman">Mujer</span></label>
+            <label class="option-control"><input type="radio" name="genero" value="Hombre"> <span data-key="gender_man">Hombre</span></label>
+            <label class="option-control"><input type="radio" name="genero" value="Prefiero no decirlo"> <span data-key="gender_no_say">Prefiero no decirlo</span></label>
+            <label class="option-control"><input type="radio" id="chk-genero-other" name="genero" value="Otro" onchange="toggleRadioOther('genero-other', this)"> <span data-key="other">Otro:</span> <input type="text" id="genero-other" class="other-inline" disabled></label>
+          </div>
+          <div class="btn-container">
+            <button type="button" class="action-btn btn-back" onclick="goBackManual()">Atrás</button>
+            <button type="button" class="action-btn btn-next" onclick="validateDemographicsAndNext()">Siguiente</button>
+          </div>
+        </div>
+
         <div id="step-c-b1" class="step-panel">
           <h2 data-key="c_title">Ruta para Dueños y Adoptantes</h2>
           <div class="section-title" data-key="c_sec1">Bloque 1: Contexto y Estilo de Vida</div>
@@ -766,7 +789,7 @@
           </div>
           <div class="btn-container">
             <button type="button" class="action-btn btn-back" onclick="goBackManual()">Atrás</button>
-            <button type="button" class="action-btn btn-next" onclick="validateTextareasAndNext('step-leads', ['req_c3'])">Siguiente</button>
+            <button type="button" class="action-btn btn-next" onclick="validateTextareasAndNext('step-usage', ['req_c3'])">Siguiente</button>
           </div>
         </div>
 
@@ -889,7 +912,7 @@
           </div>
           <div class="btn-container">
             <button type="button" class="action-btn btn-back" onclick="goBackManual()">Atrás</button>
-            <button type="button" class="action-btn btn-next" onclick="validateTextareasAndNext('step-leads', ['req_p3', 'req_p4'])">Siguiente</button>
+            <button type="button" class="action-btn btn-next" onclick="validateTextareasAndNext('step-usage', ['req_p3', 'req_p4'])">Siguiente</button>
           </div>
         </div>
 
@@ -994,7 +1017,7 @@
           </div>
           <div class="btn-container">
             <button type="button" class="action-btn btn-back" onclick="goBackManual()">Atrás</button>
-            <button type="button" class="action-btn btn-next" onclick="validateTextareasAndNext('step-leads', ['req_v1', 'req_v2', 'req_v3'])">Siguiente</button>
+            <button type="button" class="action-btn btn-next" onclick="validateTextareasAndNext('step-usage', ['req_v1', 'req_v2', 'req_v3'])">Siguiente</button>
           </div>
         </div>
 
@@ -1083,7 +1106,19 @@
           </div>
           <div class="btn-container">
             <button type="button" class="action-btn btn-back" onclick="goBackManual()">Atrás</button>
-            <button type="button" class="action-btn btn-next" onclick="validateTextareasAndNext('step-leads', ['req_o1', 'req_o2'])">Siguiente</button>
+            <button type="button" class="action-btn btn-next" onclick="validateTextareasAndNext('step-usage', ['req_o1', 'req_o2'])">Siguiente</button>
+          </div>
+        </div>
+
+        <div id="step-usage" class="step-panel">
+          <h2 data-key="usage_title">Pensando en uso real</h2>
+          <div class="question-group">
+            <label class="question-label" data-key="usage_q1">Si tuvieras el sistema en tu celular hoy, ¿cuál sería la razón #1 por la que abrirías la app cada semana? (Ej: agendar citas, comprar alimento, revisar salud, donar, gestionar rescates, etc.) *</label>
+            <textarea name="uso_principal" id="req_usage"></textarea>
+          </div>
+          <div class="btn-container">
+            <button type="button" class="action-btn btn-back" onclick="goBackManual()">Atrás</button>
+            <button type="button" class="action-btn btn-next" onclick="validateTextareasAndNext('step-leads', ['req_usage'])">Siguiente</button>
           </div>
         </div>
 
@@ -1179,11 +1214,11 @@
     let captchaCorrectAnswer = 0;
     let wizardHistory = ["step-screener"];
     const routeQuestionSequences = {
-      customer: ['c_q1','c_q2','c_q3','c_q4','c_q5','c_q6','c_q7','c_q8','c_q9','c_q10','c_q11'],
-      adoptant: ['c_q6','c_q9','c_q10','c_q11'],
-      provider: ['p_q1','p_q2','p_q3','p_q4','p_q5','p_q6','p_q7','p_q8','p_q9','p_q10','p_q11','p_q12'],
-      seller: ['v_q1','v_q2','v_q3','v_q4','v_q5','v_q6','v_q7','v_q8','v_q9'],
-      ong: ['o_q1','o_q2','o_q3','o_q4','o_q5','o_q6','o_q7']
+      customer: ['demo_q_age','demo_q_gender','c_q1','c_q2','c_q3','c_q4','c_q5','c_q6','c_q7','c_q8','c_q9','c_q10','c_q11','usage_q1'],
+      adoptant: ['demo_q_age','demo_q_gender','c_q6','c_q9','c_q10','c_q11','usage_q1'],
+      provider: ['demo_q_age','demo_q_gender','p_q1','p_q2','p_q3','p_q4','p_q5','p_q6','p_q7','p_q8','p_q9','p_q10','p_q11','p_q12','usage_q1'],
+      seller: ['demo_q_age','demo_q_gender','v_q1','v_q2','v_q3','v_q4','v_q5','v_q6','v_q7','v_q8','v_q9','usage_q1'],
+      ong: ['demo_q_age','demo_q_gender','o_q1','o_q2','o_q3','o_q4','o_q5','o_q6','o_q7','usage_q1']
     };
 
     window.addEventListener('DOMContentLoaded', () => {
@@ -1268,25 +1303,42 @@
       if(routeValue === 'customer') {
         selectedRoute = "customer";
         document.getElementById('hiddenFormType').value = "customer";
-        setActivePanel('step-c-b1');
       } else if (routeValue === 'adoptant') {
         selectedRoute = "adoptant";
         document.getElementById('hiddenFormType').value = "customer";
-        setActivePanel('step-c-b3');
-        document.getElementById('container-back-c-b3').style.display = 'flex';
       } else if (routeValue === 'provider') {
         selectedRoute = "provider";
         document.getElementById('hiddenFormType').value = "provider";
-        setActivePanel('step-p-b1');
       } else if (routeValue === 'seller') {
         selectedRoute = "seller";
         document.getElementById('hiddenFormType').value = "seller";
-        setActivePanel('step-v-b1');
       } else if (routeValue === 'ong') {
         selectedRoute = "ong";
         document.getElementById('hiddenFormType').value = "ong";
-        setActivePanel('step-o-b1');
       }
+      setActivePanel('step-demographics');
+    }
+
+    function getFirstRoutePanel() {
+      const firstPanels = {
+        customer: 'step-c-b1',
+        adoptant: 'step-c-b3',
+        provider: 'step-p-b1',
+        seller: 'step-v-b1',
+        ong: 'step-o-b1'
+      };
+      return firstPanels[selectedRoute] || 'step-c-b1';
+    }
+
+    function validateDemographicsAndNext() {
+      const age = document.querySelector('input[name="rango_edad"]:checked');
+      const gender = document.querySelector('input[name="genero"]:checked');
+      const otherGender = document.getElementById('genero-other');
+      if (!age || !gender || (gender.id === 'chk-genero-other' && !otherGender.value.trim())) {
+        showAppModal(t('msg_demographics_required'));
+        return;
+      }
+      navigateWizard(getFirstRoutePanel());
     }
 
     function autoAdvance(nextPanelId) {
@@ -1399,6 +1451,7 @@
         'step-v-b3-final': ['req_v3'],
         'step-o-b2-text': ['req_o1'],
         'step-o-b3-end': ['req_o2'],
+        'step-usage': ['req_usage'],
         'step-leads': ['lead_email']
       };
 
@@ -1436,7 +1489,7 @@
     }
 
     function clearRequiredFields() {
-      ['req_c1','req_c2','req_c3','req_p1','req_p2','req_p3','req_p4','req_o1','req_o2','req_v1','req_v2','req_v3','lead_email']
+      ['req_c1','req_c2','req_c3','req_p1','req_p2','req_p3','req_p4','req_o1','req_o2','req_v1','req_v2','req_v3','req_usage','lead_email']
         .forEach(id => { const el = document.getElementById(id); if(el) el.removeAttribute('required'); });
       const backContainer = document.getElementById('container-back-c-b3');
       if (backContainer) backContainer.style.display = 'none';
@@ -1471,7 +1524,7 @@
     function handleFormSubmit(event) {
       event.preventDefault();
       clearInactiveRadioOtherInputs();
-      ['req_c1','req_c2','req_c3','req_p1','req_p2','req_p3','req_p4','req_o1','req_o2','req_v1','req_v2','req_v3']
+      ['req_c1','req_c2','req_c3','req_p1','req_p2','req_p3','req_p4','req_o1','req_o2','req_v1','req_v2','req_v3','req_usage']
         .forEach(id => { const el = document.getElementById(id); if(el) el.removeAttribute('required'); });
 
       const userAnswer = parseInt(document.getElementById('captcha_user_answer').value, 10);
@@ -1513,6 +1566,7 @@
       }
 
       if(document.getElementById('chk-c-adop-other') && document.getElementById('chk-c-adop-other').checked) { urlSearchParams.set('c_adopcion_exp', "Otra experiencia: " + document.getElementById('c-adop-other').value); }
+      if(document.getElementById('chk-genero-other') && document.getElementById('chk-genero-other').checked) { urlSearchParams.set('genero', "Otro: " + document.getElementById('genero-other').value); }
       if(document.getElementById('chk-p-area-other') && document.getElementById('chk-p-area-other').checked) { urlSearchParams.set('p_area', "Otro: " + document.getElementById('p-area-other').value); }
       if(document.getElementById('chk-o-obs-other') && document.getElementById('chk-o-obs-other').checked) { urlSearchParams.set('o_obstaculo', "Otro: " + document.getElementById('o-obs-other').value); }
       if(document.getElementById('chk-o-bur-other') && document.getElementById('chk-o-bur-other').checked) { urlSearchParams.set('o_burocracia', "Otro: " + document.getElementById('o-bur-other').value); }
@@ -1649,12 +1703,26 @@
       captcha_placeholder: "Resultado",
       msg_required_textareas: "Por favor responde los campos obligatorios en texto largo.",
       msg_required_field: "Por favor completa el campo obligatorio antes de continuar.",
+      msg_demographics_required: "Por favor elige tu rango de edad y género antes de continuar.",
       msg_captcha_error: "El resultado del Captcha matemático es incorrecto. Inténtalo de nuevo.",
       msg_rate_limited: "Límite de tasa excedido. Por favor espera 10 minutos.",
       msg_retry: "Reintentar",
       msg_success_fallback: "¡Éxito! Envío completado de manera transparente.",
       modal_ok: "Aceptar",
       question_label: "Pregunta",
+      demo_title: "Un poco de contexto",
+      demo_q_age: "¿En qué rango de edad te encuentras? (Esto nos ayuda a entender cómo diferentes generaciones viven el cuidado animal).",
+      demo_q_gender: "¿Con qué género te identificas?",
+      age_18_24: "18-24",
+      age_25_34: "25-34",
+      age_35_44: "35-44",
+      age_45_54: "45-54",
+      age_55_plus: "55+",
+      gender_woman: "Mujer",
+      gender_man: "Hombre",
+      gender_no_say: "Prefiero no decirlo",
+      usage_title: "Pensando en uso real",
+      usage_q1: "Si tuvieras el sistema en tu celular hoy, ¿cuál sería la razón #1 por la que abrirías la app cada semana? (Ej: agendar citas, comprar alimento, revisar salud, donar, gestionar rescates, etc.) *",
       c_q1: "1. Cuéntanos quién te acompaña en casa: ¿qué tipo de mascota tienes y qué edad tiene? (Puedes elegir varias opciones)",
       c_q2: "2. Pensando en comida, salud, paseos e imprevistos, ¿más o menos cuánto inviertes al mes? (Elige una opción)",
       c_q3: "3. En los últimos meses, ¿qué servicios has necesitado buscar para tu mascota? (Puedes elegir varios)",
@@ -1793,12 +1861,26 @@
       captcha_placeholder: "Result",
       msg_required_textareas: "Please answer the required long-text fields.",
       msg_required_field: "Please complete the required field before continuing.",
+      msg_demographics_required: "Please choose your age range and gender before continuing.",
       msg_captcha_error: "The math captcha answer is incorrect. Please try again.",
       msg_rate_limited: "Rate limit exceeded. Please wait 10 minutes.",
       msg_retry: "Retry",
       msg_success_fallback: "Success! Submission completed transparently.",
       modal_ok: "OK",
       question_label: "Question",
+      demo_title: "A little context",
+      demo_q_age: "What age range are you in? (This helps us understand how different generations experience animal care.)",
+      demo_q_gender: "What gender do you identify with?",
+      age_18_24: "18-24",
+      age_25_34: "25-34",
+      age_35_44: "35-44",
+      age_45_54: "45-54",
+      age_55_plus: "55+",
+      gender_woman: "Woman",
+      gender_man: "Man",
+      gender_no_say: "Prefer not to say",
+      usage_title: "Thinking about real use",
+      usage_q1: "If you had the system on your phone today, what would be the #1 reason you would open the app every week? (Examples: booking appointments, buying food, checking health records, donating, managing rescues, etc.) *",
       c_title: "Path for Pet Owners and Adopters",
       c_sec3: "Block 3: Adoption Pain Points",
       p_title: "Path for Professionals and Clinics",

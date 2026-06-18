@@ -1,5 +1,13 @@
 RewriteEngine On
 
+# Rutas limpias para formularios de investigación
+RewriteRule ^animal/cuidado/?$ /cuidado/animal [R=301,L]
+RewriteRule ^cuidado/animal/?$ /public/analytics/animal/cuidado.html [L]
+RewriteRule ^cuidado/animal/privacidad/?$ /public/analytics/animal/privacidad.html [L]
+RewriteRule ^cuidado/animal/tratamiento-datos/?$ /public/analytics/animal/tratamiento-datos.html [L]
+RewriteRule ^tours/?$ /public/analytics/tours/index.html [L]
+RewriteRule ^tours/privacidad/?$ /public/analytics/tours/privacidad.html [L]
+
 # Quitar extensión .html
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME}\.html -f

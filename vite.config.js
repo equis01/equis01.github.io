@@ -16,6 +16,8 @@ export default defineConfig({
         cuidado: resolve(__dirname, 'public/analytics/animal/cuidado.html'),
         privacidadCuidado: resolve(__dirname, 'public/analytics/animal/privacidad.html'),
         tratamientoDatosCuidado: resolve(__dirname, 'public/analytics/animal/tratamiento-datos.html'),
+        tours: resolve(__dirname, 'public/analytics/tours/index.html'),
+        privacidadTours: resolve(__dirname, 'public/analytics/tours/privacidad.html'),
         shop: resolve(__dirname, 'portafolio/shop/index.html'),
         viewer: resolve(__dirname, 'portafolio/shop/viewer.html'),
         cv: resolve(__dirname, 'cv/index.html'),

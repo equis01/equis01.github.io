@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estudio de Viajes y Tours | Investigación de Mercado</title>
+    <meta name="description" content="Formulario de investigación para conocer cómo viajeros y organizadores reservan, gestionan y pagan tours.">
+    <meta name="author" content="Eduardo Vázquez">
+    <meta name="robots" content="noindex, follow">
+    <meta name="theme-color" content="#FFB800">
+    <link rel="canonical" href="/tours/">
+    <meta property="og:title" content="Estudio de Viajes y Tours">
+    <meta property="og:description" content="Ayúdanos a entender los dolores reales al reservar y organizar tours.">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://i.ibb.co/gh9ByJd/Portada-de-Facebook.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Estudio de Viajes y Tours">
+    <meta name="twitter:description" content="Investigación de mercado para viajeros y organizadores de tours.">
+    <meta name="twitter:image" content="https://i.ibb.co/gh9ByJd/Portada-de-Facebook.png">
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --cempasuchil: #FFB800;
+            --rosa-mexicano: #E4007C;
+            --talavera: #0047AB;
+            --hueso: #F9F9F9;
+            --carbon: #1A1A1A;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background:
+                linear-gradient(90deg, rgba(26,26,26,.76), rgba(26,26,26,.22)),
+                url('https://i.ibb.co/gh9ByJd/Portada-de-Facebook.png') center/cover fixed;
+            color: var(--carbon);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .form-container {
+            background: rgba(255,255,255,.96);
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 24px 70px rgba(0,0,0,0.28);
+            max-width: 620px;
+            width: 100%;
+            border: 1px solid rgba(255,255,255,.72);
+            backdrop-filter: blur(10px);
+        }
+
+        .intro {
+            margin: 0 0 24px;
+            color: #444;
+            line-height: 1.6;
+        }
+
+        .progress {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            margin-bottom: 26px;
+        }
+
+        .progress span {
+            height: 8px;
+            border-radius: 999px;
+            background: #eeeeee;
+            overflow: hidden;
+        }
+
+        .progress span.active {
+            background: linear-gradient(90deg, var(--cempasuchil), var(--rosa-mexicano));
+        }
+
+        h2, h3 {
+            font-family: 'Bangers', cursive;
+            color: var(--talavera);
+            letter-spacing: 1px;
+            margin-top: 0;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: var(--carbon);
+        }
+
+        select, input[type="text"] {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 2px solid #eee;
+            border-radius: 8px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1rem;
+            box-sizing: border-box;
+            transition: border-color 0.3s ease;
+        }
+
+        select:focus, input[type="text"]:focus {
+            outline: none;
+            border-color: var(--rosa-mexicano);
+        }
+
+        .checkbox-group, .radio-group {
+            margin-bottom: 20px;
+        }
+
+        .checkbox-group label, .radio-group label {
+            font-weight: 400;
+            display: inline-block;
+            margin-right: 15px;
+            margin-bottom: 10px;
+            cursor: pointer;
+        }
+
+        input[type="checkbox"], input[type="radio"] {
+            accent-color: var(--rosa-mexicano);
+            transform: scale(1.2);
+            margin-right: 5px;
+        }
+
+        button {
+            background-color: var(--cempasuchil);
+            color: var(--carbon);
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 1rem;
+            border: none;
+            padding: 15px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            width: 100%;
+            transition: transform 0.1s, background-color 0.3s;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background-color: #e6a600;
+            transform: translateY(-2px);
+        }
+
+        .step { display: none; animation: fadeIn 0.4s; }
+        .step.active { display: block; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .legal-link { color: var(--talavera); text-decoration: underline; }
+
+        .modal {
+            position: fixed;
+            inset: 0;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            background: rgba(26,26,26,.48);
+            z-index: 10;
+        }
+
+        .modal.active { display: flex; }
+
+        .modal-card {
+            width: min(420px, 100%);
+            background: #fff;
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 24px 70px rgba(0,0,0,.35);
+        }
+
+        .modal-card p {
+            margin: 0 0 18px;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 640px) {
+            body { align-items: flex-start; padding: 14px; }
+            .form-container { padding: 26px 18px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="form-container">
+    <form id="toursForm">
+        
+        <input type="text" id="website_hp" name="website_hp" tabindex="-1" autocomplete="off" style="display:none; position:absolute; left:-9999px;">
+
+        <div class="progress" aria-hidden="true">
+            <span id="progress-1" class="active"></span>
+            <span id="progress-2"></span>
+            <span id="progress-3"></span>
+        </div>
+
+        <div id="step1" class="step active">
+            <h2>Paso 1: Cuéntanos de ti</h2>
+            <p class="intro">Queremos entender cómo se reservan y organizan tours hoy: qué da confianza, qué frena una compra y qué herramientas sí valdría la pena construir.</p>
+            
+            <label>¿Cuál es tu rol al momento de viajar?</label>
+            <select id="rol_principal" required>
+                <option value="">Selecciona una opción...</option>
+                <option value="Cliente">Viajero (Busco tours para mí/familia)</option>
+                <option value="Organizador">Organizador / Agencia de viajes</option>
+            </select>
+
+            <label>Género:</label>
+            <select id="genero" required>
+                <option value="">Selecciona...</option>
+                <option value="Femenino">Femenino</option>
+                <option value="Masculino">Masculino</option>
+                <option value="No binario">No binario</option>
+                <option value="Prefiero no decir">Prefiero no decir</option>
+            </select>
+
+            <label>Edad:</label>
+            <select id="edad" required>
+                <option value="">Selecciona tu rango...</option>
+                <option value="18-24">18 - 24 años</option>
+                <option value="25-34">25 - 34 años</option>
+                <option value="35-44">35 - 44 años</option>
+                <option value="45+">45 años o más</option>
+            </select>
+
+            <button type="button" onclick="validateAndNext(1, 2)">Continuar</button>
+        </div>
+
+        <div id="step2_cliente" class="step">
+            <h2>Paso 2: Como Viajero...</h2>
+            
+            <label>¿Cuál es tu mayor "dolor de cabeza" al reservar un tour económico?</label>
+            <select id="dolor_viajero">
+                <option value="">Selecciona el principal...</option>
+                <option value="Miedo a estafas">Miedo a estafas (depósitos dudosos)</option>
+                <option value="Proceso de pago">Proceso de pago complicado</option>
+                <option value="Cancelaciones">Que cancelen a última hora</option>
+                <option value="Falta de claridad">Falta de claridad en itinerario</option>
+            </select>
+
+            <label>¿Qué precio promedio sueles pagar por un tour de fin de semana?</label>
+            <select id="gasto_promedio">
+                <option value="">Selecciona un rango...</option>
+                <option value="Menos de $1,000">Menos de $1,000 MXN</option>
+                <option value="$1,000 - $2,000">$1,000 - $2,000 MXN</option>
+                <option value="$2,000 - $3,500">$2,000 - $3,500 MXN</option>
+                <option value="Más de $3,500">Más de $3,500 MXN</option>
+            </select>
+
+            <button type="button" onclick="nextStep(3)">Siguiente</button>
+        </div>
+
+        <div id="step2_organizador" class="step">
+            <h2>Paso 2: Como Organizador...</h2>
+            
+            <label>¿Cuál es tu mayor reto al gestionar tus grupos?</label>
+            <select id="reto_organizador">
+                <option value="">Selecciona el principal...</option>
+                <option value="Cobrar abonos a tiempo">Cobrar abonos a tiempo</option>
+                <option value="Gestionar lugares">Gestionar lugares y disponibilidad</option>
+                <option value="Cancelaciones">Cancelaciones de último minuto</option>
+                <option value="Publicidad">Publicidad y captar clientes</option>
+            </select>
+
+            <label>¿Cómo gestionas tus registros actualmente?</label>
+            <select id="gestion_actual">
+                <option value="">Selecciona tu método...</option>
+                <option value="Excel / Libreta">Excel o Libreta</option>
+                <option value="WhatsApp">Puros mensajes de WhatsApp</option>
+                <option value="Plataforma">Plataforma especializada</option>
+            </select>
+
+            <label>¿Qué rango de edades son los que MÁS solicitan tus viajes? (Elige varias)</label>
+            <div class="checkbox-group">
+                <label><input type="checkbox" name="org_edades" value="18-24"> 18-24</label>
+                <label><input type="checkbox" name="org_edades" value="25-34"> 25-34</label>
+                <label><input type="checkbox" name="org_edades" value="35-44"> 35-44</label>
+                <label><input type="checkbox" name="org_edades" value="45+"> 45+</label>
+            </div>
+
+            <label>¿Qué géneros son los que MÁS te contratan? (Elige varias)</label>
+            <div class="checkbox-group">
+                <label><input type="checkbox" name="org_generos" value="Mujeres"> Mujeres</label>
+                <label><input type="checkbox" name="org_generos" value="Hombres"> Hombres</label>
+                <label><input type="checkbox" name="org_generos" value="Familias"> Grupos Mixtos / Familias</label>
+            </div>
+
+            <button type="button" onclick="nextStep(3)">Siguiente</button>
+        </div>
+
+        <div id="step3" class="step">
+            <h2>Paso 3: Lo que haría útil una app</h2>
+            
+            <label>Si tuviéramos un sistema de "abonos automáticos" o monedero, ¿qué tan probable es que lo utilices?</label>
+            <select id="probabilidad_uso" required>
+                <option value="">Selecciona...</option>
+                <option value="5 - Seguro lo uso">5 - ¡Seguro lo uso!</option>
+                <option value="4 - Muy probable">4 - Muy probable</option>
+                <option value="3 - Tal vez">3 - Tal vez, si me convence</option>
+                <option value="2 - Poco probable">2 - Poco probable</option>
+                <option value="1 - No lo usaría">1 - No lo usaría</option>
+            </select>
+
+            <label>¿Qué es lo que más te daría confianza para usar una app nueva de viajes?</label>
+            <select id="factor_confianza" required>
+                <option value="">Selecciona la más importante...</option>
+                <option value="Garantía de reembolso">Garantía de reembolso asegurada</option>
+                <option value="Reseñas reales">Reseñas de otros usuarios</option>
+                <option value="Identidad verificada">Saber que la agencia está verificada</option>
+                <option value="Facilidad de pago">Facilidad y opciones de pago</option>
+            </select>
+            
+            <label style="font-weight: 400; margin-top: 30px; margin-bottom: 20px;">
+                <input type="checkbox" id="autorizacion_datos" required>
+                Acepto el <a href="/tours/privacidad" target="_blank" class="legal-link">Aviso de Privacidad y Uso de Datos</a>.
+            </label>
+            
+            <button type="submit">Enviar Respuestas</button>
+        </div>
+    </form>
+</div>
+
+<div class="modal" id="appModal" role="dialog" aria-modal="true" aria-labelledby="modalMessage">
+    <div class="modal-card">
+        <p id="modalMessage"></p>
+        <button type="button" id="modalCloseButton">Aceptar</button>
+    </div>
+</div>
+
+<script>
+    let modalAfterClose = null;
+
+    function showModal(message, afterClose = null) {
+        document.getElementById('modalMessage').innerText = message;
+        const modal = document.getElementById('appModal');
+        const closeButton = document.getElementById('modalCloseButton');
+        modalAfterClose = typeof afterClose === 'function' ? afterClose : null;
+        modal.classList.add('active');
+        closeButton.focus();
+    }
+
+    function closeModal() {
+        document.getElementById('appModal').classList.remove('active');
+        const callback = modalAfterClose;
+        modalAfterClose = null;
+        if (callback) callback();
+    }
+
+    document.getElementById('modalCloseButton').addEventListener('click', closeModal);
+    document.getElementById('appModal').addEventListener('click', function(event) {
+        if (event.target === this) closeModal();
+    });
+    document.addEventListener('keydown', function(event) {
+        if (event.key === 'Escape' && document.getElementById('appModal').classList.contains('active')) {
+            closeModal();
+        }
+    });
+
+    function setProgress(step) {
+        [1,2,3].forEach(i => {
+            document.getElementById('progress-' + i).classList.toggle('active', i <= step);
+        });
+    }
+
+    // Lógica para validar el Paso 1 antes de avanzar
+    function validateAndNext(currentStep, nextStepNum) {
+        const rol = document.getElementById('rol_principal').value;
+        const genero = document.getElementById('genero').value;
+        const edad = document.getElementById('edad').value;
+
+        if(!rol || !genero || !edad) {
+            showModal("Por favor, completa todas las preguntas de este paso para continuar.");
+            return;
+        }
+        nextStep(nextStepNum);
+    }
+
+    // Lógica para movernos entre los pasos (Ruteo Dinámico)
+    function nextStep(step) {
+        document.querySelectorAll('.step').forEach(el => el.classList.remove('active'));
+        
+        if(step === 2) {
+            const rol = document.getElementById('rol_principal').value;
+            if(rol === 'Cliente') {
+                document.getElementById('step2_cliente').classList.add('active');
+            } else if(rol === 'Organizador') {
+                document.getElementById('step2_organizador').classList.add('active');
+            }
+        } else {
+            document.getElementById('step' + step).classList.add('active');
+        }
+        setProgress(step);
+    }
+
+    // Lógica de Envío
+    document.getElementById('toursForm').addEventListener('submit', async function(e) {
+        e.preventDefault();
+
+        // 1. Extraer Checkboxes de Organizadores
+        const edadesSeleccionadas = Array.from(document.querySelectorAll('input[name="org_edades"]:checked')).map(cb => cb.value).join(', ');
+        const generosSeleccionados = Array.from(document.querySelectorAll('input[name="org_generos"]:checked')).map(cb => cb.value).join(', ');
+
+        // 2. Obtener IP (Para el Rate Limit del Backend)
+        let ip = "unknown";
+        try {
+            const ipRes = await fetch('https://api.ipify.org?format=json');
+            const ipData = await ipRes.json();
+            ip = ipData.ip;
+        } catch(e) { console.log("Bloqueador de anuncios previno lectura de IP"); }
+
+        // 3. Armar el JSON (Payload) mapeado exactamente a tu GAS
+        const payload = {
+            website_hp: document.getElementById('website_hp').value, // HONEYPOT
+            rol_principal: document.getElementById('rol_principal').value,
+            genero: document.getElementById('genero').value,
+            edad: document.getElementById('edad').value,
+            
+            // Datos Viajero
+            dolor_viajero: document.getElementById('dolor_viajero') ? document.getElementById('dolor_viajero').value : "",
+            gasto_promedio: document.getElementById('gasto_promedio') ? document.getElementById('gasto_promedio').value : "",
+            
+            // Datos Organizador
+            reto_organizador: document.getElementById('reto_organizador') ? document.getElementById('reto_organizador').value : "",
+            gestion_actual: document.getElementById('gestion_actual') ? document.getElementById('gestion_actual').value : "",
+            edades_frecuentes: edadesSeleccionadas,
+            generos_frecuentes: generosSeleccionados,
+
+            // Comunes
+            probabilidad_uso: document.getElementById('probabilidad_uso').value,
+            factor_confianza: document.getElementById('factor_confianza').value,
+            autorizacion_datos: document.getElementById('autorizacion_datos').checked ? "Sí" : "No",
+            user_agent: navigator.userAgent
+        };
+
+        // 4. TU ENLACE DE GOOGLE APPS SCRIPT
+        const URL_DE_TU_GAS = "https://script.google.com/macros/s/AKfycbwRB86sk-YYRJ9vYZj8sL5wg9mTgYbrWYYmdEjc7riVfNFF8RZaaywFjYTkLM6X5et0SA/exec"; 
+        
+        // UX: Botón de carga
+        const submitBtn = e.target.querySelector('button[type="submit"]');
+        submitBtn.innerText = "Enviando respuestas...";
+        submitBtn.disabled = true;
+        submitBtn.style.opacity = '0.7';
+
+        // 5. POST al backend
+        try {
+            await fetch(`${URL_DE_TU_GAS}?ip=${ip}`, {
+                method: 'POST',
+                mode: 'no-cors', // Fundamental para que no marque error CORS en el navegador
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+            
+            // Al usar no-cors no podemos leer la respuesta exacta, pero si llega aquí, se envió
+            showModal("¡Gracias! Tus respuestas se guardaron correctamente.", () => window.location.reload());
+            
+        } catch(error) {
+            showModal("Hubo un error de conexión. Revisa tu internet e intenta de nuevo.");
+            submitBtn.innerText = "Enviar Respuestas";
+            submitBtn.disabled = false;
+            submitBtn.style.opacity = '1';
+        }
+    });
+</script>
+
+</body>
+</html>
