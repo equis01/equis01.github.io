@@ -30,6 +30,10 @@
         {
             "source": "/tours/privacidad",
             "destination": "/public/analytics/tours/privacidad.html"
+        },
+        {
+            "source": "/lalia",
+            "destination": "/portafolio/proyectos/lalia/index.html"
         }
     ]
 }

@@ -27,6 +27,14 @@
   ],
   "proyectos": [
     {
+      "id": "lalia",
+      "nombre": "LalIA",
+      "descripcion": "Una plataforma de inteligencia artificial modular que conversa, crea contenido, analiza y convierte ideas en aplicaciones.",
+      "url": "/lalia",
+      "icono": "fas fa-wand-magic-sparkles",
+      "badge": "Inteligencia artificial"
+    },
+    {
       "id": "chula-style",
       "nombre": "Chula Style",
       "descripcion": "Página interactiva de romance para tu pareja.",

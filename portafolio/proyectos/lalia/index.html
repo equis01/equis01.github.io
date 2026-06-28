@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LalIA | Una IA, muchas posibilidades</title>
+  <meta name="description" content="LalIA reúne distintas inteligencias y herramientas en una sola experiencia para conversar, crear contenido, analizar información y construir aplicaciones." />
+  <meta name="author" content="Eduardo Vázquez" />
+  <meta name="robots" content="index, follow" />
+  <meta name="theme-color" content="#050505" />
+  <link rel="canonical" href="https://evamtz.me/lalia" />
+  <link rel="icon" type="image/png" href="/public/img/logo/logo-x.png" />
+  <link rel="apple-touch-icon" href="/public/img/logo/logo-x.png" />
+
+  <meta property="og:title" content="LalIA | Una IA, muchas posibilidades" />
+  <meta property="og:description" content="Una plataforma modular que conversa, escribe, analiza y construye contigo." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://evamtz.me/lalia" />
+  <meta property="og:image" content="https://evamtz.me/public/img/lalia/lalia-hero.png" />
+  <meta property="og:image:alt" content="Capacidades creativas y de análisis conectadas en LalIA" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="LalIA | Una IA, muchas posibilidades" />
+  <meta name="twitter:description" content="Una plataforma modular que conversa, escribe, analiza y construye contigo." />
+  <meta name="twitter:image" content="https://evamtz.me/public/img/lalia/lalia-hero.png" />
+
+  <link rel="stylesheet" href="/src/css/base/main.css" />
+  <link rel="stylesheet" href="/src/css/components/nav.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <link rel="stylesheet" href="./styles.css" />
+  <script type="module" src="./script.js"></script>
+</head>
+
+<body>
+  <div id="loader-wrapper">
+    <div class="loader-aurora"></div>
+    <div class="spinner"></div>
+    <p class="loader-label">CARGANDO LALIA</p>
+  </div>
+
+  <div class="aurora-bg"></div>
+
+  <main>
+    <section class="hero" id="inicio">
+      <img src="/public/img/lalia/lalia-hero.png" alt="Representación visual de las capacidades de LalIA" class="lalia-pic" />
+      <span class="status"><span></span> En desarrollo activo</span>
+      <h1>Lal<span>IA</span></h1>
+      <p class="subtext">Una inteligencia que cambia de forma según tu idea. Puede conversar, crear contenido, analizar información o ayudarte a construir una aplicación.</p>
+
+      <div class="capability-icons" aria-label="Capacidades principales">
+        <a href="#capacidades" class="animate-icon" aria-label="Conversación" title="Conversación"><i class="fas fa-comments"></i></a>
+        <a href="#capacidades" class="animate-icon" aria-label="Contenido" title="Contenido"><i class="fas fa-pen-nib"></i></a>
+        <a href="#capacidades" class="animate-icon" aria-label="Aplicaciones" title="Aplicaciones"><i class="fas fa-window-restore"></i></a>
+        <a href="#capacidades" class="animate-icon" aria-label="Análisis" title="Análisis"><i class="fas fa-chart-line"></i></a>
+      </div>
+
+      <div class="cta-container">
+        <a href="#capacidades" class="btn-primary"><i class="fas fa-wand-magic-sparkles"></i> Conocer LalIA</a>
+        <button class="btn-primary" type="button" data-open-demo><i class="fas fa-circle-play"></i> Ver concepto</button>
+      </div>
+    </section>
+
+    <section class="content-section" id="capacidades">
+      <header class="section-heading">
+        <span class="section-kicker">Una plataforma, distintos modos</span>
+        <h2>¿Qué necesitas hacer hoy?</h2>
+        <p>LalIA conserva el contexto mientras cambia de herramienta. Elige un modo para explorar cómo puede ayudarte.</p>
+      </header>
+
+      <div class="glass mode-explorer">
+        <div class="mode-tabs" role="tablist" aria-label="Modos de LalIA">
+          <button class="mode-tab active" id="tab-chat" role="tab" aria-selected="true" aria-controls="mode-panel" data-mode="chat"><i class="fas fa-comments"></i><span>Conversar</span></button>
+          <button class="mode-tab" id="tab-blog" role="tab" aria-selected="false" aria-controls="mode-panel" data-mode="blog"><i class="fas fa-pen-nib"></i><span>Contenido</span></button>
+          <button class="mode-tab" id="tab-app" role="tab" aria-selected="false" aria-controls="mode-panel" data-mode="app"><i class="fas fa-window-restore"></i><span>Crear apps</span></button>
+          <button class="mode-tab" id="tab-analysis" role="tab" aria-selected="false" aria-controls="mode-panel" data-mode="analysis"><i class="fas fa-chart-line"></i><span>Analizar</span></button>
+        </div>
+
+        <div class="mode-panel" id="mode-panel" role="tabpanel" aria-live="polite" aria-labelledby="tab-chat">
+          <div class="mode-copy">
+            <span class="mode-label" id="mode-label">Modo conversación</span>
+            <h3 id="mode-title">Piensa en voz alta con una IA que conserva el hilo.</h3>
+            <p id="mode-description">Explora una decisión, aterriza una idea o resuelve dudas sin reiniciar la conversación cada vez que cambia la tarea.</p>
+            <ul id="mode-benefits">
+              <li><i class="fas fa-check"></i> Contexto continuo</li>
+              <li><i class="fas fa-check"></i> Respuestas adaptadas</li>
+              <li><i class="fas fa-check"></i> De la charla a la acción</li>
+            </ul>
+          </div>
+
+          <div class="demo-window">
+            <div class="demo-header">
+              <span><i class="fas fa-sparkles"></i> LalIA</span>
+              <span id="demo-mode-name">Conversación</span>
+              <i class="fas fa-ellipsis"></i>
+            </div>
+            <div class="demo-body" id="demo-body"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="content-section" id="funciona">
+      <header class="section-heading">
+        <span class="section-kicker">Cómo funciona</span>
+        <h2>Menos herramientas. Más trabajo terminado.</h2>
+      </header>
+
+      <div class="steps-grid">
+        <article class="glass info-card">
+          <span>01</span>
+          <i class="fas fa-message"></i>
+          <h3>Cuéntale el objetivo</h3>
+          <p>Describe qué quieres lograr con tus propias palabras, sin comandos especiales.</p>
+        </article>
+        <article class="glass info-card">
+          <span>02</span>
+          <i class="fas fa-route"></i>
+          <h3>LalIA organiza el camino</h3>
+          <p>Identifica la tarea, reúne el contexto y propone una forma clara de avanzar.</p>
+        </article>
+        <article class="glass info-card">
+          <span>03</span>
+          <i class="fas fa-cubes"></i>
+          <h3>Construyan juntos</h3>
+          <p>Revisa, ajusta y cambia de formato sin perder las decisiones anteriores.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="content-section vision-section" id="vision">
+      <div class="glass vision-panel">
+        <div>
+          <span class="section-kicker">La visión</span>
+          <h2>Varias inteligencias.<br />Una sola experiencia.</h2>
+          <p>LalIA combina modelos, herramientas y componentes desarrollados con inteligencia artificial. La complejidad queda detrás para que tú puedas concentrarte en crear.</p>
+        </div>
+        <div class="vision-points">
+          <div><i class="fas fa-user-check"></i><span><strong>Humana al conversar</strong>Lenguaje claro y respuestas directas.</span></div>
+          <div><i class="fas fa-shuffle"></i><span><strong>Flexible por diseño</strong>Una idea puede cambiar de formato.</span></div>
+          <div><i class="fas fa-shield-halved"></i><span><strong>Tú conservas el control</strong>La IA propone; tú decides.</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="closing-section">
+      <i class="fas fa-wand-magic-sparkles closing-icon"></i>
+      <h2>Una inteligencia,<br />muchas posibilidades.</h2>
+      <p>LalIA todavía está tomando forma. Esta página presenta la visión que guía su desarrollo.</p>
+      <a class="btn-primary" href="mailto:luis@evamtz.me?subject=Quiero%20conocer%20LalIA"><i class="fas fa-envelope"></i> Conversemos sobre LalIA</a>
+    </section>
+  </main>
+
+  <nav class="glass floating-nav" aria-label="Navegación de LalIA">
+    <a href="#inicio" class="nav-link active"><i class="fas fa-house"></i><span>Inicio</span></a>
+    <a href="#capacidades" class="nav-link"><i class="fas fa-wand-magic-sparkles"></i><span>Capacidades</span></a>
+    <a href="#vision" class="nav-link"><i class="fas fa-eye"></i><span>Visión</span></a>
+    <a href="/portafolio/" class="nav-link"><i class="fas fa-arrow-left"></i><span>Portafolio</span></a>
+  </nav>
+
+  <footer>© <span id="year"></span> Eduardo Vázquez · LalIA</footer>
+
+  <dialog class="glass demo-dialog" id="demo-dialog" aria-labelledby="dialog-title">
+    <button class="dialog-close" type="button" data-close-demo aria-label="Cerrar"><i class="fas fa-xmark"></i></button>
+    <i class="fas fa-diagram-project dialog-icon"></i>
+    <h2 id="dialog-title">Una idea puede cambiar de forma sin perder su contexto.</h2>
+    <div class="dialog-flow">
+      <span><i class="fas fa-comments"></i> Conversación</span>
+      <i class="fas fa-arrow-right"></i>
+      <span><i class="fas fa-file-lines"></i> Contenido</span>
+      <i class="fas fa-arrow-right"></i>
+      <span><i class="fas fa-window-restore"></i> Aplicación</span>
+    </div>
+    <p>Esta es la visión de LalIA: distintas capacidades trabajando dentro de una misma experiencia.</p>
+    <button class="btn-primary" type="button" data-close-demo>Entendido</button>
+  </dialog>
+</body>
+</html>

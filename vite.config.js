@@ -9,6 +9,14 @@ export default defineConfig({
   build: {
     outDir: 'dist',
     rollupOptions: {
+      output: {
+        assetFileNames: assetInfo => {
+          if (assetInfo.name === 'lalia-hero.png') {
+            return 'public/img/lalia/[name][extname]';
+          }
+          return 'assets/[name]-[hash][extname]';
+        },
+      },
       input: {
         main: resolve(__dirname, 'index.html'),
         experiencia: resolve(__dirname, 'experiencia/index.html'),
@@ -23,6 +31,7 @@ export default defineConfig({
         cv: resolve(__dirname, 'cv/index.html'),
         qr: resolve(__dirname, 'portafolio/herramientas/qr-gen/index.html'),
         chula: resolve(__dirname, 'portafolio/proyectos/chula/index.html'),
+        lalia: resolve(__dirname, 'portafolio/proyectos/lalia/index.html'),
         404: resolve(__dirname, '404.html'),
       }
     }
